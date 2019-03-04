@@ -6,7 +6,7 @@ var commFunc = require('../modules/commonFunction');
 var _ = require('lodash');
 var responses = require('../modules/responses');
 var async = require("async");
-
+/*
 exports.userSignup = (req, res) => {
         
     // Signup a User
@@ -76,8 +76,8 @@ exports.userSignup = (req, res) => {
                             var country_code = updateData.country_code;
                             var sendTo = country_code+updateData.mobile_number;
                              commFunc.sendotp(verification_code,sendTo);
-                             let newData = JSON.parse(JSON.stringify(updateData))    ;// convert into string than convert in json
-                            newData['type'] = 0
+                            //  let newData = JSON.parse(JSON.stringify(updateData))    ;// convert into string than convert in json
+                            // newData['type'] = 0
                             res.status(status.SUCCESS_STATUS).json({ message: "Verification Code sent to your Mobile Number ",response: newData })
         }).catch(err => {
             res.status(status.SERVER_ERROR).send({
@@ -88,7 +88,113 @@ exports.userSignup = (req, res) => {
     });
 };
     
-  
+  */
+
+ exports.userSignup = (req , res) => {
+    const schema = Joi.object().keys({
+        mobile_number: Joi.string().optional().error(e => 'mobile number required'),
+        device_token: Joi.string(),
+        device_type: Joi.string(),
+        longitude: Joi.string(),
+        latitude: Joi.string(),
+    })
+
+    const result = Joi.validate(req.body, schema, {abortEarly: true});
+    if(result.error) {
+        if (result.error.details && result.error.details[0].message) {
+            res.status(status.BAD_REQUEST).json({ message: result.error.details[0].message });
+        } else {
+            res.status(status.BAD_REQUEST).json({ message: result.error.message });
+        }
+        return;
+    }
+
+    var { mobile_number, device_token, device_type, latitude,longitude } = req.body;
+    UserModel.findOne({ "mobile_number" : mobile_number })
+            .then(userResult => {
+                if(userResult) {
+                        if(userResult.get('mobile_number') == mobile_number) {
+                                     res.status(status.ALREADY_EXIST).json({ message: 'Your mobile number is already registered' })
+                        }
+                } else {
+                            var access_token = md5(new Date());
+                            var created_on =  new Date().getTime();
+                            var modified_on = new Date().getTime();
+                            let verification_code = commFunc.generateRandomString();
+                            var updateData = {  mobile_number, device_token, device_type,access_token, longitude,latitude,created_on,modified_on,verification_code}
+                            let user = new UserModel(updateData);
+                            user.save(updateData)
+                
+                            .then((userData) => {
+                                                    
+                                                    var country_code = userData.country_code;
+                                                    var to = country_code+userData.mobile_number;
+                                                    commFunc.sendotp( verification_code , to);
+                                                    res.status(200).json({ message: "SignUp successfully and otp successfully sent", response: userData})
+
+                                                }).catch(err=>  responses.sendError(err.message,res))
+                        }
+                    
+                }).catch(err=>  responses.sendError(err.message,res))
+    }
+
+    //login
+
+    exports.userSignin = (req,res)=> {
+        const schema = Joi.object().keys({
+            mobile_number: Joi.string().optional().error(e=> 'mobile number required'),
+            device_token: Joi.string(),
+            device_type: Joi.string(), 
+            longitude: Joi.string(),
+            latitude: Joi.string(),
+            country_code:Joi.string(),
+        })
+
+        const result = Joi.validate(req.body, schema, {abortEarly: true});
+        if(result.error) {
+            if (result.error.details && result.error.details[0].message) {
+                res.status(status.BAD_REQUEST).json({ message: result.error.details[0].message });
+            } else {
+                res.status(status.BAD_REQUEST).json({ message: result.error.message });
+            }
+            return;
+        }
+
+        var {mobile_number, device_token, device_type, latitude, longitude,country_code} = req.body;
+        UserModel.findOne({ mobile_number })
+                .then(userData => {
+                    if(userData){
+                                if(userData.get('mobile_number') == mobile_number)
+                                {
+                        
+                                    var access_token = md5(new Date());
+                                    var verification_code = commFunc.generateRandomString();
+                                    var updateData = {device_token, device_type,latitude,longitude,access_token,verification_code,country_code}
+                                    console.log(updateData);
+                                    UserModel.findByIdAndUpdate(userData.get('_id'), { $set : updateData }, { new : true})
+                                    .then(userResult => { 
+                                                           
+                                                            var country_code = userData.country_code;
+                                                            var to = country_code+userData.mobile_number;
+                                                            commFunc.sendotp( verification_code , to);
+                                                            res.status(200).json({ message: "login successfully and otp sent successfully", response:userResult});
+                                                
+                                                        }).catch(err => responses.sendError(err.message,res));
+                                
+                                }else {
+
+                                        res.status(status.INVALID_CREDENTIALS).json({ message: 'mobile number not registered' });
+
+                                      }
+                    }else {
+
+                                res.status(status.INVALID_CREDENTIALS).json({ message: 'mobile number not registered' });
+                                        
+                    }
+                        
+                }).catch(err => 
+                        responses.sendError(err.message,res));
+}
 //verify_otp
 
 exports.varify_otp = (req, res) => {
@@ -132,7 +238,7 @@ exports.createProfile = (req, res) => {
         speak_langauge:Joi.string(),
        
     })
-    console.log(longitude)
+    
     const result = Joi.validate(req.body, schema, { abortEarly: true });
     if (result.error) {
         if (result.error.details && result.error.details[0].message) {
@@ -183,7 +289,7 @@ else
             };
             
     
-console.log("working")
+//console.log("working")
 
 exports.signup = async(req, res) => {
     try {

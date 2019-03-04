@@ -1,37 +1,31 @@
-var auth = require ('../modules/auth');
-const users = require('../controllers/user.controller.js');
-    var multer = require('multer');
-    var path = require('path');
-    var md5 = require("md5");
-    module.exports = (app) => {
-    
-    var Storage = multer.diskStorage({
-        
-         destination: function(req, file, callback) {
-            callback(null, './Images')
-         },
-         filename: function(req, file, callback) {
-            let fileUniqName = md5(new Date());
-            callback(null, fileUniqName + path.extname(file.originalname))
-         }
-        
-     });
-     var upload = multer({
-       
-        storage: Storage
-    })
-    
-    // Create a new User
-    app.post('/users/userSignup', users.userSignup);
+var express = require('express');
+var router = express.Router();
+var multer = require('multer');
+var auth = require('../modules/auth');
+var md5 = require('md5')
+var path = require('path')
 
-    //Create Profile
-    app.post('/users/createProfile',auth.requiresLogin, upload.any(), users.createProfile);
+var controller = require('../controllers/user.controller.js');
 
-    //verify otp
 
-   app.post('/users/varify_otp', users.varify_otp);
-   
-   // app.post('/users/signup', users.signup);
-   
-   // app.get('/users/verify_account',users.verify_account);
-}
+
+const storage = multer.diskStorage({
+	destination : function(req,file,callback){
+        callback(null,'../upload');
+	},
+	filename : function(req,file,callback){
+		let fileUniqueName = md5(Date.now());
+        callback(null,fileUniqueName+ path.extname(file.originalname));
+    }
+})
+
+let upload = multer({storage:storage});
+
+router.post('/users/userSignup',controller.userSignup);
+router.post('/users/userSignin',controller.userSignin);
+router.post('/users/',controller.userSignin);
+// router.post('/create_profile',auth.requiresLogin, upload.any(),controller.create_profile);
+
+
+
+module.exports = router;
