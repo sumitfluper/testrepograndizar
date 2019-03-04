@@ -121,19 +121,17 @@ exports.varify_otp = (req, res) => {
 
 exports.createProfile = (req, res) => {
         const schema = Joi.object().keys({
-      //  mobile_number: Joi.string().optional().error(e => 'Mobile number required.'),
+    
         name: Joi.string(),
         user_name:Joi.string(),
-        email: Joi.string().email({ minDomainAtoms: 2 }).required().error(e => 'Email is\'nt in correct formet.'),
+        email: Joi.string().email({ minDomainAtoms: 2 }).required(),
         dob: Joi.string(),
         is_username:Joi.string().required(),
         gender: Joi.string(),
         app_langauge:Joi.string(),
         speak_langauge:Joi.string(),
-        latitude:Joi.string(),
-        longitude:Joi.string()
+       
     })
-
     const result = Joi.validate(req.body, schema, { abortEarly: true });
     if (result.error) {
         if (result.error.details && result.error.details[0].message) {
@@ -143,7 +141,7 @@ exports.createProfile = (req, res) => {
         }
         return;
     }
-    var {email, app_langauge, speak_langauge, name,user_name, is_username, dob, gender, latitude,longitude } = req.body;
+    var {email, app_langauge, speak_langauge, name,user_name, is_username, dob, gender } = req.body;
                     var access_token   = req.user.access_token;
 
                     
@@ -154,7 +152,7 @@ exports.createProfile = (req, res) => {
     if(is_username==0)
     {
                     
-                    var updateData = {email,app_langauge,speak_langauge, name,is_profile_created, dob, gender,profile_image, modified_on,  latitude, longitude };
+                    var updateData = {email,app_langauge,speak_langauge, name,is_profile_created, dob, gender,profile_image, modified_on };
                     UserModel.findOneAndUpdate({access_token}, { $set: updateData }, { new: true })
                         .then(userData => {
                             res.status(status.SUCCESS_STATUS).json({ message: "profile Created.", response: userData })
@@ -173,7 +171,7 @@ else
                 }
             }
           else{
-                var updateData = {email,app_langauge,speak_langauge, user_name,is_profile_created, dob, gender,profile_image,  modified_on,  latitude, longitude };
+                var updateData = {email,app_langauge,speak_langauge, user_name,is_profile_created, dob, gender,profile_image,  modified_on };
                  UserModel.findOneAndUpdate({access_token}, { $set: updateData }, { new: true })
                   .then(userData => {
            res.status(status.SUCCESS_STATUS).json({ message: "profile Created.", response: userData })
