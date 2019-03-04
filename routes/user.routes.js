@@ -24,7 +24,7 @@ let upload = multer({storage:storage});
 router.post('/users/userSignup',controller.userSignup);
 router.post('/users/userSignin',controller.userSignin);
 router.post('/users/',controller.userSignin);
-// router.post('/create_profile',auth.requiresLogin, upload.any(),controller.create_profile);
+router.post('/create_profile',auth.requiresLogin, upload.any(),controller.create_profile);
 
 
 
