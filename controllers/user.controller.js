@@ -121,10 +121,10 @@ exports.varify_otp = (req, res) => {
 
 exports.createProfile = (req, res) => {
         const schema = Joi.object().keys({
-    
+      //  mobile_number: Joi.string().optional().error(e => 'Mobile number required.'),
         name: Joi.string(),
         user_name:Joi.string(),
-        email: Joi.string().email({ minDomainAtoms: 2 }).required(),
+        email: Joi.string().email().required().error(e => 'Email is\'nt in correct formet.'),
         dob: Joi.string(),
         is_username:Joi.string().required(),
         gender: Joi.string(),
@@ -132,6 +132,7 @@ exports.createProfile = (req, res) => {
         speak_langauge:Joi.string(),
        
     })
+    console.log(longitude)
     const result = Joi.validate(req.body, schema, { abortEarly: true });
     if (result.error) {
         if (result.error.details && result.error.details[0].message) {
@@ -152,7 +153,7 @@ exports.createProfile = (req, res) => {
     if(is_username==0)
     {
                     
-                    var updateData = {email,app_langauge,speak_langauge, name,is_profile_created, dob, gender,profile_image, modified_on };
+                    var updateData = {email,app_langauge,speak_langauge, name,is_profile_created, dob, gender,profile_image, modified_on};
                     UserModel.findOneAndUpdate({access_token}, { $set: updateData }, { new: true })
                         .then(userData => {
                             res.status(status.SUCCESS_STATUS).json({ message: "profile Created.", response: userData })
