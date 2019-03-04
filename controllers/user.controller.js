@@ -3,6 +3,7 @@ const {UserModel} = require('../models/user.model.js');
 var status = require('../modules/status');
 const md5 = require('md5');
 var commFunc = require('../modules/commonFunction');
+var _ = require('lodash');
 var responses = require('../modules/responses');
 var async = require("async");
 
@@ -16,6 +17,7 @@ exports.userSignup = (req, res) => {
             latitude: Joi.string(),
             longitude: Joi.string(),
             country_code: Joi.string(),
+            
         })
         
          const result = Joi.validate(req.body, schema, { abortEarly: true });
@@ -45,8 +47,11 @@ exports.userSignup = (req, res) => {
                        .then((updateData) => {
                            var verification_code = data.verification_code;
                            var sendTo = country_code + data.mobile_number;
+                           console.log(sendTo)
                             commFunc.sendotp(verification_code,sendTo);
-                         res.status(status.SUCCESS_STATUS).json({ message: " Hey Verification Code sent to your Mobile Number ",response: updateData })
+                            let newData = JSON.parse(JSON.stringify(updateData))    ;// convert into string than convert in json
+                            newData['type'] = 1
+                         res.status(status.SUCCESS_STATUS).json({ message: " Hey Verification Code sent to your Mobile Number ",response: newData })
         }).catch(err => {
             res.status(status.SERVER_ERROR).send({
                 message: err.message || "Some error occurred while creating the User."
@@ -71,7 +76,9 @@ exports.userSignup = (req, res) => {
                             var country_code = updateData.country_code;
                             var sendTo = country_code+updateData.mobile_number;
                              commFunc.sendotp(verification_code,sendTo);
-                            res.status(status.SUCCESS_STATUS).json({ message: "Verification Code sent to your Mobile Number ",response: updateData })
+                             let newData = JSON.parse(JSON.stringify(updateData))    ;// convert into string than convert in json
+                            newData['type'] = 0
+                            res.status(status.SUCCESS_STATUS).json({ message: "Verification Code sent to your Mobile Number ",response: newData })
         }).catch(err => {
             res.status(status.SERVER_ERROR).send({
                 message: err.message || "Some error occurred while creating the User."
@@ -88,7 +95,7 @@ exports.varify_otp = (req, res) => {
     const schema = Joi.object().keys({
         mobile_number: Joi.string().optional().error(e => 'Mobile number required.'),
         verification_code: Joi.string().required(),
-        country_code = Joi.string().required()
+        country_code : Joi.string().required(),
     })
 
     const result = Joi.validate(req.body, schema, { abortEarly: true });
