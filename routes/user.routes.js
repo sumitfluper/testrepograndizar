@@ -11,7 +11,7 @@ var controller = require('../controllers/user.controller.js');
 
 const storage = multer.diskStorage({
 	destination : function(req,file,callback){
-        callback(null,'../upload');
+        callback(null,'./Images');
 	},
 	filename : function(req,file,callback){
 		let fileUniqueName = md5(Date.now());
@@ -23,8 +23,7 @@ let upload = multer({storage:storage});
 
 router.post('/users/userSignup',controller.userSignup);
 router.post('/users/userSignin',controller.userSignin);
-router.post('/users/',controller.userSignin);
-router.post('/users/create_profile',auth.requiresLogin, upload.any(),controller.create_profile);
+router.post('/users/create_profile',auth.requiresLogin, upload.any(),controller.createProfile);
 router.post('/users/verifyOTP',controller.varify_otp)
 
 

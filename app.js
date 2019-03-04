@@ -44,7 +44,7 @@ db.once('open', () => console.log('database created'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
-app.use(express.static(path.join(__dirname, './src/uploads')));
+app.use(express.static(path.join(__dirname, './Images')));
 app.use('/',route);
 
 app.listen(port,() => {
