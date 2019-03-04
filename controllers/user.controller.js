@@ -87,7 +87,8 @@ exports.userSignup = (req, res) => {
 exports.varify_otp = (req, res) => {
     const schema = Joi.object().keys({
         mobile_number: Joi.string().optional().error(e => 'Mobile number required.'),
-        verification_code: Joi.string().required()
+        verification_code: Joi.string().required(),
+        country_code = Joi.string().required()
     })
 
     const result = Joi.validate(req.body, schema, { abortEarly: true });
@@ -99,8 +100,8 @@ exports.varify_otp = (req, res) => {
         }
         return;
     }
-   let { mobile_number, verification_code } = req.body;
-    console.log(mobile_number);
+   let { mobile_number, verification_code, country_code } = req.body;
+    
     UserModel.findOne({ mobile_number})
         .then(userResult => {
             if (userResult) {
@@ -213,7 +214,6 @@ exports.signup = async(req, res) => {
 exports.verify_account = async(req,res) => {
    try{
     let {access_token} = req.query;
-    console.log(access_token)
     let new_access_token = md5(new Date());
     let data = await UserModel.findOneAndUpdate({ access_token }, { is_verified : 1, access_token : new_access_token}, {new : true}).exec()
     if(!data){
