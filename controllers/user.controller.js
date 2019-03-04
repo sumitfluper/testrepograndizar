@@ -39,8 +39,8 @@ exports.userSignup = (req, res) => {
                     var access_token = md5(new Date());
                     var modified_on = new Date().getTime();
                     let verification_code = commFunc.generateRandomString();
-                    
-                    var updateData = {modified_on,latitude, longitude, access_token, verification_code};
+                    let is_verified = '0';
+                    var updateData = {modified_on,latitude, longitude, access_token,is_verified, verification_code};
                     UserModel.findByIdAndUpdate(data._id, {$set : updateData}, {new:true})
                        .then((updateData) => {
                            var verification_code = data.verification_code;
@@ -60,8 +60,9 @@ exports.userSignup = (req, res) => {
                     var access_token = md5(new Date());
                     var created_on = new Date().getTime();
                     var modified_on = new Date().getTime();
+                    let is_verified = '0';
                     let verification_code = commFunc.generateRandomString();
-                    var updateData = {mobile_number, country_code, created_on, modified_on, device_token, created_on, modified_on, device_type, latitude, longitude, access_token, verification_code};
+                    var updateData = {mobile_number, country_code, created_on, modified_on, device_token,is_verified, created_on, modified_on, device_type, latitude, longitude, access_token, verification_code};
     
                     const user = new UserModel(updateData);
                     user.save(updateData)
