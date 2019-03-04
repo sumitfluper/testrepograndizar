@@ -97,6 +97,7 @@ exports.userSignup = (req, res) => {
         device_type: Joi.string(),
         longitude: Joi.string(),
         latitude: Joi.string(),
+        country_code: Joi.string(),
     })
 
     const result = Joi.validate(req.body, schema, {abortEarly: true});
@@ -109,7 +110,7 @@ exports.userSignup = (req, res) => {
         return;
     }
 
-    var { mobile_number, device_token, device_type, latitude,longitude } = req.body;
+    var { mobile_number, device_token, device_type, latitude,longitude,country_code } = req.body;
     UserModel.findOne({ "mobile_number" : mobile_number })
             .then(userResult => {
                 if(userResult) {
@@ -121,7 +122,8 @@ exports.userSignup = (req, res) => {
                             var created_on =  new Date().getTime();
                             var modified_on = new Date().getTime();
                             let verification_code = commFunc.generateRandomString();
-                            var updateData = {  mobile_number, device_token, device_type,access_token, longitude,latitude,created_on,modified_on,verification_code}
+                            
+                            var updateData = {  mobile_number, device_token, device_type,access_token, longitude,latitude,created_on,modified_on,verification_code,country_code}
                             let user = new UserModel(updateData);
                             user.save(updateData)
                 
