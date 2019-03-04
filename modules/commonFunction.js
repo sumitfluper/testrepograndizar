@@ -12,7 +12,7 @@ var config = require('../services/config');
 	 for (var i = 0; i < 4; i++)
 	 	text += possible.charAt(Math.floor(Math.random() * possible.length));
 
-	return text;
+	return '1234';
 };
 exports.sendotp = (verification_code,sendTo) => {
 	let accountSid = config.accountSid;

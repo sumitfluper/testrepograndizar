@@ -92,24 +92,10 @@ exports.userSignup = (req, res) => {
 //verify_otp
 
 exports.varify_otp = (req, res) => {
-    const schema = Joi.object().keys({
-        mobile_number: Joi.string().optional().error(e => 'Mobile number required.'),
-        verification_code: Joi.string().required(),
-        country_code : Joi.string().required(),
-    })
-
-    const result = Joi.validate(req.body, schema, { abortEarly: true });
-    if (result.error) {
-        if (result.error.details && result.error.details[0].message) {
-            res.status(status.BAD_REQUEST).json({ message: result.error.details[0].message });
-        } else {
-            res.status(status.BAD_REQUEST).json({ message: result.error.message });
-        }
-        return;
-    }
-   let { mobile_number, verification_code, country_code } = req.body;
-    
-    UserModel.findOne({ mobile_number})
+   
+   let {  verification_code} = req.body;
+    let {access_token} = req.headers;
+    UserModel.findOne({ access_token})
         .then(userResult => {
             if (userResult) {
                 if (userResult.get('verification_code') == verification_code) {
@@ -163,7 +149,7 @@ exports.createProfile = (req, res) => {
                     
                     var modified_on = new Date().getTime();
                     var is_profile_created = '1';
-                     var profile_image = `./Images/${req.files[0].filename}`;
+                    var profile_image = `./Images/${req.files[0].filename}`;
                      
     if(is_username==0)
     {
