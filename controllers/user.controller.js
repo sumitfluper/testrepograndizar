@@ -39,7 +39,7 @@ exports.userSignup = (req, res) => {
                     var access_token = md5(new Date());
                     var modified_on = new Date().getTime();
                     let verification_code = commFunc.generateRandomString();
-                    country_code = data.country_code;
+                    
                     var updateData = {modified_on,latitude, longitude, access_token, verification_code};
                     UserModel.findByIdAndUpdate(data._id, {$set : updateData}, {new:true})
                        .then((updateData) => {
