@@ -128,8 +128,6 @@ exports.createProfile = (req, res) => {
         dob: Joi.string(),
         is_username:Joi.string().required(),
         gender: Joi.string(),
-        latitude: Joi.string(),
-        longitude: Joi.string(),
         app_langauge:Joi.string(),
         speak_langauge:Joi.string(),
     })
@@ -143,7 +141,7 @@ exports.createProfile = (req, res) => {
         }
         return;
     }
-    var {email, app_langauge, speak_langauge, name,user_name, is_username, dob, gender, latitude, longitude } = req.body;
+    var {email, app_langauge, speak_langauge, name,user_name, is_username, dob, gender } = req.body;
                     var access_token   = req.user.access_token;
 
                     
