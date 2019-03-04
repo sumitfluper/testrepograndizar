@@ -16,10 +16,8 @@ const UserSchema = mongoose.Schema({
     },
     user_name:
     {
-        type: String,
-        index: {
-            unique: true
-        }
+        type: String
+        
     },
     is_verified:
     {
@@ -31,10 +29,8 @@ const UserSchema = mongoose.Schema({
        type:String,
     },
     email: {
-        type: String,
-        index: {
-            unique: true
-        }
+        type: String
+        
     },
     gender: {
         type: String,

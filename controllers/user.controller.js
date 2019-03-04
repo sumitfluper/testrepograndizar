@@ -4,9 +4,7 @@ var status = require('../modules/status');
 const md5 = require('md5');
 var commFunc = require('../modules/commonFunction');
 var responses = require('../modules/responses');
-
-
-
+var async = require("async");
 
 exports.userSignup = (req, res) => {
         
@@ -17,7 +15,7 @@ exports.userSignup = (req, res) => {
             device_type: Joi.number().required(),
             latitude: Joi.string(),
             longitude: Joi.string(),
-            country_code:Joi.string(),
+            country_code: Joi.string(),
         })
         
          const result = Joi.validate(req.body, schema, { abortEarly: true });
@@ -41,11 +39,12 @@ exports.userSignup = (req, res) => {
                     var access_token = md5(new Date());
                     var modified_on = new Date().getTime();
                     let verification_code = commFunc.generateRandomString();
+                    country_code = data.country_code;
                     var updateData = {modified_on,latitude, longitude, access_token, verification_code};
                     UserModel.findByIdAndUpdate(data._id, {$set : updateData}, {new:true})
                        .then((updateData) => {
                            var verification_code = data.verification_code;
-                           var sendTo = '+91'+data.mobile_number;
+                           var sendTo = country_code + data.mobile_number;
                             commFunc.sendotp(verification_code,sendTo);
                          res.status(status.SUCCESS_STATUS).json({ message: " Hey Verification Code sent to your Mobile Number ",response: updateData })
         }).catch(err => {
@@ -68,7 +67,8 @@ exports.userSignup = (req, res) => {
                     user.save(updateData)
                         .then((updateData) => {
                             var verification_code = updateData.verification_code;
-                            var sendTo = '+91'+updateData.mobile_number;
+                            var country_code = updateData.country_code;
+                            var sendTo = country_code+updateData.mobile_number;
                              commFunc.sendotp(verification_code,sendTo);
                             res.status(status.SUCCESS_STATUS).json({ message: "Verification Code sent to your Mobile Number ",response: updateData })
         }).catch(err => {
@@ -126,7 +126,7 @@ exports.varify_otp = (req, res) => {
 
 exports.createProfile = (req, res) => {
         const schema = Joi.object().keys({
-        mobile_number: Joi.string().optional().error(e => 'Mobile number required.'),
+      //  mobile_number: Joi.string().optional().error(e => 'Mobile number required.'),
         name: Joi.string(),
         user_name:Joi.string(),
         email: Joi.string().email({ minDomainAtoms: 2 }).required().error(e => 'Email is\'nt in correct formet.'),
@@ -148,11 +148,14 @@ exports.createProfile = (req, res) => {
         }
         return;
     }
-    var { mobile_number,email, app_langauge, speak_langauge, name,user_name, is_username, dob, gender, latitude, longitude } = req.body;
+    var {email, app_langauge, speak_langauge, name,user_name, is_username, dob, gender, latitude, longitude } = req.body;
                     var access_token   = req.user.access_token;
+
+                    
                     var modified_on = new Date().getTime();
                     var is_profile_created = '1';
                      var profile_image = `./Images/${req.files[0].filename}`;
+                     
     if(is_username==0)
     {
                     
@@ -168,7 +171,7 @@ else
   {
     UserModel.findOne({ 'user_name': user_name })
         .then(userResult => {
-            console.log(userResult)
+           
             if (userResult) {
                 if (userResult.get('user_name') == user_name) {
                     res.status(status.ALREADY_EXIST).json({ message: 'username already exists please try another.' });
@@ -187,3 +190,38 @@ else
             
     
 console.log("working")
+
+exports.signup = async(req, res) => {
+    try {
+        let {mobile_number} = req.body;
+        let data = await UserModel.findOne({mobile_number});
+        if(data) {
+            throw new Error('Mobile already exist')
+        } 
+        let newModel = UserModel({mobile_number}) 
+        let saveData = await newModel.save();
+        if(!saveData) {
+            throw new Error('unable to insert')
+        } console.log('success.')
+        res.status(status.SUCCESS_STATUS).json({ message: "profile Created.", response: saveData })
+    } catch(error) {
+        responses.sendError(error.message, res) ;
+    }
+}
+
+exports.verify_account = async(req,res) => {
+   try{
+    let {access_token} = req.query;
+    console.log(access_token)
+    let new_access_token = md5(new Date());
+    let data = await UserModel.findOneAndUpdate({ access_token }, { is_verified : 1, access_token : new_access_token}, {new : true}).exec()
+    if(!data){
+        throw new Error('session expire')
+    }
+    console.log(updateData)
+    res.status(status.SUCCESS_STATUS).json({ message: "account verified"})
+    console.log("success");
+   }catch(error) {
+    responses.sendError(error.message, res) ;
+   }
+}

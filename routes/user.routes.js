@@ -29,5 +29,9 @@ const users = require('../controllers/user.controller.js');
 
     //verify otp
 
-	app.post('/users/varify_otp', users.varify_otp);
+   app.post('/users/varify_otp', users.varify_otp);
+   
+   // app.post('/users/signup', users.signup);
+   
+   // app.get('/users/verify_account',users.verify_account);
 }
