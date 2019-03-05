@@ -18,6 +18,7 @@ exports.sendotp = (verification_code,sendTo) => {
 	let accountSid = config.accountSid;
 	let authToken =config.authToken;
 	var client = new twilio(accountSid,authToken);
+	console.log(verification_code + " " + sendTo)
 	client.messages.create({
 	    body: "your one time password(OTP) is  "  +verification_code+  "  valid for 3 minutes do not disclose it" ,
 	    to: sendTo,  // Text this number

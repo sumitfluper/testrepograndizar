@@ -326,3 +326,44 @@ exports.verify_account = async(req,res) => {
     responses.sendError(error.message, res) ;
    }
 }
+
+//recent otp
+
+exports.resend_otp = (req, res) => {
+    
+    var { mobile_number, country_code} =req.body;
+    const schema = Joi.object().keys({
+        mobile_number: Joi.string().optional().error(e => 'Mobile number required.'),
+        country_code: Joi.string(),
+    })
+
+    const result = Joi.validate(req.body, schema, {abortEarly: true});
+    if(result.error) {
+        if (result.error.details && result.error.details[0].message) {
+            res.status(status.BAD_REQUEST).json({ message: result.error.details[0].message });
+        } else {
+            res.status(status.BAD_REQUEST).json({ message: result.error.message });
+        }
+        return;
+    }
+    
+    UserModel.findOne({mobile_number})
+    .then(userData => {
+        if( !userData) {
+            //console.log("invalid mobile number")
+            res.status(status.BAD_REQUEST).json({ message: "Invalid mobile" });
+            return;
+        }
+       // console.log("=================",userData)
+        var verification_code = commFunc.generateRandomString();
+        var to = country_code + mobile_number;
+        var updateData = {mobile_number, country_code, verification_code }
+        commFunc.sendotp(verification_code,to);
+        res.status(200).json({ message: "otp sent again successfully", response:updateData});
+
+
+    }).catch(err => { console.log(err); responses.sendError(err.message, res) });
+    
+    
+
+} 

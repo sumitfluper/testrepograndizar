@@ -24,7 +24,8 @@ let upload = multer({storage:storage});
 router.post('/users/userSignup',controller.userSignup);
 router.post('/users/userSignin',controller.userSignin);
 router.post('/users/create_profile',auth.requiresLogin, upload.any(),controller.createProfile);
-router.post('/users/verifyOTP',controller.varify_otp)
+router.post('/users/verifyOTP',controller.varify_otp);
+router.post('/users/resend_otp',controller.resend_otp);
 
 
 
