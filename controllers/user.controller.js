@@ -111,7 +111,7 @@ exports.userSignup = (req, res) => {
     }
 
     var { mobile_number, device_token, device_type, latitude,longitude,country_code } = req.body;
-    UserModel.findOne({ "mobile_number" : mobile_number })
+    UserModel.findOne({$and :[{"is_verified" : 1 },{ "mobile_number" : mobile_number }]})
             .then(userResult => {
                 if(userResult) {
                         if(userResult.get('mobile_number') == mobile_number) {
