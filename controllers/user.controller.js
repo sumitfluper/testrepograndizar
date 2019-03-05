@@ -232,7 +232,7 @@ exports.createProfile = (req, res) => {
       //  mobile_number: Joi.string().optional().error(e => 'Mobile number required.'),
         name: Joi.string(),
         user_name:Joi.string(),
-        email: Joi.string().email().required().error(e => 'Email is\'nt in correct formet.'),
+        email: Joi.string().email().required(),
         dob: Joi.string(),
         is_username:Joi.string().required(),
         gender: Joi.string(),
@@ -256,6 +256,7 @@ exports.createProfile = (req, res) => {
                     
                     var modified_on = new Date().getTime();
                     var is_profile_created = '1';
+                    if(req.files.length)
                     var profile_image = `./Images/${req.files[0].filename}`;
                      
     if(is_username==0)
@@ -307,7 +308,7 @@ exports.signup = async(req, res) => {
         } console.log('success.')
         res.status(status.SUCCESS_STATUS).json({ message: "profile Created.", response: saveData })
     } catch(error) {
-        responses.sendError(error.message, res) ;
+         
     }
 }
 
