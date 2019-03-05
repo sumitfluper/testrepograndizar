@@ -252,6 +252,7 @@ exports.createProfile = (req, res) => {
         return;
     }
     var {email, app_langauge, speak_langauge, name,user_name, is_username, dob, gender } = req.body;
+    console.log(req.body)
                     var access_token   = req.user.access_token;
 
                     
