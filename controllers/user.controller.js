@@ -235,7 +235,7 @@ exports.createProfile = (req, res) => {
         user_name:Joi.string(),
         email: Joi.string().required(),
         dob: Joi.string(),
-        is_username:Joi.string().required(),
+        is_username:Joi.string().optional().default(''),
         gender: Joi.string(),
         app_langauge:Joi.string(),
         speak_langauge:Joi.string(),
