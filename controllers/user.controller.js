@@ -232,7 +232,7 @@ exports.createProfile = (req, res) => {
       //  mobile_number: Joi.string().optional().error(e => 'Mobile number required.'),
         name: Joi.string(),
         user_name:Joi.string(),
-        email: Joi.string().email().required(),
+        email: Joi.string().required(),
         dob: Joi.string(),
         is_username:Joi.string().required(),
         gender: Joi.string(),
