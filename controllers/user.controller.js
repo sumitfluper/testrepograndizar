@@ -260,8 +260,9 @@ exports.createProfile = (req, res) => {
                     if(req.files.length)
                     var profile_image = `./Images/${req.files[0].filename}`;
                      
-    if(is_username==0)
+    if(!user_name)
     {
+        console.log("user_name not comming")
                     
                     var updateData = {email,app_langauge,speak_langauge, name,is_profile_created, dob, gender,profile_image, modified_on};
                     UserModel.findOneAndUpdate({access_token}, { $set: updateData }, { new: true })
@@ -273,6 +274,7 @@ exports.createProfile = (req, res) => {
          }
 else
   {
+      console.log("userna comming")
     UserModel.findOne({ 'user_name': user_name })
         .then(userResult => {
            
