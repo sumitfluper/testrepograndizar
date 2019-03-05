@@ -237,7 +237,7 @@ exports.createProfile = (req, res) => {
         dob: Joi.string(),
         is_username:Joi.string().required(),
         gender: Joi.string(),
-        app_language:Joi.string(),
+        app_langauge:Joi.string(),
         speak_language:Joi.string(),
        
     })
@@ -251,7 +251,7 @@ exports.createProfile = (req, res) => {
         }
         return;
     }
-    var {email, app_language, speak_language, name,user_name, is_username, dob, gender } = req.body;
+    var {email, app_langauge, speak_language, name,user_name, is_username, dob, gender } = req.body;
                     var access_token   = req.user.access_token;
 
                     
@@ -263,7 +263,7 @@ exports.createProfile = (req, res) => {
     if(is_username==0)
     {
                     
-                    var updateData = {email,app_language,speak_language, name,is_profile_created, dob, gender,profile_image, modified_on};
+                    var updateData = {email,app_langauge,speak_language, name,is_profile_created, dob, gender,profile_image, modified_on};
                     UserModel.findOneAndUpdate({access_token}, { $set: updateData }, { new: true })
                         .then(userData => {
                             res.status(status.SUCCESS_STATUS).json({ message: "profile Created.", response: userData })
@@ -282,7 +282,7 @@ else
                 }
             }
           else{
-                var updateData = {email,app_language,speak_language, user_name,is_profile_created, dob, gender,profile_image,  modified_on };
+                var updateData = {email,app_langauge,speak_language, user_name,is_profile_created, dob, gender,profile_image,  modified_on };
                  UserModel.findOneAndUpdate({access_token}, { $set: updateData }, { new: true })
                   .then(userData => {
            res.status(status.SUCCESS_STATUS).json({ message: "profile Created.", response: userData })
