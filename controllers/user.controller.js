@@ -112,12 +112,12 @@ exports.userSignup = (req, res) => {
     }
 
     var { mobile_number, device_token, device_type, latitude,longitude,country_code } = req.body;
-    UserModel.findOne({$and :[{"is_verified" : 1 },{ "mobile_number" : mobile_number }]})
+    UserModel.findOne({$and :[{ "mobile_number" : mobile_number },{"country_code" : country_code}]})
             .then(userResult => {
                 if(userResult) {
-                        if(userResult.get('mobile_number') == mobile_number) {
+                        // if(userResult.get('mobile_number') == mobile_number) {
                                      res.status(status.ALREADY_EXIST).json({ message: 'Your mobile number is already registered' })
-                        }
+                        // }
                 } else {
                             var access_token = md5(new Date());
                             var created_on =  new Date().getTime();
