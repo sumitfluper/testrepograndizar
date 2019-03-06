@@ -1,0 +1,3 @@
+1. in signup we always have to check country code as well as mobile number to check the uniqueness of the mobile number..
+2. chmod 777 -R
+3. netstat -tulpn

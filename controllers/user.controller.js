@@ -123,15 +123,15 @@ exports.userSignup = (req, res) => {
                             var created_on =  new Date().getTime();
                             var modified_on = new Date().getTime();
                             let verification_code = commFunc.generateRandomString();
-
-                            var updateData = {  mobile_number, device_token, device_type,access_token, longitude,latitude,created_on,modified_on,verification_code,country_code}
+                            let is_verified = '0';
+                            var updateData = {  mobile_number, device_token, device_type,access_token, longitude,latitude,created_on,modified_on,verification_code,country_code,is_verified}
                             let user = new UserModel(updateData);
                             user.save(updateData)
 
                             .then((userData) => {
 
-                                                    var country_code = userData.country_code;
-                                                    var to = country_code+userData.mobile_number;
+                                                    //var country_code = userData.country_code;
+                                                    var to = userData.country_code + userData.mobile_number;
                                                     commFunc.sendotp( verification_code , to);
                                                     res.status(200).json({ message: "SignUp successfully and otp successfully sent", response: userData})
 
@@ -165,33 +165,34 @@ exports.userSignup = (req, res) => {
         }
 
         var {mobile_number, device_token, device_type, latitude, longitude,country_code} = req.body;
-        UserModel.findOne({ mobile_number })
+        UserModel.findOne({$and :[{"country_code" : country_code},{ "mobile_number" : mobile_number }]})
                 .then(userData => {
                     if(userData){
                       console.log(userData);
-                                if(userData.get('mobile_number') == mobile_number)
-                                {
+                                // if(userData.get('mobile_number') == mobile_number)
+                                // {
 
                                     var access_token = md5(new Date());
                                     var verification_code = commFunc.generateRandomString();
-                                    var updateData = {device_token, device_type,latitude,longitude,access_token,verification_code,country_code}
-                                    console.log(updateData);
+                                    let is_verified = '0';
+                                    var updateData = {device_token, device_type,latitude,longitude,access_token,verification_code,country_code,is_verified}
+                                    
                                     UserModel.findByIdAndUpdate(userData.get('_id'), { $set : updateData }, { new : true})
                                     .then(userResult => {
 
-                                                            var country_code = userData.country_code;
-                                                            var to = country_code+userData.mobile_number;
+                                                            
+                                                            var to = userResult.country_code+userResult.mobile_number;
                                                             commFunc.sendotp( verification_code , to);
                                                             res.status(200).json({ message: "login successfully and otp sent successfully", response:userResult});
 
                                                         }).catch(err => responses.sendError(err.message,res));
 
-                                } else {
-                                    res.status(403).json({ message: 'mobile number not registered' });
-                                }
+                                // } else {
+                                //     res.status(403).json({ message: 'mobile number not registered' });
+                                // }
                     }else {
 
-                                res.status(status.INVALID_CREDENTIALS).json({ message: 'mobile number not registered' });
+                                res.status(403).json({ message: 'mobile number not registered' });
 
                     }
 
