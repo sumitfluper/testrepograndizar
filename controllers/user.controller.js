@@ -93,7 +93,7 @@ exports.userSignup = (req, res) => {
  exports.userSignup = (req , res) => {
    console.log(req.body);
     const schema = Joi.object().keys({
-        mobile_number: Joi.string().optional().error(e => 'mobile number required'),
+        mobile_number: Joi.string().optional().error(e => 'Mobile number required'),
         device_token: Joi.string(),
         device_type: Joi.string(),
         longitude: Joi.string(),
@@ -116,7 +116,7 @@ exports.userSignup = (req, res) => {
             .then(userResult => {
                 if(userResult) {
                         // if(userResult.get('mobile_number') == mobile_number) {
-                                     res.status(status.ALREADY_EXIST).json({ message: 'Your mobile number is already registered' })
+                                     res.status(status.ALREADY_EXIST).json({ message: 'Mobile number is already registered' })
                         // }
                 } else {
                             var access_token = md5(new Date());
@@ -133,7 +133,7 @@ exports.userSignup = (req, res) => {
                                                     //var country_code = userData.country_code;
                                                     var to = userData.country_code + userData.mobile_number;
                                                     commFunc.sendotp( verification_code , to);
-                                                    res.status(200).json({ message: "SignUp successfully and otp successfully sent", response: userData})
+                                                    res.status(200).json({ message: "SignUp successfull and OTP successfully sent", response: userData})
 
                                                 }).catch(err=>  responses.sendError(err.message,res))
                         }
@@ -145,7 +145,7 @@ exports.userSignup = (req, res) => {
 
     exports.userSignin = (req,res)=> {
         const schema = Joi.object().keys({
-            mobile_number: Joi.string().optional().error(e=> 'mobile number required'),
+            mobile_number: Joi.string().optional().error(e=> 'Mobile number required'),
             device_token: Joi.string(),
             device_type: Joi.string(),
             longitude: Joi.string(),
@@ -183,7 +183,7 @@ exports.userSignup = (req, res) => {
                                                             
                                                             var to = userResult.country_code+userResult.mobile_number;
                                                             commFunc.sendotp( verification_code , to);
-                                                            res.status(200).json({ message: "login successfully and otp sent successfully", response:userResult});
+                                                            res.status(200).json({ message: "Login successfull and OTP sent successfully", response:userResult});
 
                                                         }).catch(err => responses.sendError(err.message,res));
 
@@ -192,7 +192,7 @@ exports.userSignup = (req, res) => {
                                 // }
                     }else {
 
-                                res.status(403).json({ message: 'mobile number not registered' });
+                                res.status(403).json({ message: 'Mobile number not registered' });
 
                     }
 
@@ -221,7 +221,7 @@ exports.varify_otp = (req, res) => {
                     res.status(status.INVALID_CREDENTIAL).json({ message: 'Verification code is not correct.' });
                 }
             } else {
-                res.status(status.INVALID_CREDENTIAL).json({ message: 'Mobile Number is not exist.' });
+                res.status(status.INVALID_CREDENTIAL).json({ message: 'Mobile number not exist.' });
             }
         }).catch(err => { console.log(err); responses.sendError(err.message, res) })
 };
@@ -266,32 +266,32 @@ exports.createProfile = (req, res) => {
 
     if(!user_name)
     {
-        console.log("user_name not comming")
+        //console.log("user_name not comming")
 
                     var updateData = {email,app_langauge,speak_langauge, name,is_profile_created, dob, gender,profile_image, modified_on};
                     UserModel.findOneAndUpdate({access_token}, { $set: updateData }, { new: true })
                         .then(userData => {
-                            res.status(status.SUCCESS_STATUS).json({ message: "profile Created.", response: userData })
+                            res.status(status.SUCCESS_STATUS).json({ message: "Profile created.", response: userData })
                         }).catch(err => { console.log(err); responses.sendError(err.message, res) })
 
 
          }
 else
   {
-      console.log("userna comming")
+      //console.log("userna comming")
     UserModel.findOne({ 'user_name': user_name })
         .then(userResult => {
 
             if (userResult) {
                 if (userResult.get('user_name') == user_name) {
-                    res.status(status.ALREADY_EXIST).json({ message: 'username already exists please try another.' });
+                    res.status(status.ALREADY_EXIST).json({ message: 'Username already exist' });
                 }
             }
           else{
                 var updateData = {email,app_langauge,speak_langauge, user_name,is_profile_created, dob, gender,profile_image,  modified_on };
                  UserModel.findOneAndUpdate({access_token}, { $set: updateData }, { new: true })
                   .then(userData => {
-           res.status(status.SUCCESS_STATUS).json({ message: "profile Created.", response: userData })
+           res.status(status.SUCCESS_STATUS).json({ message: "Profile Created.", response: userData })
        }).catch(err => { console.log(err); responses.sendError(err.message, res) })
     }
 }).catch(err => { console.log(err); responses.sendError(err.message, res) });
@@ -359,7 +359,7 @@ exports.resend_otp = (req, res) => {
     .then(userData => {
         if( !userData) {
             //console.log("invalid mobile number")
-            res.status(status.BAD_REQUEST).json({ message: "Invalid mobile" });
+            res.status(status.BAD_REQUEST).json({ message: "Invalid mobile number" });
             return;
         }
        // console.log("=================",userData)
@@ -367,7 +367,7 @@ exports.resend_otp = (req, res) => {
         var to = country_code + mobile_number;
         var updateData = {mobile_number, country_code, verification_code }
         commFunc.sendotp(verification_code,to);
-        res.status(200).json({ message: "otp sent again successfully", response:updateData});
+        res.status(200).json({ message: "OTP sent successfully", response:updateData});
 
 
     }).catch(err => { console.log(err); responses.sendError(err.message, res) });
