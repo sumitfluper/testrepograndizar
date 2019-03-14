@@ -10,7 +10,7 @@ var status = require('../modules/status')
 exports.service_require  = async(req, res) => {
     try{
         const schema = Joi.object().keys({
-            service_type : Joi.number().required(),
+            service_type : Joi.string().required(),
             pickup_address : Joi.string().required(),
             pickup_latitude : Joi.string().required(),
             pickup_longitude : Joi.string().required(),
@@ -36,7 +36,7 @@ exports.service_require  = async(req, res) => {
         //let allData = req.body
         //let access_token = req.user.access_token;
         console.log(req.body)
-        if(service_type === "1"){
+        if(service_type === '1'){
             let pickup_location = { type : 'Point', "coordinates": [pickup_longitude,pickup_latitude]}
             let drop_location = { type : 'Point', "coordinates": [drop_longitude,drop_latitude]}  
             let updateData = { service_type, pickup_address, pickup_latitude, pickup_longitude, drop_address, drop_latitude, drop_longitude, comments, pickup_location, drop_location, start_time, end_time }
@@ -47,7 +47,7 @@ exports.service_require  = async(req, res) => {
             } else{
                 res.status(status.INVALID_CREDENTIAL).json( { message : "Unable to order, Try again after some time"})
             }
-        } else if(service_type === "2") {
+        } else if(service_type === '2') {
             res.send("work in progress!!")
         } else {
             res.status(status.BAD_REQUEST).json({ message : "Try again"})

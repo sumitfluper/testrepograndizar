@@ -1,8 +1,8 @@
 const {mongoose, conn} = require('../services/mongoose');
 const ServiceSchema = mongoose.Schema({
     service_type : {
-        type : Number,
-        default : 0,
+        type : String,
+        default : '0',
     },
     pickup_address : {
         type : String,
