@@ -1,7 +1,7 @@
 var express = require('express')
 var router = express.Router()
-var auth = require('../Modules/auth')
-var controller = require('../Controllers/service_controller')
+var auth = require('../modules/auth')
+var controller = require('../controllers/service_controller')
 
 // //for require service
 // router.post('/users/service_require',auth.requiresLogin,controller.service_require);
