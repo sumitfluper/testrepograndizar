@@ -1,3 +1,6 @@
 1. in signup we always have to check country code as well as mobile number to check the uniqueness of the mobile number..
 2. chmod 777 -R
 3. netstat -tulpn
+4. var mongoose = require('mongoose')
+   var {userModel} = mongoose.model(user)
+5. sudo kill sudo lsof -t -i:9001 //killing ka brahmastra

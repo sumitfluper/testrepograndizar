@@ -1,37 +1,12 @@
-// var express = require('express');
-// var bodyParser = require('body-parser');
-// var app = express();
-// var path = require('path');
- 
- 
-
- 
- 
-//  // parse requests of content-type - application/x-www-form-urlencoded
-// app.use(bodyParser.urlencoded({ extended: true }))
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'hbs');
-// // parse requests of content-type - application/json
-// app.use(bodyParser.json())
-
-// app.get("/", function(req, res) {
-//      res.json( "Api is running");
-// });
-
-// // Require Notes routes
-// require('./routes/user.routes.js')(app);
-
-//  app.listen(3000, function(a) {
-//      console.log("Listening to port 3000");
-//  });
-
 var express = require('express');
 var app = express();
 var logger = require('morgan');
 var mongoose = require('mongoose');
 var path = require('path');
 var bodyParser = require('body-parser');
-var route = require('./routes/user.routes');
+var glob = require('glob')
+// var route = require('./routes/user.routes');
+// var service_route = require('./routes/services.route')
 
 var port = process.env.PORT || 3000;
 //process.env.NODE_ENV = environment.configuration;
@@ -45,7 +20,35 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(path.join(__dirname, './Images')));
-app.use('/',route);
+// app.use('/',route);
+// app.use('/',service_route);
+let initRoutes = () => {
+	// including all routes
+	glob("./routes/*.js", {cwd: path.resolve(path.join(__dirname))}, (err, routes) => {
+		if (err) {
+			console.log("Error occured including routes");
+			return;
+		}
+		routes.forEach((routePath) => {
+			require(routePath).getRouter(app); // eslint-disable-line
+		});
+		console.log("included " + routes.length + " route files");
+
+		app.get('**', (req, res) => {
+			console.log(req.url);
+			if (allowedExt.filter(ext => req.url.indexOf(ext) > 0).length > 0) {
+				console.log('allowext');
+				let url = req.url.split('?')[0];
+				res.sendFile(path.resolve(path.join(__dirname,'..','dist',url)));
+			} else {
+				console.log('else');
+				res.sendFile(path.resolve(path.join(__dirname,'..','dist','index.html')));
+			}
+		});
+	});
+}
+
+initRoutes();
 
 app.listen(port,() => {
     console.log('server on port '+port);
