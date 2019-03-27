@@ -9,7 +9,7 @@ var cors = require('cors')
 // var route = require('./routes/user.routes');
 // var service_route = require('./routes/services.route')
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 3010;
 //process.env.NODE_ENV = environment.configuration;
 // const allowedExt = [
 //     '.js',
