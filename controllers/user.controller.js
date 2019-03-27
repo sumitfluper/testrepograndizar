@@ -123,8 +123,8 @@ exports.userSignup = (req, res) => {
                             var created_on =  new Date().getTime();
                             var modified_on = new Date().getTime();
                             let verification_code = commFunc.generateRandomString();
-                            let is_verified = '0';
-                            var updateData = {  mobile_number, device_token, device_type,access_token, longitude,latitude,created_on,modified_on,verification_code,country_code,is_verified}
+                            // let is_verified = '0';
+                            var updateData = {  mobile_number, device_token, device_type,access_token, longitude,latitude,created_on,modified_on,verification_code,country_code}
                             let user = new UserModel(updateData);
                             user.save(updateData)
 

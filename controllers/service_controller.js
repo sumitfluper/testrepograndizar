@@ -1,4 +1,7 @@
 var { serviceModel } = require('../models/service_model')
+var { categoryModel } = require('../models/service_model')
+var { subCategoryModel } = require('../models/service_model')
+var { professionalModel } = require('../models/service_model')
 var Joi = require('joi')
 var responses = require('../modules/responses')
 var auth = require('../modules/auth')
@@ -11,12 +14,12 @@ exports.service_require  = async(req, res) => {
     try{
         const schema = Joi.object().keys({
             service_type : Joi.string().required(),
-            pickup_address : Joi.string().required(),
-            pickup_latitude : Joi.string().required(),
-            pickup_longitude : Joi.string().required(),
-            drop_address : Joi.string().required(),
-            drop_latitude : Joi.string().required(),
-            drop_longitude :Joi.string().required(),
+            pickup_address : Joi.string(),
+            pickup_latitude : Joi.string(),
+            pickup_longitude : Joi.string(),
+            drop_address : Joi.string().optional(),
+            drop_latitude : Joi.string().optional(),
+            drop_longitude :Joi.string().optional(),
             start_time : Joi.string().required(),
             end_time : Joi.string().required(),
             comments : Joi.string().required(),
@@ -32,11 +35,14 @@ exports.service_require  = async(req, res) => {
             return;
         }
     
-        var { service_type, pickup_address, pickup_latitude, pickup_longitude, drop_address, drop_latitude, drop_longitude, comments, start_time, end_time} = req.body
+        //var { service_type, pickup_address, pickup_latitude, pickup_longitude, drop_address, drop_latitude, drop_longitude, comments, start_time, end_time} = req.body
         //let allData = req.body
         //let access_token = req.user.access_token;
-        console.log(req.body)
-        if(service_type === '1'){
+        
+        let data = req.body;
+        console.log(data.service_type)
+        if(data.service_type === '1'){
+            var { service_type,pickup_address, pickup_longitude, pickup_latitude,drop_address, drop_longitude, drop_latitude, comments, start_time, end_time} = req.body
             let pickup_location = { type : 'Point', "coordinates": [pickup_longitude,pickup_latitude]}
             let drop_location = { type : 'Point', "coordinates": [drop_longitude,drop_latitude]}  
             let updateData = { service_type, pickup_address, pickup_latitude, pickup_longitude, drop_address, drop_latitude, drop_longitude, comments, pickup_location, drop_location, start_time, end_time }
@@ -47,8 +53,19 @@ exports.service_require  = async(req, res) => {
             } else{
                 res.status(status.INVALID_CREDENTIAL).json( { message : "Unable to order, Try again after some time"})
             }
-        } else if(service_type === '2') {
-            res.send("work in progress!!")
+        } else if(data.service_type === '2') {
+            var { service_type, pickup_address, pickup_longitude, pickup_latitude, comments, start_time, end_time} = req.body
+            let pickup_location = { type : 'Point', "coordinates": [pickup_longitude,pickup_latitude]}
+            let updateData = { service_type, pickup_address, pickup_latitude, pickup_longitude, pickup_location, comments, start_time, end_time }
+            console.log(updateData)
+            let user = new professionalModel(updateData)
+            let userData = await user.save()
+            if(userData){
+                res.status(200).json({ message : "Order submit successfully", response : userData})
+            } else{
+                res.status(status.INVALID_CREDENTIAL).json( { message : "Unable to order, Try again after some time"})
+            }
+
         } else {
             res.status(status.BAD_REQUEST).json({ message : "Try again"})
         }
@@ -100,6 +117,10 @@ exports.get_nearby_outlets = async (req,res) => {
         responses.sendError(error.message, res)
     }
 }
+
+/*--------------------------------------
++++++++++   ACTIVE CAPTAINS ++++++++++++
+---------------------------------------*/
 
 exports.active_captains = async (req,res)=> {
     try{
@@ -170,6 +191,39 @@ exports.active_captains = async (req,res)=> {
             res.json({ response : userResult })
         }
     }catch(error){
+        responses.sendError(error.message, res)
+    }
+}
+
+/*--------------------------------------
++++++++++ GET CATEGORIES ++++++++++++
+---------------------------------------*/
+
+exports.getCategoryList = async (req, res)=> {
+    try{
+        let categoryList = await categoryModel.find()
+        res.status(200).json({response : categoryList})
+    }catch(error){
+        responses.sendError(error.message, res)
+    }
+}
+
+/*--------------------------------------
++++++++++ GET SUB-CATEGORIES ++++++++++++
+---------------------------------------*/
+
+exports.getSubCategoryList = async (req, res) => {
+    try {
+        console.log("sub cat list")
+        var {cat_id}  = req.query
+        console.log(req.query)
+        let subCategoryList = await subCategoryModel.find({cat_id}) 
+        if(subCategoryList){
+            res.status(200).json({response : subCategoryList})
+        } else {
+            res.status(status.INVALID_CREDENTIAL).json({ message : "Invalid credentials" })
+        }
+    }catch(error) {
         responses.sendError(error.message, res)
     }
 }

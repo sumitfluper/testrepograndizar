@@ -5,11 +5,23 @@ var mongoose = require('mongoose');
 var path = require('path');
 var bodyParser = require('body-parser');
 var glob = require('glob')
+var cors = require('cors')
 // var route = require('./routes/user.routes');
 // var service_route = require('./routes/services.route')
 
 var port = process.env.PORT || 3000;
 //process.env.NODE_ENV = environment.configuration;
+// const allowedExt = [
+//     '.js',
+//     '.ico',
+//     '.css',
+//     '.png',
+//     '.jpg',
+//     '.woff2',
+//     '.woff',
+//     '.ttf',
+//     '.svg',
+// ];
 
 mongoose.connect('mongodb://localhost:27017/Gdb');
 var db = mongoose.connection;
@@ -20,6 +32,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(path.join(__dirname, './Images')));
+app.use(cors())
 // app.use('/',route);
 // app.use('/',service_route);
 let initRoutes = () => {
@@ -34,17 +47,17 @@ let initRoutes = () => {
 		});
 		console.log("included " + routes.length + " route files");
 
-		app.get('**', (req, res) => {
-			console.log(req.url);
-			if (allowedExt.filter(ext => req.url.indexOf(ext) > 0).length > 0) {
-				console.log('allowext');
-				let url = req.url.split('?')[0];
-				res.sendFile(path.resolve(path.join(__dirname,'..','dist',url)));
-			} else {
-				console.log('else');
-				res.sendFile(path.resolve(path.join(__dirname,'..','dist','index.html')));
-			}
-		});
+		// app.get('**', (req, res) => {
+		// 	console.log(req.url);
+		// 	if (allowedExt.filter(ext => req.url.indexOf(ext) > 0).length > 0) {
+		// 		console.log('allowext');
+		// 		let url = req.url.split('?')[0];
+		// 		res.sendFile(path.resolve(path.join(__dirname,'..','dist',url)));
+		// 	} else {
+		// 		console.log('else');
+		// 		res.sendFile(path.resolve(path.join(__dirname,'..','dist','index.html')));
+		// 	}
+		// });
 	});
 }
 

@@ -22,5 +22,11 @@ exports.getRouter = (app) => {
     //active captains
     app.route("/users/active_captains").post(controller.active_captains);
 
+    //getCategoryList
+    app.route("/users/getCategoryList").get(controller.getCategoryList)
+
+    //getSubCategoryList
+    app.route("/users/getSubCategoryList").get(controller.getSubCategoryList)
+    
     return app;
 }
