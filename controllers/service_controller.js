@@ -23,6 +23,7 @@ exports.service_require  = async(req, res) => {
             start_time : Joi.string().required(),
             end_time : Joi.string().required(),
             comments : Joi.string().required(),
+            service_name : Joi.string().optional(),
         })
     
         const result = Joi.validate(req.body, schema, {abortEarly: true});
@@ -54,9 +55,9 @@ exports.service_require  = async(req, res) => {
                 res.status(status.INVALID_CREDENTIAL).json( { message : "Unable to order, Try again after some time"})
             }
         } else if(data.service_type === '2') {
-            var { service_type, pickup_address, pickup_longitude, pickup_latitude, comments, start_time, end_time} = req.body
+            var { service_type, service_name, pickup_address, pickup_longitude, pickup_latitude, comments, start_time, end_time} = req.body
             let pickup_location = { type : 'Point', "coordinates": [pickup_longitude,pickup_latitude]}
-            let updateData = { service_type, pickup_address, pickup_latitude, pickup_longitude, pickup_location, comments, start_time, end_time }
+            let updateData = { service_type, service_name, pickup_address, pickup_latitude, pickup_longitude, pickup_location, comments, start_time, end_time }
             console.log(updateData)
             let user = new professionalModel(updateData)
             let userData = await user.save()

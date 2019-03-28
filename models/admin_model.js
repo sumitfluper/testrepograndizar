@@ -28,7 +28,21 @@ const adminSchema = mongoose.Schema({
     },
     mobile_number: {
         type: String,
-    }
+    },
+    First_name : {
+        type : String,
+    },
+    Last_name : {
+        type : String,
+    },
+    is_profile_created: {
+        type: Number,
+        default:0 
+    },
+    profile_image: {
+        type: String,
+        default : null 
+    },
 }, {
     strict: true,
     collection: 'admin',

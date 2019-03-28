@@ -31,7 +31,8 @@ db.once('open', () => console.log('database created'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
-app.use(express.static(path.join(__dirname, './Images')));
+app.use(express.static(path.join(__dirname, './Images/admin')));
+app.use(express.static(path.join(__dirname, './Images/users')));
 app.use(cors())
 // app.use('/',route);
 // app.use('/',service_route);

@@ -101,6 +101,9 @@ const professionalSchema = mongoose.Schema({
     comments : {
         type : String,
     },
+    service_name : {
+        type : String,
+    }
 },{
     
     strict : true,

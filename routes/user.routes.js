@@ -10,7 +10,7 @@ var controller = require('../controllers/user.controller.js');
 exports.getRouter = (app) => {
 	const storage = multer.diskStorage({
 		destination : function(req,file,callback){
-			callback(null,'./Images');
+			callback(null,'./Images/users');
 		},
 		filename : function(req,file,callback){
 			let fileUniqueName = md5(Date.now());

@@ -161,12 +161,12 @@ exports.reset_password = async(req, res) => {
 
 exports.resend_otp = async (req, res)=> {
     try{
-        var { mobile_number } = req.body
-        let userData = await adminModel.findOne({mobile_number})
+        var { mobile_number, country_code} = req.body
+        let userData = await adminModel.findOne({ $and :[ { "country_code" : country_code },{ "mobile_number" : mobile_number}]})
         if(userData){
     
             let verification_code = commonFunctions.generateRandomString()
-            let to = userData.country_code + userData.mobile_number
+            let to = country_code+mobile_number
             //send OTP
             commonFunctions.sendotp(verification_code,to);
             res.status(200).json({message : "OTP sent successfully", response : userData})
@@ -176,7 +176,53 @@ exports.resend_otp = async (req, res)=> {
         
         }catch(error){
             responses.sendError(error.message, res) ;
-    }
-    
+    } 
 }
 
+/*--------------------------------------
++++++++++ CHANGE PASSWORD ++++++++++++
+---------------------------------------*/
+
+exports.change_password = async(req, res) => {
+    try {
+        let passwordb = req.user.password;
+        console.log(passwordb)
+        var { password, new_password} = req.body
+        console.log(req.body)
+        if(password === passwordb){
+            let userData = await adminModel.findOneAndUpdate({access_token}, { $set : {password : new_password} }, { new : true })
+            if(userData) {
+                res.status(200).json({ message : "Password changed successfully", response : userData})
+            } else {
+                res.status(status.INVALID_CREDENTIAL).json({ message : "Invalid credentials" })
+            }
+        }
+    }catch(error){
+        responses.sendError(error.message, res)
+    }
+}
+
+
+/*--------------------------------------
++++++++++   EDIT PROFILE ++++++++++++
+---------------------------------------*/
+
+exports.edit_profile = async(req, res) => {
+    try {
+        var access_token = req.user.access_token
+        var { First_name, Last_name, mobile_number, email } = req.body
+        var data = req.body
+        console.log(data)
+        req.files.forEach(file => {
+            data[file.fieldname] = `/${file.filename}`;
+        });
+        let userData = await adminModel.findOneAndUpdate({access_token}, { $set : data}, { new : true })
+        if(userData) {
+            res.status(200).json({ message : "Profile edited successfully", response : userData})
+        } else {
+            res.status(status.INVALID_CREDENTIAL).json({ message : "Invalid credentials"})
+        }
+    } catch (error) {
+        responses.sendError(error.message, res)
+    }
+}

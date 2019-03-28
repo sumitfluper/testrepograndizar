@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var auth = require ('../modules/auth');
+var admin_auth = require ('../modules/admin_auth')
 var multer = require ('multer');
 var md5 = require ('md5');
 var path = require ('path');
@@ -10,7 +11,7 @@ exports.getRouter = (app) => {
 
 	const storage = multer.diskStorage({
 		destination : function(req,file,callback){
-        callback(null,'./src/uploads/user');
+        callback(null,'./Images/admin');
 		},
 		filename : function(req,file,callback){
 			let fileUniqueName = md5(Date.now());
@@ -24,6 +25,8 @@ exports.getRouter = (app) => {
 	app.route('/admin/verifyOTP').post(admin_controller.verifyOTP)
 	app.route('/admin/reset_password').post(admin_controller.reset_password)
 	app.route('/admin/resendOTP').post(admin_controller.resend_otp)
+	app.route('/admin/change_password').post(admin_auth.requiresLogin,admin_controller.reset_password)
+	app.route('/admin/edit_profile').post(admin_auth.requiresLogin,upload.any(),admin_controller.edit_profile)
 	
 	
 	return app;
