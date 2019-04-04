@@ -25,9 +25,10 @@ exports.getRouter = (app) => {
 	app.route('/admin/verifyOTP').post(admin_controller.verifyOTP)
 	app.route('/admin/reset_password').post(admin_controller.reset_password)
 	app.route('/admin/resendOTP').post(admin_controller.resend_otp)
-	app.route('/admin/change_password').post(admin_auth.requiresLogin,admin_controller.reset_password)
+	app.route('/admin/change_password').post(admin_auth.requiresLogin,admin_controller.change_password)
 	app.route('/admin/edit_profile').post(admin_auth.requiresLogin,upload.any(),admin_controller.edit_profile)
-	
+	app.route('/admin/getUserDetails').get(admin_controller.getUserDetails)
+	app.route('/admin/is_user_blocked').post(admin_controller.is_user_blocked)
 	
 	return app;
 }

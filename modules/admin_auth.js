@@ -10,7 +10,7 @@ exports.requiresLogin = (req, res, next) => {
     if (access_token) {
         adminModel.findOne({access_token})
         .then(result => {
-            console.log(result)
+            
            if (result) {
             req.user = result;
             next();

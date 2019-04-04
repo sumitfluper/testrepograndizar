@@ -43,6 +43,11 @@ const adminSchema = mongoose.Schema({
         type: String,
         default : null 
     },
+    is_blocked: {
+        type: Number,
+        default: 0
+    }
+    
 }, {
     strict: true,
     collection: 'admin',

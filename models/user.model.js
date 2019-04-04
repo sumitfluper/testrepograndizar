@@ -83,6 +83,10 @@ const UserSchema = mongoose.Schema({
     speak_langauge: {
         type: String
     },
+    is_blocked: {
+        type: Number,
+        default: 0
+    }
     
 });
 exports.UserModel = conn.model('User', UserSchema );

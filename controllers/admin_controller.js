@@ -4,6 +4,7 @@ var responses = require('../modules/responses')
 var commonFunctions = require('../modules/commonFunction')
 var status = require('../modules/status')
 var { adminModel } = require('../models/admin_model')
+var { UserModel } = require('../models/user.model')
 var md5 = require('md5')
 
 
@@ -185,17 +186,22 @@ exports.resend_otp = async (req, res)=> {
 
 exports.change_password = async(req, res) => {
     try {
-        let passwordb = req.user.password;
+        
+        var access_token = req.user.access_token
+        console.log("Access "+access_token)
+        var passwordb = req.user.password;
         console.log(passwordb)
-        var { password, new_password} = req.body
-        console.log(req.body)
-        if(password === passwordb){
-            let userData = await adminModel.findOneAndUpdate({access_token}, { $set : {password : new_password} }, { new : true })
+        var { old_password, new_password } = req.body
+        console.log("+++++++++++++++"+new_password, old_password)
+        if(passwordb == md5(old_password)){
+            let userData = await adminModel.findOneAndUpdate({access_token}, { $set : {password : md5(new_password)} }, { new : true })
             if(userData) {
                 res.status(200).json({ message : "Password changed successfully", response : userData})
             } else {
                 res.status(status.INVALID_CREDENTIAL).json({ message : "Invalid credentials" })
             }
+        }else {
+            res.status(status.INVALID_CREDENTIAL).json({ message : "Incorrect old password" })
         }
     }catch(error){
         responses.sendError(error.message, res)
@@ -209,12 +215,13 @@ exports.change_password = async(req, res) => {
 
 exports.edit_profile = async(req, res) => {
     try {
+        console.log("hi!!!! "+req.files)
         var access_token = req.user.access_token
         var { First_name, Last_name, mobile_number, email } = req.body
         var data = req.body
         console.log(data)
         req.files.forEach(file => {
-            data[file.fieldname] = `/${file.filename}`;
+            data[file.fieldname] = `/admin/${file.filename}`;
         });
         let userData = await adminModel.findOneAndUpdate({access_token}, { $set : data}, { new : true })
         if(userData) {
@@ -223,6 +230,47 @@ exports.edit_profile = async(req, res) => {
             res.status(status.INVALID_CREDENTIAL).json({ message : "Invalid credentials"})
         }
     } catch (error) {
+        responses.sendError(error.message, res)
+    }
+}
+
+
+/*--------------------------------------
++++++++++ GET USER DETAILS ++++++++++++
+---------------------------------------*/
+
+exports.getUserDetails = async(req, res) => {
+    try {   
+        console.log("hi")
+        let data = await UserModel.find()
+        res.status(200).json(data)
+
+    } catch(error) {
+        responses.sendError(error.message, res)
+    }
+}
+
+/*--------------------------------------
++++++++++ IS BLOCKED ++++++++++++
+---------------------------------------*/
+
+exports.is_user_blocked = async (req, res)=> {
+    try{
+        console.log("hi! kaise ho")
+        let { _id, is_blocked } = req.body
+        console.log(req.body)
+        // if(is_blocked === 0 ) {
+           var updateData = { is_blocked}
+        // }else if(is_blocked === 1){
+        //    var updateData = { is_blocked : 0 }
+        // }
+        let adminData = await UserModel.findByIdAndUpdate({_id}, {$set: updateData}, { new : true })
+        if(adminData){
+            res.status(200).json({ message : "", response : adminData})
+        } else {
+            res.status(status.INVALID_CREDENTIAL).json({ message : "Invalid credentials"})
+        }
+    } catch(error) {
         responses.sendError(error.message, res)
     }
 }

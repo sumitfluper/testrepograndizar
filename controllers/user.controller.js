@@ -163,42 +163,46 @@ exports.userSignup = (req, res) => {
             }
             return;
         }
-
+        
         var {mobile_number, device_token, device_type, latitude, longitude,country_code} = req.body;
-        UserModel.findOne({$and :[{"country_code" : country_code},{ "mobile_number" : mobile_number }]})
-                .then(userData => {
-                    if(userData){
-                      console.log(userData);
-                                // if(userData.get('mobile_number') == mobile_number)
-                                // {
+        
+        
+            UserModel.findOne({$and :[{"country_code" : country_code},{ "mobile_number" : mobile_number }]})
+            .then(userData => {
+                if(userData){
+                  console.log(userData);
+                                if(userData.is_blocked === 1){
+                                    res.status(403).json({ message: "Blocked by admin"})
+                                    return
+                                }
+                                var access_token = md5(new Date());
+                                var verification_code = commFunc.generateRandomString();
+                                let is_verified = '0';
+                                var updateData = {device_token, device_type,latitude,longitude,access_token,verification_code,country_code,is_verified}
+                                
+                                UserModel.findByIdAndUpdate(userData.get('_id'), { $set : updateData }, { new : true})
+                                .then(userResult => {
 
-                                    var access_token = md5(new Date());
-                                    var verification_code = commFunc.generateRandomString();
-                                    let is_verified = '0';
-                                    var updateData = {device_token, device_type,latitude,longitude,access_token,verification_code,country_code,is_verified}
-                                    
-                                    UserModel.findByIdAndUpdate(userData.get('_id'), { $set : updateData }, { new : true})
-                                    .then(userResult => {
+                                                        
+                                                        var to = userResult.country_code+userResult.mobile_number;
+                                                        commFunc.sendotp( verification_code , to);
+                                                        res.status(200).json({ message: "Login successfull and OTP sent successfully", response:userResult});
 
-                                                            
-                                                            var to = userResult.country_code+userResult.mobile_number;
-                                                            commFunc.sendotp( verification_code , to);
-                                                            res.status(200).json({ message: "Login successfull and OTP sent successfully", response:userResult});
+                                                    }).catch(err => responses.sendError(err.message,res));
 
-                                                        }).catch(err => responses.sendError(err.message,res));
+                            // } else {
+                            //     res.status(403).json({ message: 'mobile number not registered' });
+                            // }
+                }else {
 
-                                // } else {
-                                //     res.status(403).json({ message: 'mobile number not registered' });
-                                // }
-                    }else {
+                            res.status(403).json({ message: 'Mobile number not registered' });
 
-                                res.status(403).json({ message: 'Mobile number not registered' });
+                }
 
-                    }
-
-                }).catch(err => {
-                    console.log(err);
-                        responses.sendError(err.message,res)});
+            }).catch(err => {
+                console.log(err);
+                    responses.sendError(err.message,res)});
+        
 }
 //verify_otp
 
@@ -262,7 +266,7 @@ exports.createProfile = (req, res) => {
                     var modified_on = new Date().getTime();
                     var is_profile_created = '1';
                     if(req.files.length)
-                    var profile_image = `./Images/${req.files[0].filename}`;
+                    var profile_image = `/users/${req.files[0].filename}`;
 
     if(!user_name)
     {
