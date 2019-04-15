@@ -58,6 +58,22 @@ const ServiceSchema = mongoose.Schema({
         type : String,
         default : '0',
     },
+    
+    is_accepted: {
+       type:Boolean,
+       default:false 
+    },
+    serviceprovider: {type:mongoose.Schema.Types.ObjectId,ref:"User"},
+    servicedoneby: {type:mongoose.Schema.Types.ObjectId,ref:"User"},
+    is_completed: {
+       type:Boolean,
+       default:false 
+    },
+    is_canclled: {
+       type:Boolean,
+       default:false 
+    },
+    createdAt:{ type : Date, default: Date.now }
 },{
     
         strict : true,

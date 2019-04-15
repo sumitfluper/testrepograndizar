@@ -1,6 +1,9 @@
-const {mongoose, conn} = require('../services/mongoose');
+const {
+    mongoose,
+    conn
+} = require('../services/mongoose');
 const UserSchema = mongoose.Schema({
-   
+
     mobile_number: {
         type: String,
         index: {
@@ -8,55 +11,51 @@ const UserSchema = mongoose.Schema({
         }
     },
     country_code: {
-        type: String, 
-        default : null
+        type: String,
+        default: null
     },
     name: {
         type: String
     },
-    user_name:
-    {
+    user_name: {
         type: String
-        
+
     },
-    is_verified:
-    {
-        type:Number,
-        default:0
+    is_verified: {
+        type: Number,
+        default: 0
     },
-    is_username:
-    {
-       type:String,
+    is_username: {
+        type: String,
     },
     email: {
         type: String
-        
+
     },
     gender: {
         type: String,
-        default : null
+        default: null
     },
     dob: {
         type: String,
-        default : null 
+        default: null
     }, // YYYY-MM-DD
     profile_image: {
         type: String,
-        default : null 
+        default: null
     },
-    is_profile_created:
-    {
+    is_profile_created: {
         type: Number,
-        default : 0 // 0 = unverified 1 = verified
+        default: 0 // 0 = unverified 1 = verified
     },
     verification_code: {
         type: String
     },
-   
-     created_on: {
+
+    created_on: {
         type: Date
     },
-	 modified_on: {
+    modified_on: {
         type: Date
     },
     device_token: {
@@ -76,7 +75,7 @@ const UserSchema = mongoose.Schema({
     },
     access_token: {
         type: String
-    }, 
+    },
     app_langauge: {
         type: String
     },
@@ -86,7 +85,19 @@ const UserSchema = mongoose.Schema({
     is_blocked: {
         type: Number,
         default: 0
+    },
+    is_user: {
+        type: Boolean,
+        default:false
+    },
+    is_delivery_boy : {
+        type: Boolean,
+        default:false
+    },
+    is_service_provider : {
+        type: Boolean,
+        default:false
     }
-    
+
 });
-exports.UserModel = conn.model('User', UserSchema );
+exports.UserModel = conn.model('User', UserSchema);
