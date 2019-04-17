@@ -1,7 +1,4 @@
-const {
-    mongoose,
-    conn
-} = require('../services/mongoose');
+const {mongoose,conn} = require('../services/mongoose');
 const UserSchema = mongoose.Schema({
 
     mobile_number: {
@@ -86,18 +83,14 @@ const UserSchema = mongoose.Schema({
         type: Number,
         default: 0
     },
-    is_user: {
-        type: Boolean,
-        default:false
+    /**
+     * userType = 1 for user
+     * userType = 2 for delivery boy
+     * userType = 3 for professional user
+     */
+    userType: {
+        type: Number,
+        default:0
     },
-    is_delivery_boy : {
-        type: Boolean,
-        default:false
-    },
-    is_service_provider : {
-        type: Boolean,
-        default:false
-    }
-
 });
 exports.UserModel = conn.model('User', UserSchema);

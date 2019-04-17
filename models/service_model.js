@@ -75,8 +75,6 @@ const ServiceSchema = mongoose.Schema({
     },
     createdAt:{ type : Date, default: Date.now }
 },{
-    
-        strict : true,
         collection : 'Service',
         versionKey : false
 });
