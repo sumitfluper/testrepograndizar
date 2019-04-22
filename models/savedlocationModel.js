@@ -4,23 +4,26 @@ const LocationSchema = mongoose.Schema({
         type : String,
     },
 
-    userId : {
-        type : String,
+    userId : {type:mongoose.Schema.Types.ObjectId,ref:"User"},
+    locationType:{
+        type : Number,
+        default:0
     },
     location : {
         type: {
             type: String,
             default: 'Point'
         },
-        coordinates: [Number] 
+        coordinates: [Number],
+        default:[0.00,0.00] 
     },
     createdAt:{ type : Date, default: Date.now }
 },
+
 {
-        collection : 'Service',
+        collection : 'savedlocation',
         versionKey : false
 });
 
-ServiceSchema.index({ pickup_location : '2dsphere' })
-ServiceSchema.index({ drop_location : '2dsphere' })
-exports.locationModel = conn.model('locationModel', LocationSchema );
+LocationSchema.index({ location : '2dsphere' })
+exports.locationModel = conn.model('savedlocation', LocationSchema );
