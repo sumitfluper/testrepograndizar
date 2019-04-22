@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+
 //SUBCATEGORY SCHEMA
 const subCategorySchema = mongoose.Schema({
     subCat_name : {
@@ -7,9 +9,8 @@ const subCategorySchema = mongoose.Schema({
         type: String
     },
 },{
-    strict : true,
     collection: 'subCategory',
     versionKey: false
 });
 
-exports.subCategoryModel = conn.model('subCategory',subCategorySchema)
+module.exports = mongoose.model('subCategory', subCategorySchema);

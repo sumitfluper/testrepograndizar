@@ -1,6 +1,6 @@
 // var connection = require ('./connection');
 var responses = require ('./responses');
-var {UserModel} = require('../models/user.model.js');
+var UserModel = require('../models/User');
 
 
 exports.requiresLogin = (req, res, next) => {
