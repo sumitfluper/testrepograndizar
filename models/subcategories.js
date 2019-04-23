@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 //SUBCATEGORY SCHEMA
-const subCategorySchema = mongoose.Schema({
+const subCategorySchema = new Schema({
     subCat_name : {
         type: String
     },

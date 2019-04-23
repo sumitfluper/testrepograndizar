@@ -1,5 +1,7 @@
-const {mongoose, conn} = require('../services/mongoose');
-const LocationSchema = mongoose.Schema({
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const LocationSchema = new Schema({
     locationAdd : {
         type : String,
     },

@@ -1,5 +1,7 @@
-const {mongoose, conn} = require('../services/mongoose');
-const ServiceSchema = mongoose.Schema({
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const ServiceSchema = new Schema({
     service_type : {
         type : String,
         default : '0',
@@ -69,8 +71,8 @@ const ServiceSchema = mongoose.Schema({
        type:Number,
        default:1 
     },
-    serviceprovider: {type:mongoose.Schema.Types.ObjectId,ref:"User"},
-    servicedoneby: {type:mongoose.Schema.Types.ObjectId,ref:"User"},
+    serviceCreatedBy: {type:mongoose.Schema.Types.ObjectId,ref:"User"},
+    serviceGivenBy: {type:mongoose.Schema.Types.ObjectId,ref:"User"},
     createdAt:{ type : Date, default: Date.now }
 },{
         collection : 'Service',

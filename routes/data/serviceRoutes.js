@@ -8,6 +8,12 @@ const auth = require('../../modules/auth');
 
 router.route('/getneworders')
     .post(serviceController.getAllNewOrder);
+//get all order accepted by user type 2,3 
+router.route('/getallorderaccepted')
+    .post(serviceController.getAllOrderAccepted);
+// get all order created by user type 1
+router.route('/getallordercreatedbyme')
+    .post(serviceController.getAllOrderCreated);
 
 router.route("/service_require")
     .post(auth.requiresLogin, serviceController.serviceRequire);

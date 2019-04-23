@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
-const conn = mongoose.createConnection("mongodb://127.0.0.1:27017/grandizer", {
-    useNewUrlParser: true,
-    useCreateIndex: true
-});
+// const mongoose = require('mongoose');
+// const conn = mongoose.createConnection("mongodb://127.0.0.1:27017/grandizer", {
+//     useNewUrlParser: true,
+//     useCreateIndex: true
+// });
 
-exports.mongoose = mongoose;
-// exports.conn = conn;
+// exports.mongoose = mongoose;
+// // exports.conn = conn;

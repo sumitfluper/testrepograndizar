@@ -1,6 +1,8 @@
 //professionalSchema 
-const {mongoose, conn} = require('../services/mongoose');
-const professionalSchema = mongoose.Schema({
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const professionalSchema = new Schema({
     service_type : {
         type : String,
         default : '0',

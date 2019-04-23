@@ -1,23 +1,19 @@
-var express = require('express');
-var app = express();
-var mongoose = require('mongoose');
-var morgan = require('morgan');
+const express = require('express');
+const app = express();
+const mongoose = require('mongoose');
+const morgan = require('morgan');
 const config = require('./services/config.json');
-var path = require('path');
-var bodyParser = require('body-parser');
-var glob = require('glob')
-var cors = require('cors')
+const path = require('path');
+const bodyParser = require('body-parser');
+const glob = require('glob')
+const cors = require('cors')
 const indexRoute = require('./routes/index.js');
 const attachModelsToRequest = require('./middleware/attachModelsToRequest.js')
 
-// app.use(morgan(':method :url'))
 app.use(morgan('combined'));
-
-
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json());
-
 
 app.use(express.static(path.join(__dirname, './Images')));
 app.use(cors())

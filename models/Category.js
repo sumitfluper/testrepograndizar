@@ -1,7 +1,8 @@
-const {mongoose, conn} = require('../services/mongoose');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 //CATEGORY SCHEMA
-const categorySchema = mongoose.Schema({
+const categorySchema = new Schema({
     cat_name : {
         type: String
     },

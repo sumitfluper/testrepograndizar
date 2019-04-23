@@ -2,7 +2,7 @@ var Joi = require('joi');
 const mongoose = require('mongoose');
 var async = require('async');
 var responses = require('../../modules/responses');
-const { locationModel } = require('../../models/savedlocationModel');
+const locationModel = require('../../models/Savedlocation');
 
 /**
  * Save Location of the user 
