@@ -10,7 +10,7 @@ const cors = require('cors')
 const indexRoute = require('./routes/index.js');
 const attachModelsToRequest = require('./middleware/attachModelsToRequest.js')
 
-app.use(morgan('combined'));
+app.use(morgan(':method :url'));
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json());
