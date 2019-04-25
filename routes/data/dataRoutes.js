@@ -6,18 +6,18 @@ const offersController = require('../../controllers/data/offerController');
 // routes to add location 
 
 router.route('/addlocation')
-    .post(dataController.addNewUserLocation);
+    .post(auth.requiresLogin,dataController.addNewUserLocation);
 
 
-router.route('/getsavelocation/:userid')
-    .get(dataController.getUserLocation);
+router.route('/getsavelocation')
+    .get(auth.requiresLogin,dataController.getUserLocation);
 
 
 router.route('/makeanoffer')
-    .post(offersController.makeAnOffer);
+    .post(auth.requiresLogin,offersController.makeAnOffer);
     
 
 router.route('/acceptoffer')
-    .post(offersController.acceptOffer);
+    .post(auth.requiresLogin,offersController.acceptOffer);
 
 exports.Router = router;

@@ -14,7 +14,6 @@ exports.addNewUserLocation = async (req, res) => {
         
         const schema = Joi.object().keys({
             locationAdd: Joi.string().required().error(e => 'Address is required to save location'),
-            userId: Joi.string().required().error(e => 'User id is required'),
             locationType: Joi.number().required().error(e => 'location type is not selected'),
             lat: Joi.string(),
             long: Joi.string(),
@@ -22,7 +21,7 @@ exports.addNewUserLocation = async (req, res) => {
 
         let newLocation = {
             locationAdd:req.body.locationAdd,
-            userId: mongoose.Types.ObjectId(req.body.userId),
+            userId:req.userId,
             locationType: req.body.locationType,
             location:{
                 "type": "Point",
@@ -49,7 +48,7 @@ exports.addNewUserLocation = async (req, res) => {
 exports.getUserLocation = async (req, res) => {
     try {
         let listLocation = await locationModel.find({
-            userId:mongoose.Types.ObjectId(req.param('userid'))
+            userId:mongoose.Types.ObjectId(req.userId)
         });
         if(listLocation){
             res.status(200).send({
