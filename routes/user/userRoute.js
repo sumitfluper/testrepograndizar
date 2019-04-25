@@ -5,20 +5,20 @@ const auth = require('../../modules/auth');
 const userController = require('../../controllers/user/userController');
 
 
-router.route('/users/userSignup')
+router.route('/userSignup')
     .post(userController.userSignup);
 
-router.route('/users/userSignin')
+router.route('/userSignin')
     .post(userController.userSignin);
 
-router.route('/users/create_profile')
+router.route('/create_profile')
     .post(auth.requiresLogin, userController.createProfile);
 // .post(auth.requiresLogin, upload.any(), controller.createProfile);
 
-router.route('/users/verifyOTP')
+router.route('/verifyOTP')
     .post(userController.varify_otp);
 
-router.route('/users/resend_otp')
+router.route('/resend_otp')
     .post(userController.resend_otp);
 
 exports.Router = router;

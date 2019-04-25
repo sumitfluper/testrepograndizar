@@ -10,7 +10,7 @@ router.use('/admin', adminRoute);
 
 router.use('/service', serviceRoute);
 
-router.use('/user', userRoute);
+router.use('/users', userRoute);
 
 router.use('/data',dataRoute)
 
