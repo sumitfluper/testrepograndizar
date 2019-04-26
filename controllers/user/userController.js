@@ -15,6 +15,7 @@ exports.userSignup = (req, res) => {
         device_type: Joi.string(),
         longitude: Joi.string(),
         latitude: Joi.string(),
+        userType: Joi.number(),
         country_code: Joi.string(),
     })
 
@@ -40,6 +41,7 @@ exports.userSignup = (req, res) => {
         device_type,
         latitude,
         longitude,
+        userType,
         country_code
     } = req.body;
     UserModel.findOne({
@@ -69,6 +71,7 @@ exports.userSignup = (req, res) => {
                     access_token,
                     longitude,
                     latitude,
+                    userType,
                     created_on,
                     modified_on,
                     verification_code,

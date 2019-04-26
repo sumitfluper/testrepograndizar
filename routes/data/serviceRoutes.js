@@ -7,13 +7,24 @@ const auth = require('../../modules/auth');
 // routes to add location 
 
 router.route('/getneworders')
-    .post(serviceController.getAllNewOrder);
+    .post(auth.requiresLogin, serviceController.getAllNewOrder);
+
 //get all order accepted by user type 2,3 
 router.route('/getallorderaccepted')
-    .post(serviceController.getAllOrderAccepted);
+    .post(auth.requiresLogin, serviceController.getAllOrderAccepted);
+
 // get all order created by user type 1
 router.route('/getallordercreatedbyme')
-    .post(serviceController.getAllOrderCreated);
+    .post(auth.requiresLogin, serviceController.getAllOrderCreated);
+
+    // get all order created by user type 1
+router.route('/getallacceptedorderbyme')
+    .post(auth.requiresLogin, serviceController.getAllAcceptedOrderByMe);
+
+    // get all order created by user type 1
+router.route('/getallcompletedorder')
+    .post(auth.requiresLogin, serviceController.getAllCompletedOrder);
+
 
 router.route("/service_require")
     .post(auth.requiresLogin, serviceController.serviceRequire);
@@ -24,15 +35,15 @@ router.route("/get_nearby_outlets")
 
 //active captains
 router.route("/active_captains")
-    .post(serviceController.activeCaptains);
+    .post(auth.requiresLogin, serviceController.activeCaptains);
 
 //getCategoryList
 router.route("/getCategoryList")
-    .get(serviceController.getCategoryList)
+    .get(auth.requiresLogin, serviceController.getCategoryList)
 
 //getSubCategoryList
 router.route("/getSubCategoryList")
-    .get(serviceController.getSubCategoryList)
+    .get(auth.requiresLogin, serviceController.getSubCategoryList)
 
 
 

@@ -107,12 +107,10 @@ exports.getAllOrderCreated = async (req, res) => {
 exports.getAllAcceptedOrderByMe = async (req, res) => {
 
     try {
-        console.log("reachedHere");
-        console.log(req.body);
 
         let acceptedOrders = await serviceModel.find({
             orderStatus: 2,
-            serviceCreatedBy: req.body.userId
+            serviceCreatedBy: req.userId
 
         }).populate('serviceGivenBy');
         if (acceptedOrders) {
@@ -131,12 +129,10 @@ exports.getAllAcceptedOrderByMe = async (req, res) => {
 exports.getAllCompletedOrder = async (req, res) => {
 
     try {
-        console.log("reachedHere");
-        console.log(req.body);
 
         let acceptedOrders = await serviceModel.find({
             orderStatus: 4,
-            serviceGivenBy: req.body.userId
+            serviceGivenBy: req.userId
 
         }).populate('serviceCreatedBy');
         if (acceptedOrders) {
