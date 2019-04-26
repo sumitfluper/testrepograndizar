@@ -6,23 +6,23 @@ const auth = require('../../modules/auth');
 
 // routes to add location 
 
-router.route('/getneworders')
+router.route('/delgetneworders')
     .post(auth.requiresLogin, serviceController.getAllNewOrder);
 
 //get all order accepted by user type 2,3 
-router.route('/getallorderaccepted')
+router.route('/delgetpendingorder')
     .post(auth.requiresLogin, serviceController.getAllOrderAccepted);
 
 // get all order created by user type 1
-router.route('/getallordercreatedbyme')
+router.route('/userpendingorder')
     .post(auth.requiresLogin, serviceController.getAllOrderCreated);
 
     // get all order created by user type 1
-router.route('/getallacceptedorderbyme')
+router.route('/delacceptedorders')
     .post(auth.requiresLogin, serviceController.getAllAcceptedOrderByMe);
 
     // get all order created by user type 1
-router.route('/getallcompletedorder')
+router.route('/delcompletedorder')
     .post(auth.requiresLogin, serviceController.getAllCompletedOrder);
 
 
