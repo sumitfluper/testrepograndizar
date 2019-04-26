@@ -45,11 +45,9 @@ exports.deliveryNewOrder = async (req, res) => {
     }
 }
 
-
 exports.deliveryAcceptedOrders = async (req, res) => {
 
     try {
-
         let acceptedOrders = await serviceModel.find({
             orderStatus: 2,
             serviceCreatedBy: req.userId
@@ -61,7 +59,83 @@ exports.deliveryAcceptedOrders = async (req, res) => {
                 response: acceptedOrders
             })
         }
+    } catch (error) {
+        responses.sendError(error.message, res)
+    }
+}
 
+
+exports.deliveryCompletedOrder = async (req, res) => {
+
+    try {
+
+        let acceptedOrders = await serviceModel.find({
+            orderStatus: 4,
+            serviceGivenBy: req.userId
+
+        }).populate('serviceCreatedBy');
+        if (acceptedOrders) {
+            res.status(200).send({
+                message: 'Get All list Of the eaccepted orders ',
+                response: acceptedOrders
+            })
+        }
+
+    } catch (error) {
+        responses.sendError(error.message, res)
+    }
+}
+
+exports.professionalNewOrder = async (req, res) => {
+
+    try {
+        console.log("reachedHere");
+        console.log(req.body);
+
+        var where = {
+            pickup_location: {
+                $near: {
+                    $geometry: {
+                        type: "Point",
+                        coordinates: [
+                            req.body.long,
+                            req.body.lat
+                        ]
+                    },
+                    $maxDistance: 5000,
+                    $minDistance: 0,
+                }
+            },
+            orderStatus: 1
+        }
+
+        let newOrders = await serviceModel.find(where);
+        if (newOrders) {
+            res.status(200).send({
+                message: 'List Of Near by orders',
+                response: newOrders
+            })
+        }
+
+    } catch (error) {
+        responses.sendError(error.message, res)
+    }
+}
+
+exports.deliveryAcceptedOrders = async (req, res) => {
+
+    try {
+        let acceptedOrders = await serviceModel.find({
+            orderStatus: 2,
+            serviceCreatedBy: req.userId
+
+        }).populate('serviceGivenBy');
+        if (acceptedOrders) {
+            res.status(200).send({
+                message: 'Get All list Of the eaccepted orders ',
+                response: acceptedOrders
+            })
+        }
     } catch (error) {
         responses.sendError(error.message, res)
     }
@@ -90,14 +164,6 @@ exports.deliveryCompletedOrder = async (req, res) => {
 }
 
 
-
-
-/**
- * get all orders of user 
- */
-
-
-
 exports.getUserAcceptedOrder = async (req, res) => {
 
     try {
@@ -120,12 +186,6 @@ exports.getUserAcceptedOrder = async (req, res) => {
         responses.sendError(error.message, res)
     }
 }
-
-/**
- * get all accepted order 
- */
-
-
 
 exports.getUserPendingOrders = async (req, res) => {
 
@@ -150,12 +210,6 @@ exports.getUserPendingOrders = async (req, res) => {
     }
 }
 
-/**
- * get all completed order 
- */
-
-
-
 exports.getUserCompletedOrder = async (req, res) => {
 
     try {
@@ -179,13 +233,11 @@ exports.getUserCompletedOrder = async (req, res) => {
     }
 }
 
-/**
- * get all accepted order 
- */
 
 
 
 
+// others 
 exports.serviceRequire = async (req, res) => {
     try {
         const schema = Joi.object().keys({

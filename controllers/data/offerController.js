@@ -9,7 +9,7 @@ exports.makeAnOffer = async (req, res) => {
         let data = {
             serviceId:req.body.srerviceId,
             serviceCreatedBy: req.body.srerviceCreatedBy,
-            serviceGivenBy: req.body.offerMadeBy,
+            serviceGivenBy: req.userId,
             deliveryCharge:req.body.deliveryCharge,
             deliveryMessage:req.body.deliveryMessage,
             deliveryTime:req.body.deliveryTime,
@@ -47,7 +47,7 @@ exports.acceptOffer = async (req, res) => {
         
         let data = {
             serviceId:req.body.rerviceId,
-            serviceGivenBy: req.body.offerMadeBy,
+            serviceGivenBy: req.userId,
         };
         let offer = await offerModel.findOneAndUpdate(data, {
             $set: {
