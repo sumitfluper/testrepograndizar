@@ -18,6 +18,8 @@ exports.addNewUserLocation = async (req, res) => {
             lat: Joi.string(),
             long: Joi.string(),
         })
+        console.log("req.userId",req.userId);
+        
 
         let newLocation = {
             locationAdd:req.body.locationAdd,
