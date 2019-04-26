@@ -34,8 +34,8 @@ exports.getAllNewOrder = async (req, res) => {
         let newOrders = await serviceModel.find(where);
         if (newOrders) {
             res.status(200).send({
-                msg: 'List Of Near by orders',
-                data: newOrders
+                message: 'List Of Near by orders',
+                response: newOrders
             })
         }
 
@@ -61,8 +61,8 @@ exports.getAllOrderAccepted = async (req, res) => {
         }).populate('serviceCreatedBy');
         if (acceptedOrders) {
             res.status(200).send({
-                msg: 'Get All list Of the eaccepted orders ',
-                data: acceptedOrders
+                message: 'Get All list Of the eaccepted orders ',
+                response: acceptedOrders
             })
         }
 
@@ -90,8 +90,8 @@ exports.getAllOrderCreated = async (req, res) => {
         }).populate('serviceGivenBy');
         if (acceptedOrders) {
             res.status(200).send({
-                msg: 'Get All list Of the eaccepted orders ',
-                data: acceptedOrders
+                message: 'Get All list Of the eaccepted orders ',
+                response: acceptedOrders
             })
         }
 
@@ -115,8 +115,8 @@ exports.getAllAcceptedOrderByMe = async (req, res) => {
         }).populate('serviceGivenBy');
         if (acceptedOrders) {
             res.status(200).send({
-                msg: 'Get All list Of the eaccepted orders ',
-                data: acceptedOrders
+                message: 'Get All list Of the eaccepted orders ',
+                response: acceptedOrders
             })
         }
 
@@ -137,8 +137,8 @@ exports.getAllCompletedOrder = async (req, res) => {
         }).populate('serviceCreatedBy');
         if (acceptedOrders) {
             res.status(200).send({
-                msg: 'Get All list Of the eaccepted orders ',
-                data: acceptedOrders
+                message: 'Get All list Of the eaccepted orders ',
+                response: acceptedOrders
             })
         }
 
@@ -476,7 +476,7 @@ exports.getNewServices = async (req, res) => {
         })
         if (!newServices) {
             res.status(200).send({
-                msg: "No New Services Available"
+                message: "No New Services Available"
             })
         }
     } catch (error) {

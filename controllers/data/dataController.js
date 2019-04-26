@@ -37,8 +37,8 @@ exports.addNewUserLocation = async (req, res) => {
 
         if(addedLocation){
             res.status(200).send({
-                msg:"location saved Successfully",
-                data:addedLocation
+                message:"location saved Successfully",
+                response:addedLocation
             })
         }
     } catch (error) {
@@ -54,8 +54,8 @@ exports.getUserLocation = async (req, res) => {
         });
         if(listLocation){
             res.status(200).send({
-                msg:"List Of All Saved Location",
-                data:listLocation
+                message:"List Of All Saved Location",
+                response:listLocation
             })
         }
     } catch (error) {

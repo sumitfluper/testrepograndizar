@@ -28,15 +28,15 @@ exports.makeAnOffer = async (req, res) => {
         offerMade = await offerModel.create(data);
         if (offerMade) {
             return res.status(200).send({
-                msg:"offer made successfully",
-                data: offerMade
+                message:"offer made successfully",
+                response: offerMade
             })
         } 
     } catch (error) {
 
         console.log(`\****************\ \n ${error} \n \**************** `);
         return res.status(200).send({
-            msg: "Ooops ! Something went wrong please check with backend"
+            message: "Ooops ! Something went wrong please check with backend"
         })        
     }
 }
@@ -74,14 +74,14 @@ exports.acceptOffer = async (req, res) => {
 
             if(rejectOtherOffer){
                 res.status(200).send({
-                    msg: "Offer accepted Successfully",
-                    data: offer,
+                    message: "Offer accepted Successfully",
+                    response: offer,
                 })
             }
 
         } else {
             res.status(200).send({
-                msg: "There is some error in accepting. Please contact support"
+                message: "There is some error in accepting. Please contact support"
             });
         }
 
@@ -89,7 +89,7 @@ exports.acceptOffer = async (req, res) => {
 
         console.log(`\****************\ \n ${error} \n \**************** `);
         res.status(200).send({
-            msg: "Ooops ! Something went wrong please check with backend"
+            message: "Ooops ! Something went wrong please check with backend"
         })        
     }
 }
