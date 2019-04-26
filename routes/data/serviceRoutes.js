@@ -3,27 +3,39 @@ const router = express.Router();
 const serviceController = require('../../controllers/data/serviceController');
 const auth = require('../../modules/auth');
 
+// delivery boy api
 
 // routes to add location 
+router.route('/deliveryneworder')
+    .post(auth.requiresLogin, serviceController.deliveryNewOrder);
 
-router.route('/delgetneworders')
-    .post(auth.requiresLogin, serviceController.getAllNewOrder);
-
-//get all order accepted by user type 2,3 
-router.route('/delgetpendingorder')
-    .post(auth.requiresLogin, serviceController.getAllOrderAccepted);
+// routes to add location 
+router.route('/deliverypendingorders')
+    .post(auth.requiresLogin, serviceController.deliveryNewOrder);
 
 // get all order created by user type 1
-router.route('/userpendingorder')
-    .post(auth.requiresLogin, serviceController.getAllOrderCreated);
+router.route('/deliveryacceptedorders')
+    .post(auth.requiresLogin, serviceController.deliveryAcceptedOrders);
 
-    // get all order created by user type 1
-router.route('/delacceptedorders')
-    .post(auth.requiresLogin, serviceController.getAllAcceptedOrderByMe);
+// get all order created by user type 1
+router.route('/deliverycompletedorder')
+    .post(auth.requiresLogin, serviceController.deliveryCompletedOrder);
 
-    // get all order created by user type 1
-router.route('/delcompletedorder')
-    .post(auth.requiresLogin, serviceController.getAllCompletedOrder);
+
+// users api     
+
+// get all order created by user type 1
+router.route('/userpendingorders')
+    .post(auth.requiresLogin, serviceController.getUserPendingOrders);
+
+// get all order created by user type 1
+router.route('/getuseracceptedorder')
+    .post(auth.requiresLogin, serviceController.getUserAcceptedOrder);
+
+// get all order created by user type 1
+router.route('/getusercompletedorder')
+    .post(auth.requiresLogin, serviceController.getUserCompletedOrder);
+
 
 
 router.route("/service_require")

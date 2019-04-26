@@ -9,7 +9,7 @@ const serviceModel = require('../../models/Service');
 /*
     get New orders 
 */
-exports.getAllNewOrder = async (req, res) => {
+exports.deliveryNewOrder = async (req, res) => {
 
     try {
         console.log("reachedHere");
@@ -45,11 +45,60 @@ exports.getAllNewOrder = async (req, res) => {
     }
 }
 
+
+exports.deliveryAcceptedOrders = async (req, res) => {
+
+    try {
+
+        let acceptedOrders = await serviceModel.find({
+            orderStatus: 2,
+            serviceCreatedBy: req.userId
+
+        }).populate('serviceGivenBy');
+        if (acceptedOrders) {
+            res.status(200).send({
+                message: 'Get All list Of the eaccepted orders ',
+                response: acceptedOrders
+            })
+        }
+
+    } catch (error) {
+        responses.sendError(error.message, res)
+    }
+}
+
+
+exports.deliveryCompletedOrder = async (req, res) => {
+
+    try {
+
+        let acceptedOrders = await serviceModel.find({
+            orderStatus: 4,
+            serviceGivenBy: req.userId
+
+        }).populate('serviceCreatedBy');
+        if (acceptedOrders) {
+            res.status(200).send({
+                message: 'Get All list Of the eaccepted orders ',
+                response: acceptedOrders
+            })
+        }
+
+    } catch (error) {
+        responses.sendError(error.message, res)
+    }
+}
+
+
+
+
 /**
  * get all orders of user 
  */
 
-exports.getAllOrderAccepted = async (req, res) => {
+
+
+exports.getUserAcceptedOrder = async (req, res) => {
 
     try {
         console.log("reachedHere");
@@ -78,7 +127,36 @@ exports.getAllOrderAccepted = async (req, res) => {
 
 
 
-exports.getAllOrderCreated = async (req, res) => {
+exports.getUserPendingOrders = async (req, res) => {
+
+    try {
+        console.log("reachedHere");
+        console.log(req.body);
+
+        let acceptedOrders = await serviceModel.find({
+            orderStatus: 1,
+            serviceCreatedBy: req.body.userId
+
+        }).populate('serviceGivenBy');
+        if (acceptedOrders) {
+            res.status(200).send({
+                message: 'Get All list Of the eaccepted orders ',
+                response: acceptedOrders
+            })
+        }
+
+    } catch (error) {
+        responses.sendError(error.message, res)
+    }
+}
+
+/**
+ * get all completed order 
+ */
+
+
+
+exports.getUserCompletedOrder = async (req, res) => {
 
     try {
         console.log("reachedHere");
@@ -105,48 +183,7 @@ exports.getAllOrderCreated = async (req, res) => {
  * get all accepted order 
  */
 
-exports.getAllAcceptedOrderByMe = async (req, res) => {
 
-    try {
-
-        let acceptedOrders = await serviceModel.find({
-            orderStatus: 2,
-            serviceCreatedBy: req.userId
-
-        }).populate('serviceGivenBy');
-        if (acceptedOrders) {
-            res.status(200).send({
-                message: 'Get All list Of the eaccepted orders ',
-                response: acceptedOrders
-            })
-        }
-
-    } catch (error) {
-        responses.sendError(error.message, res)
-    }
-}
-
-
-exports.getAllCompletedOrder = async (req, res) => {
-
-    try {
-
-        let acceptedOrders = await serviceModel.find({
-            orderStatus: 4,
-            serviceGivenBy: req.userId
-
-        }).populate('serviceCreatedBy');
-        if (acceptedOrders) {
-            res.status(200).send({
-                message: 'Get All list Of the eaccepted orders ',
-                response: acceptedOrders
-            })
-        }
-
-    } catch (error) {
-        responses.sendError(error.message, res)
-    }
-}
 
 
 exports.serviceRequire = async (req, res) => {
