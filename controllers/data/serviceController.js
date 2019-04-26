@@ -20,16 +20,13 @@ exports.deliveryNewOrder = async (req, res) => {
                 $near: {
                     $geometry: {
                         type: "Point",
-                        coordinates: [
-                            req.body.long,
-                            req.body.lat
-                        ]
+                        coordinates: [req.body.long,req.body.lat]
                     },
                     $maxDistance: 5000,
                     $minDistance: 0,
                 }
             },
-            orderStatus: 1
+            "orderStatus": "1"
         }
 
         let newOrders = await serviceModel.find(where);
