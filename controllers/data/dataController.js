@@ -52,12 +52,22 @@ exports.getUserLocation = async (req, res) => {
         let listLocation = await locationModel.find({
             userId:mongoose.Types.ObjectId(req.userId)
         });
+        await listLocation.forEach(element => {
+            if(element.locationType == 1){
+                element.locationType = "Home";
+            } else {
+                element.locationType = "office";
+            } 
+        });
         if(listLocation){
             res.status(200).send({
                 message:"List Of All Saved Location",
                 response:listLocation
             })
+
         }
+
+       
     } catch (error) {
         responses.sendError(error.message, res)
     }

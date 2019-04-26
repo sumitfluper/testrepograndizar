@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const async = require('async');
+const joi = require('joi');
 const responses = require('../../modules/responses');
 const serviceModel = require('../../models/Service');
 
