@@ -26,7 +26,8 @@ exports.deliveryNewOrder = async (req, res) => {
                     $minDistance: 0,
                 }
             },
-            "orderStatus": "1"
+            
+            orderStatus: "1"
         }
 
         let newOrders = await serviceModel.find(where);
