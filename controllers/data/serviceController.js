@@ -26,11 +26,11 @@ exports.deliveryNewOrder = async (req, res) => {
                     $minDistance: 0,
                 }
             },
-            
+
             orderStatus: "1"
         }
 
-        let newOrders = await serviceModel.find(where);
+        let newOrders = await serviceModel.find();
         if (newOrders) {
             res.status(200).send({
                 message: 'List Of Near by orders',
