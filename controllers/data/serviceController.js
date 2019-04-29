@@ -285,7 +285,6 @@ exports.serviceRequire = async (req, res) => {
                 comments,
                 start_time,
                 end_time,
-                orderDetails
             } = req.body
             let pickup_location = {
                 type: 'Point',
@@ -308,7 +307,6 @@ exports.serviceRequire = async (req, res) => {
                 drop_location,
                 start_time,
                 end_time,
-                orderDetails,
                 serviceCreatedBy
             }
             let user = new serviceModel(updateData)
@@ -333,7 +331,6 @@ exports.serviceRequire = async (req, res) => {
                 comments,
                 start_time,
                 end_time,
-                orderDetails
             } = req.body
             let pickup_location = {
                 type: 'Point',
@@ -349,7 +346,6 @@ exports.serviceRequire = async (req, res) => {
                 comments,
                 start_time,
                 end_time,
-                orderDetails,
                 serviceCreatedBy
             }
             console.log(updateData)
