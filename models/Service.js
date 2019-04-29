@@ -6,6 +6,14 @@ const ServiceSchema = new Schema({
         type : String,
         default : '0',
     },
+    orderId: {
+        type: String,
+        default:"N/A"
+    },
+    orderDetails:{
+        type:String,
+        default:"N/A"
+    },
     pickup_address : {
         type : String,
     },
@@ -71,6 +79,7 @@ const ServiceSchema = new Schema({
        type:Number,
        default:1 
     },
+
     serviceCreatedBy: {type:mongoose.Schema.Types.ObjectId,ref:"User"},
     serviceGivenBy: {type:mongoose.Schema.Types.ObjectId,ref:"User"},
     createdAt:{ type : Date, default: Date.now }

@@ -116,7 +116,7 @@ exports.professionalNewOrder = async (req, res) => {
     }
 }
 
-exports.deliveryAcceptedOrders = async (req, res) => {
+exports.professionalAcceptedOrders = async (req, res) => {
 
     try {
         let acceptedOrders = await serviceModel.find({
@@ -136,7 +136,7 @@ exports.deliveryAcceptedOrders = async (req, res) => {
 }
 
 
-exports.deliveryCompletedOrder = async (req, res) => {
+exports.professionalCompletedOrder = async (req, res) => {
 
     try {
 
@@ -245,7 +245,9 @@ exports.serviceRequire = async (req, res) => {
             start_time: Joi.string().required(),
             end_time: Joi.string().required(),
             comments: Joi.string().required(),
-            service_name: Joi.string().optional(),
+            service_name: Joi.string().optional(), 
+            orderDetails: Joi.string().required()    
+            
         })
 
         const result = Joi.validate(req.body, schema, {
@@ -269,6 +271,7 @@ exports.serviceRequire = async (req, res) => {
         //let access_token = req.user.access_token;
 
         let data = req.body;
+        let serviceCreatedBy = req.userId;
         console.log(data.service_type)
         if (data.service_type === '1') {
             var {
@@ -281,7 +284,8 @@ exports.serviceRequire = async (req, res) => {
                 drop_latitude,
                 comments,
                 start_time,
-                end_time
+                end_time,
+                orderDetails
             } = req.body
             let pickup_location = {
                 type: 'Point',
@@ -303,7 +307,9 @@ exports.serviceRequire = async (req, res) => {
                 pickup_location,
                 drop_location,
                 start_time,
-                end_time
+                end_time,
+                orderDetails,
+                serviceCreatedBy
             }
             let user = new serviceModel(updateData)
             let userData = await user.save()
@@ -326,7 +332,8 @@ exports.serviceRequire = async (req, res) => {
                 pickup_latitude,
                 comments,
                 start_time,
-                end_time
+                end_time,
+                orderDetails
             } = req.body
             let pickup_location = {
                 type: 'Point',
@@ -341,7 +348,9 @@ exports.serviceRequire = async (req, res) => {
                 pickup_location,
                 comments,
                 start_time,
-                end_time
+                end_time,
+                orderDetails,
+                serviceCreatedBy
             }
             console.log(updateData)
             let user = new professionalModel(updateData)
