@@ -13,30 +13,26 @@ exports.deliveryNewOrder = async (req, res) => {
 
     try {
       var where = {
-            pickup_location: {
-                $near: {
-                    $geometry: {
-                        type: "Point",
-                        coordinates: [Number(req.body.long),Number(req.body.lat)]
-                    },
-                    $maxDistance: 5000,
-                    $minDistance: 0,
-                }
-            },
-            
-            orderStatus: "1"
-        }
-
-        console.log("reachedHere");
-        console.log(where);
-
-        let newOrders = await serviceModel.find(where);
-        if (newOrders) {
-            res.status(200).send({
-                message: 'List Of Near by orders',
-                response: newOrders
-            })
-        }
+          pickup_location: {
+              $near: {
+                  $geometry: {
+                      type: "Point",
+                      coordinates: [Number(req.body.long), Number(req.body.lat)]
+                  },
+                  $maxDistance: 5000,
+                  $minDistance: 0,
+              }
+          },
+          orderStatus: 1
+      }
+     
+      let newOrders = await serviceModel.find(where).select('-pickup_location -drop_location');
+      if (newOrders) {
+          res.status(200).send({
+              message: 'List Of Near by orders',
+              response: newOrders
+          })
+      }
 
     } catch (error) {
         responses.sendError(error.message, res)
