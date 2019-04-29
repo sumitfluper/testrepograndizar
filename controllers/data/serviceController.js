@@ -20,7 +20,7 @@ exports.deliveryNewOrder = async (req, res) => {
                 $near: {
                     $geometry: {
                         type: "Point",
-                        coordinates: [req.body.long,req.body.lat]
+                        coordinates: [Number(req.body.long),Number(req.body.lat)]
                     },
                     $maxDistance: 5000,
                     $minDistance: 0,
