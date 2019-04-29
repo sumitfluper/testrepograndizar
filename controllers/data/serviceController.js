@@ -15,7 +15,7 @@ exports.deliveryNewOrder = async (req, res) => {
         console.log("reachedHere");
         console.log(req.body);
 
-        var where = {
+        let newOrders = await serviceModel.find({
             pickup_location: {
                 $near: {
                     $geometry: {
@@ -26,11 +26,8 @@ exports.deliveryNewOrder = async (req, res) => {
                     $minDistance: 0,
                 }
             },
-
             orderStatus: "1"
-        }
-
-        let newOrders = await serviceModel.find();
+        });
         if (newOrders) {
             res.status(200).send({
                 message: 'List Of Near by orders',
