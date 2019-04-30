@@ -54,17 +54,16 @@ exports.getUserLocation = async (req, res) => {
             userId:mongoose.Types.ObjectId(req.userId)
         });
         await listLocation.forEach(element => {
-            console.log("in foreach",element);
-            
-            element.lat = element.location.coordinates[1]
-            element.long = element.location.coordinates[0]
-            if(element.locationType == 1){
-                element.locationType = "Home";
-            } else {
-                element.locationType = "office";
-            }
-            
-            newLocationData.push(element);
+            newLocationData.push({
+                location: element.location,
+                locationType:element.locationType,
+                _id: element._id,
+                locationAdd: element.locationAdd,
+                userId: element.userId,
+                createdAt: element.createdAt,
+                lat: element.location.coordinates[1],
+                long: element.location.coordinates[0]
+            });
             
         });
         console.log("newLocationData",newLocationData);
