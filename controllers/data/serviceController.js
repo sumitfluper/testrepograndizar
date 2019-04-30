@@ -6,6 +6,7 @@ const responses = require('../../modules/responses');
 const serviceModel = require('../../models/Service');
 const categoryModel = require('../../models/Category');
 const subCategoryModel = require('../../models/subcategories');
+const professionalModel = require('../../models/Professional');
 var googleApiHelper = require('../../helpers/googleApiHelper');
 
 /*
@@ -353,7 +354,7 @@ exports.serviceRequire = async (req, res) => {
             } = req.body
             let pickup_location = {
                 type: 'Point',
-                coordinates: [pickup_longitude, pickup_latitude]
+                coordinates: [Number(pickup_longitude), Number(pickup_latitude)]
             }
             let updateData = {
                 service_type,
@@ -368,7 +369,7 @@ exports.serviceRequire = async (req, res) => {
                 serviceCreatedBy
             }
             console.log(updateData)
-            let user = new serviceModel(updateData)
+            let user = new professionalModel(updateData)
             let userData = await user.save()
             if (userData) {
                 res.status(200).json({

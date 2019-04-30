@@ -46,7 +46,7 @@ exports.acceptOffer = async (req, res) => {
     try {
         
         let data = {
-            serviceId:req.body.rerviceId,
+            serviceId:req.body.serviceId,
             serviceGivenBy: req.userId,
         };
         let offer = await offerModel.findOneAndUpdate(data, {
@@ -59,7 +59,7 @@ exports.acceptOffer = async (req, res) => {
         if(offer){
             let rejectOtherOffer = await offerModel.updateMany({
                 serviceId: {
-                    $ne: req.body.rerviceId
+                    $ne: req.body.serviceId
                 },
                 serviceGivenBy: {
                     $ne: req.body.offerMadeBy

@@ -11,17 +11,18 @@ const professionalSchema = new Schema({
         type : String,
     },
     pickup_latitude : {
-        type: String,
+        type: Number,
     },
     pickup_longitude : {
-        type : String, 
+        type : Number, 
     },
     pickup_location : {
         type: {
             type: String,
             default: 'Point'
         },
-        coordinates: [Number] 
+        coordinates: [Number],
+        default:[0.00,0.00]
     },
     start_time : {
         type : String,
@@ -37,7 +38,6 @@ const professionalSchema = new Schema({
     }
 },{
     
-    strict : true,
     collection : 'Professional',
     versionKey : false
 });

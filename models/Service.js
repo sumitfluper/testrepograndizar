@@ -18,10 +18,10 @@ const ServiceSchema = new Schema({
         type : String,
     },
     pickup_latitude : {
-        type: String,
+        type: Number,
     },
     pickup_longitude : {
-        type : String, 
+        type : Number, 
     },
     pickup_location : {
         type: {
