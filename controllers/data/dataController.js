@@ -56,8 +56,8 @@ exports.getUserLocation = async (req, res) => {
         await listLocation.forEach(element => {
             console.log("in foreach",element);
             
-            element.lat = location.coordinates[1]
-            element.long = location.coordinates[0]
+            element.lat = element.location.coordinates[1]
+            element.long = element.location.coordinates[0]
             if(element.locationType == 1){
                 element.locationType = "Home";
             } else {
