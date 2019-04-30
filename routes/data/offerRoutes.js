@@ -7,6 +7,9 @@ const auth = require('../../modules/auth');
 router.route('/makeoffer')
     .post(auth.requiresLogin,offerController.makeAnOffer);
 
+router.route('/getofferlist')
+    .get(auth.requiresLogin, offerController.getOfferList);
+
    
 
 router.route('/acceptoffer')

@@ -29,7 +29,10 @@ exports.deliveryNewOrder = async (req, res) => {
           orderStatus: 1
       }
      
-      let newOrders = await serviceModel.find(where).select('-pickup_location -drop_location');
+      let newOrders = await serviceModel.find(where)
+                                        .populate('serviceCreatedBy')
+                                        .select('-pickup_location -drop_location')
+                                        
       if (newOrders) {
           res.status(200).send({
               message: 'List Of Near by orders',
@@ -47,9 +50,11 @@ exports.deliveryAcceptedOrders = async (req, res) => {
     try {
         let acceptedOrders = await serviceModel.find({
             orderStatus: 2,
-            serviceCreatedBy: req.userId
+            serviceGivenBy: req.userId
 
-        }).populate('serviceGivenBy');
+        })
+        .populate('serviceCreatedBy')
+        .select('-pickup_location -drop_location')
         if (acceptedOrders) {
             res.status(200).send({
                 message: 'Get All list Of the eaccepted orders ',
@@ -70,7 +75,9 @@ exports.deliveryCompletedOrder = async (req, res) => {
             orderStatus: 4,
             serviceGivenBy: req.userId
 
-        }).populate('serviceCreatedBy');
+        })
+        .populate('serviceCreatedBy')
+        .select('-pickup_location -drop_location')
         if (acceptedOrders) {
             res.status(200).send({
                 message: 'Get All list Of the eaccepted orders ',
@@ -106,7 +113,9 @@ exports.professionalNewOrder = async (req, res) => {
             orderStatus: 1
         }
 
-        let newOrders = await serviceModel.find(where);
+        let newOrders = await professionalModel.find(where)
+                                                .populate('serviceCreatedBy')
+                                                .select('-pickup_location -drop_location');
         if (newOrders) {
             res.status(200).send({
                 message: 'List Of Near by orders',
@@ -122,11 +131,13 @@ exports.professionalNewOrder = async (req, res) => {
 exports.professionalAcceptedOrders = async (req, res) => {
 
     try {
-        let acceptedOrders = await serviceModel.find({
+        let acceptedOrders = await professionalModel.find({
             orderStatus: 2,
-            serviceCreatedBy: req.userId
+            serviceGivenBy: req.userId
 
-        }).populate('serviceGivenBy');
+        })
+        .populate('serviceCreatedBy')
+        .select('-pickup_location -drop_location');
         if (acceptedOrders) {
             res.status(200).send({
                 message: 'Get All list Of the eaccepted orders ',
@@ -143,14 +154,16 @@ exports.professionalCompletedOrder = async (req, res) => {
 
     try {
 
-        let acceptedOrders = await serviceModel.find({
+        let acceptedOrders = await professionalModel.find({
             orderStatus: 4,
             serviceGivenBy: req.userId
 
-        }).populate('serviceCreatedBy');
+        })
+        .populate('serviceCreatedBy')
+        .select('-pickup_location -drop_location');
         if (acceptedOrders) {
             res.status(200).send({
-                message: 'Get All list Of the eaccepted orders ',
+                message: 'Get All list Of the completed orders ',
                 response: acceptedOrders
             })
         }
@@ -168,10 +181,12 @@ exports.getUserAcceptedOrder = async (req, res) => {
         console.log(req.body);
 
         let acceptedOrders = await serviceModel.find({
-            orderStatus: 1,
-            serviceGivenBy: req.body.userId
+            orderStatus: 2,
+            serviceCreatedBy: req.userId
 
-        }).populate('serviceGivenBy');
+        })
+        .populate('serviceGivenBy')
+        .select('-pickup_location -drop_location')
         if (acceptedOrders) {
             res.status(200).send({
                 message: 'Get All list Of the eaccepted orders ',
@@ -194,26 +209,8 @@ exports.getUserPendingOrders = async (req, res) => {
             orderStatus: 1,
             serviceCreatedBy: req.userId
 
-        })
-        // let pickupOption = {
-        //     index: 1,
-        //     origin: '37.772886,-122.423771',
-        //     destination: '37.871601,-122.269104'
-        // }
-
-        // let dropLocation = {
-        //     index: 1,
-        //     origin: '37.772886,-122.423771',
-        //     destination: '37.871601,-122.269104'
-        // }
-        
-        // let pickupDistance = await googleApiHelper.getDistance(option1);
-        
-        // let dropDistance = await googleApiHelper.getDistance(option1);
-        
-        //     console.log("pickupDistance",pickupDistance);
-            
-            
+        }).select('-pickup_location -drop_location')
+       
         if (acceptedOrders) {
             res.status(200).send({
                 message: 'Get All list Of the eaccepted orders ',
@@ -233,10 +230,12 @@ exports.getUserCompletedOrder = async (req, res) => {
         console.log(req.body);
 
         let acceptedOrders = await serviceModel.find({
-            orderStatus: 1,
-            serviceCreatedBy: req.body.userId
+            orderStatus: 4,
+            serviceCreatedBy: req.userId
 
-        }).populate('serviceGivenBy');
+        })
+        .populate('serviceGivenBy')
+        .select('-pickup_location -drop_location')
         if (acceptedOrders) {
             res.status(200).send({
                 message: 'Get All list Of the eaccepted orders ',

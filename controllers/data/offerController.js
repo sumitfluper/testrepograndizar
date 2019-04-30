@@ -8,7 +8,7 @@ exports.makeAnOffer = async (req, res) => {
     try {
         let data = {
             serviceId:req.body.srerviceId,
-            serviceCreatedBy: req.body.srerviceCreatedBy,
+            serviceCreatedBy: req.body.serviceCreatedBy,
             serviceGivenBy: req.userId,
             deliveryCharge:req.body.deliveryCharge,
             deliveryMessage:req.body.deliveryMessage,
@@ -38,6 +38,29 @@ exports.makeAnOffer = async (req, res) => {
         return res.status(200).send({
             message: "Ooops ! Something went wrong please check with backend"
         })        
+    }
+}
+
+exports.getOfferList = async (req, res) => {
+    try {
+
+        offerList = await offerModel.find({
+            serviceGivenBy: req.userId,
+            offerStatus: 1
+        });
+
+        if (offerMade) {
+            return res.status(200).send({
+                message: "offer List",
+                response: offerList
+            })
+        }
+    } catch (error) {
+
+        console.log(`\****************\ \n ${error} \n \**************** `);
+        return res.status(200).send({
+            message: "Ooops ! Something went wrong please check with backend"
+        })
     }
 }
 

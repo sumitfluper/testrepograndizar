@@ -35,7 +35,26 @@ const professionalSchema = new Schema({
     },
     service_name : {
         type : String,
-    }
+    },
+     /**
+      * type 1 if order is not accepted 
+      * type 2 if order is accepted 
+      * type 3 if order is rejected 
+      * type 4 id order is completed
+      */
+     orderStatus: {
+             type: Number,
+             default: 1
+         },
+
+         serviceCreatedBy: {
+             type: mongoose.Schema.Types.ObjectId,
+             ref: "User"
+         },
+         serviceGivenBy: {
+             type: mongoose.Schema.Types.ObjectId,
+             ref: "User"
+         },
 },{
     
     collection : 'Professional',
