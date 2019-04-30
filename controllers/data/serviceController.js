@@ -4,6 +4,8 @@ const Joi = require('joi');
 const config = require('../../services/config');
 const responses = require('../../modules/responses');
 const serviceModel = require('../../models/Service');
+const categoryModel = require('../../models/Category');
+const subCategoryModel = require('../../models/subcategories');
 var googleApiHelper = require('../../helpers/googleApiHelper');
 
 /*
