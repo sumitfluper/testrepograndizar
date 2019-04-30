@@ -10,7 +10,6 @@ const categorySchema = new Schema({
         type: String,
     },
 },{
-    strict : true,
     collection: 'Category',
     versionKey: false
 });
