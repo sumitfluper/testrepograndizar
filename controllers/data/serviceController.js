@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const async = require('async');
 const Joi = require('joi');
+const config = require('../../services/config');
 const responses = require('../../modules/responses');
 const serviceModel = require('../../models/Service');
-
-
+var googleApiHelper = require('../../helpers/googleApiHelper');
 
 /*
     get New orders 
@@ -189,9 +189,28 @@ exports.getUserPendingOrders = async (req, res) => {
 
         let acceptedOrders = await serviceModel.find({
             orderStatus: 1,
-            serviceCreatedBy: req.body.userId
+            serviceCreatedBy: req.userId
 
-        }).populate('serviceGivenBy');
+        })
+        // let pickupOption = {
+        //     index: 1,
+        //     origin: '37.772886,-122.423771',
+        //     destination: '37.871601,-122.269104'
+        // }
+
+        // let dropLocation = {
+        //     index: 1,
+        //     origin: '37.772886,-122.423771',
+        //     destination: '37.871601,-122.269104'
+        // }
+        
+        // let pickupDistance = await googleApiHelper.getDistance(option1);
+        
+        // let dropDistance = await googleApiHelper.getDistance(option1);
+        
+        //     console.log("pickupDistance",pickupDistance);
+            
+            
         if (acceptedOrders) {
             res.status(200).send({
                 message: 'Get All list Of the eaccepted orders ',

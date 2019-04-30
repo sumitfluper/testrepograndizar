@@ -53,12 +53,17 @@ exports.getUserLocation = async (req, res) => {
             userId:mongoose.Types.ObjectId(req.userId)
         });
         await listLocation.forEach(element => {
+            element.lat = location.coordinates[1]
+            element.long = location.coordinates[0]
             if(element.locationType == 1){
                 element.locationType = "Home";
             } else {
                 element.locationType = "office";
             } 
         });
+
+
+
         if(listLocation){
             res.status(200).send({
                 message:"List Of All Saved Location",
