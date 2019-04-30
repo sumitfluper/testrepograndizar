@@ -66,7 +66,8 @@ exports.getUserLocation = async (req, res) => {
             
         });
 
-
+        console.log("newLocationData",newLocationData);
+        
 
         if(listLocation){
             res.status(200).send({
