@@ -29,7 +29,7 @@ const ServiceSchema = new Schema({
             default: 'Point'
         },
         coordinates: [Number],
-        default:[0.00,0.00] 
+        default: [0.00, 0.00]
     },
     drop_address : {
         type : String,
@@ -45,7 +45,8 @@ const ServiceSchema = new Schema({
             type: String,
             default: 'Point'
         },
-        default:[0.00,0.00] 
+        coordinates: [Number],
+        default: [0.00, 0.00]
     },
     start_time : {
         type : String,

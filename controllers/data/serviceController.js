@@ -5,7 +5,7 @@ const config = require('../../services/config');
 const responses = require('../../modules/responses');
 const serviceModel = require('../../models/Service');
 const categoryModel = require('../../models/Category');
-const subCategoryModel = require('../../models/subcategories');
+const subCategoryModel = require('../../models/Category');
 var googleApiHelper = require('../../helpers/googleApiHelper');
 
 /*
@@ -267,8 +267,6 @@ exports.serviceRequire = async (req, res) => {
             end_time: Joi.string().required(),
             comments: Joi.string().required(),
             service_name: Joi.string().optional(), 
-            orderDetails: Joi.string().required()    
-            
         })
 
         const result = Joi.validate(req.body, schema, {
@@ -309,11 +307,11 @@ exports.serviceRequire = async (req, res) => {
             } = req.body
             let pickup_location = {
                 type: 'Point',
-                "coordinates": [pickup_longitude, pickup_latitude]
+                coordinates: [Number(pickup_longitude), Number(pickup_latitude)]
             }
             let drop_location = {
                 type: 'Point',
-                "coordinates": [drop_longitude, drop_latitude]
+                coordinates: [Number(drop_longitude), Number(drop_latitude)]
             }
             let updateData = {
                 service_type,
@@ -355,7 +353,7 @@ exports.serviceRequire = async (req, res) => {
             } = req.body
             let pickup_location = {
                 type: 'Point',
-                "coordinates": [pickup_longitude, pickup_latitude]
+                coordinates: [pickup_longitude, pickup_latitude]
             }
             let updateData = {
                 service_type,
