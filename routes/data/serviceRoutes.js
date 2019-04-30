@@ -22,6 +22,23 @@ router.route('/deliverycompletedorder')
     .post(auth.requiresLogin, serviceController.deliveryCompletedOrder);
 
 
+// routes to add location 
+router.route('/professionalneworder')
+    .post(auth.requiresLogin, serviceController.professionalNewOrder);
+
+// routes to add location 
+router.route('/professionalpendingorders')
+    .post(auth.requiresLogin, serviceController.professionalNewOrder);
+
+// get all order created by user type 1
+router.route('/professionalacceptedorders')
+    .post(auth.requiresLogin, serviceController.professionalAcceptedOrders);
+
+// get all order created by user type 1
+router.route('/professionalcompletedorder')
+    .post(auth.requiresLogin, serviceController.professionalCompletedOrder);
+
+
 // users api     
 
 // get all order created by user type 1
