@@ -49,6 +49,7 @@ exports.addNewUserLocation = async (req, res) => {
 
 exports.getUserLocation = async (req, res) => {
     try {
+       var newLocationData = [];
         let listLocation = await locationModel.find({
             userId:mongoose.Types.ObjectId(req.userId)
         });
@@ -59,7 +60,10 @@ exports.getUserLocation = async (req, res) => {
                 element.locationType = "Home";
             } else {
                 element.locationType = "office";
-            } 
+            }
+            
+            newLocationData.push(element);
+            
         });
 
 
@@ -67,7 +71,7 @@ exports.getUserLocation = async (req, res) => {
         if(listLocation){
             res.status(200).send({
                 message:"List Of All Saved Location",
-                response:listLocation
+                response:newLocationData
             })
 
         }
