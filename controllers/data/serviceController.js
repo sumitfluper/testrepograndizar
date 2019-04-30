@@ -368,7 +368,7 @@ exports.serviceRequire = async (req, res) => {
                 serviceCreatedBy
             }
             console.log(updateData)
-            let user = new professionalModel(updateData)
+            let user = new serviceModel(updateData)
             let userData = await user.save()
             if (userData) {
                 res.status(200).json({
