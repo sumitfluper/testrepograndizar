@@ -54,6 +54,8 @@ exports.getUserLocation = async (req, res) => {
             userId:mongoose.Types.ObjectId(req.userId)
         });
         await listLocation.forEach(element => {
+            console.log("in foreach");
+            
             element.lat = location.coordinates[1]
             element.long = location.coordinates[0]
             if(element.locationType == 1){
