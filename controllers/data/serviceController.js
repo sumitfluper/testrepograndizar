@@ -171,7 +171,7 @@ exports.getUserAcceptedOrder = async (req, res) => {
             orderStatus: 1,
             serviceGivenBy: req.body.userId
 
-        }).populate('serviceCreatedBy');
+        }).populate('serviceGivenBy');
         if (acceptedOrders) {
             res.status(200).send({
                 message: 'Get All list Of the eaccepted orders ',

@@ -41,43 +41,78 @@ exports.makeAnOffer = async (req, res) => {
     }
 }
 
+exports.getAllOffers = async (req, res) => {
+    try {
+        
+        OffersList = await offerModel.find({
+            serviceId:req.body.srerviceId,
+            serviceGivenBy: req.userId, 
+        })
+        
+        if (OffersList) {
+            return res.status(200).send({
+                message:"OffersList ",
+                response: OffersList
+            })
+        } 
+    } catch (error) {
+
+        console.log(`\****************\ \n ${error} \n \**************** `);
+        return res.status(200).send({
+            message: "Ooops ! Something went wrong please check with backend"
+        })        
+    }
+}
+
 
 exports.acceptOffer = async (req, res) => {
     try {
+        console.log("reached here");
         
-        let data = {
-            serviceId:req.body.serviceId,
+
+        // let offerStatus={$set:2};
+        // let _id= req.body.offerId;
+        // let offer = await offerModel.findByIdAndUpdate(_id,offerStatus);
+        // // responses.success(res,'Successfully updated the user',user)
+
+
+
+
+
+
+        
+        let offer = await offerModel.findOneAndUpdate({
+            serviceId: mongoose.Types.ObjectId(req.body.serviceId),
             serviceGivenBy: req.userId,
-        };
-        let offer = await offerModel.findOneAndUpdate(data, {
+        }, {
             $set: {
                 offerStatus: 2
             }
-        }, {
-            new: true
         });
         if(offer){
-            let rejectOtherOffer = await offerModel.updateMany({
-                serviceId: {
-                    $ne: req.body.serviceId
-                },
-                serviceGivenBy: {
-                    $ne: req.body.offerMadeBy
-                }
-            }, {
-                $set: {
-                    offerStatus: 3
-                }
-            }, {
-                new: true
-            });
+            // let rejectOtherOffer = await offerModel.updateMany({
+            //     serviceId: {
+            //         $ne: req.body.serviceId
+            //     },
+            //     serviceGivenBy: {
+            //         $ne: req.body.offerMadeBy
+            //     }
+            // }, {
+            //     $set: {
+            //         offerStatus: 3
+            //     }
+            // }, {
+            //     new: true
+            // });
 
-            if(rejectOtherOffer){
-                res.status(200).send({
-                    message: "Offer accepted Successfully",
-                    response: offer,
-                })
-            }
+            // if(rejectOtherOffer){
+               
+            // }
+
+            res.status(200).send({
+                message: "Offer accepted Successfully",
+                response: offer,
+            })
 
         } else {
             res.status(200).send({
