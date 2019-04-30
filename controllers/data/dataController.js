@@ -65,9 +65,7 @@ exports.getUserLocation = async (req, res) => {
             newLocationData.push(element);
             
         });
-
         console.log("newLocationData",newLocationData);
-        
 
         if(listLocation){
             res.status(200).send({
