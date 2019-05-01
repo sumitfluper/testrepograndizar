@@ -83,14 +83,17 @@ let user = new Schema({
         type: Number,
         default: 0
     },
-    /**
-     * userType = 1 for user
-     * userType = 2 for delivery boy
-     * userType = 3 for professional user
-     */
-    userType: {
-        type: Number,
-        default: 1
+    isUser:{
+        type: Boolean,
+        default: true
     },
+    isDeliveryBoy:{
+        type: Boolean,
+        default: false
+    },
+    isProfessional:{
+        type: Boolean,
+        default: false
+    }
 });
 module.exports = mongoose.model('User', user);
