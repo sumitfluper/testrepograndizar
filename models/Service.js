@@ -81,6 +81,17 @@ const ServiceSchema = new Schema({
 
     serviceCreatedBy: {type:mongoose.Schema.Types.ObjectId,ref:"User"},
     serviceGivenBy: {type:mongoose.Schema.Types.ObjectId,ref:"User"},
+    reasion:{
+        type : String,
+        default : 'N/A',
+
+    },
+    cancelComments: {
+        type : String,
+        default : 'N/A',
+
+    },
+    cancelledBy: {type:mongoose.Schema.Types.ObjectId,ref:"User"},
     createdAt:{ type : Date, default: Date.now }
 },{
         collection : 'Service',

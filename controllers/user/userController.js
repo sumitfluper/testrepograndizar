@@ -7,6 +7,9 @@ const _ = require('lodash');
 const responses = require('../../modules/responses');
 const models=require('mongoose').models;
 
+const uniqueRandom = require('unique-random');
+ 
+const random = uniqueRandom(1, 10);
 
 exports.userSignup = (req, res) => {
     console.log(req.body);
@@ -506,4 +509,88 @@ exports.resend_otp = (req, res) => {
 
 
 
+}
+
+// toggele in the notification msg here for delivery boy and professional service
+exports.manageNotification = async (req, res) => {
+
+    try {
+
+console.log(random(), random(), random());
+
+        console.log(req.body);
+        
+        if(!req.body.notificationType){
+            res.status(200).send({
+                message: "Notification type is missing. Please check"
+            })
+        }
+
+        if(req.body.status == 'true'){
+            var NewStatus = true
+        } else {
+            var  NewStatus = false
+        }
+
+        if (req.body.notificationType == '1') {
+            // let user = UserModel.findByIdAndUpdate(req.userId, {
+            //     $set: {
+            //         "isDeliveryBoy": NewStatus
+            //     }
+            // }, {
+            //     new: true
+            // })
+
+            let user = await UserModel.findByIdAndUpdate(req.userId, {
+                $set: {
+                    isDeliveryBoy: NewStatus
+                }
+            }, {
+                    new: true
+                }
+            );
+    
+            if (user) {
+                res.status(200).send({
+                    message: "updated successfully",
+                    response: user
+                })
+            } else {
+                res.status(200).send({
+                    message: "Unable to update please check and try again",
+                    response:[]
+                })
+            }
+        }
+
+        if (req.body.notificationType == '2') {
+            let user = UserModel.findByIdAndUpdate(req.userId, {
+                $set: {
+                    isProfessional: NewStatus
+                }
+            }, {
+                new: true
+            })
+    
+            if (user) {
+                res.status(200).send({
+                    message: "updated successfully",
+                    response: user
+                })
+            } else {
+                res.status(200).send({
+                    message: "Unable to update please check and try again",
+                    response:[]
+                })
+            }
+        } 
+
+
+    } catch (error) {
+        console.error(`*********************${error}*********************`);
+        res.status(200).send({
+            message: "oops.......! error occured please try again",
+            response: error
+        })
+    }
 }

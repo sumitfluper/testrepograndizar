@@ -33,6 +33,10 @@ router.route('/verifyOTP')
     .post(userController.varify_otp);
 
 router.route('/resend_otp')
-    .post(userController.resend_otp);
+	.post(userController.resend_otp);
+
+// for user manage notification 
+router.route('/managenotification')
+	.post(auth.requiresLogin, userController.manageNotification);
 
 exports.Router = router;

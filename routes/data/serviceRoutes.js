@@ -58,6 +58,10 @@ router.route('/getusercompletedorder')
 router.route("/service_require")
     .post(auth.requiresLogin, serviceController.serviceRequire);
 
+// cancel order by user 
+router.route("/usercancelservice")
+    .post(auth.requiresLogin, serviceController.cancelServiceByUser);
+
 //get list of outlets
 router.route("/get_nearby_outlets")
     .post(auth.requiresLogin, serviceController.getNearbyOutlets);

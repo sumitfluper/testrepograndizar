@@ -391,6 +391,34 @@ exports.serviceRequire = async (req, res) => {
     }
 }
 
+exports.cancelServiceByUser = async (req,res) => {
+    try {
+        let cancelService = await serviceModel.findByIdAndUpdate(req.body.serviceId, {
+            $set: {
+                orderStatus: 3,
+                reasion:req.body.cancellationReason,
+                cancelComments: req.body.cancelComments,
+                cancelledBy:req.userId
+            }
+        }, {
+            new: true
+        })
+        if(cancelService){
+            res.status(200).send({
+                message: "Service is cancelled successfully",
+                response:cancelService
+            })
+        }
+    } catch (error) {
+        console.error(`**********************${error}**********************`);
+        res.status(200).send({
+            message:"Ooops........! Error occured Please try again",
+            response:error
+        })
+        
+    }
+}
+
 exports.getNearbyOutlets = async (req, res) => {
     try {
         var {
