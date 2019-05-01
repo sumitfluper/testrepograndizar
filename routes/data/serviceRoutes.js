@@ -42,8 +42,8 @@ router.route('/professionalcompletedorder')
 // users api     
 
 // get all order created by user type 1
-// router.route('/userpendingorders')
-//     .po upload.any(),st(auth.requiresLogin, serviceController.getUserPendingOrders);
+router.route('/userpendingorders')
+    .post(auth.requiresLogin, serviceController.getUserPendingOrders);
 
 // get all order created by user type 1
 router.route('/getuseracceptedorder')

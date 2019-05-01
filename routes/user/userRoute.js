@@ -6,8 +6,7 @@ const userController = require('../../controllers/user/userController');
 const md5=require('md5');
 const path=require('path');
 
-// router.route('/create_profile')
-//     .post(auth.requiresLogin,userController.createProfile);
+
 const storage = multer.diskStorage({
 	destination : function(req,file,callback){
 		callback(null,'./Images/users');
@@ -29,14 +28,11 @@ router.route('/userSignin')
 
 router.route('/create_profile')
     .post(auth.requiresLogin,upload.any(), userController.createProfile);
-// .post(auth.requiresLogin, upload.any(), controller.createProfile);
 
 router.route('/verifyOTP')
     .post(userController.varify_otp);
 
 router.route('/resend_otp')
     .post(userController.resend_otp);
-
-
 
 exports.Router = router;
