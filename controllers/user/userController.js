@@ -166,7 +166,7 @@ exports.userSignin = (req, res) => {
                     is_verified
                 }
 
-                UserModel.findByIdAndUpdate(userData.get('_id'), {
+                UserModel.findByIdAndUpdate(userData._id, {
                         $set: updateData
                     }, {
                         new: true
