@@ -30,3 +30,9 @@
 [2019-05-01 18:02:13.799] [exthost] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/typescript-language-features/dist/extension
 [2019-05-01 18:03:25.500] [exthost] [info] ExtensionService#_doActivateExtension vscode.extension-editing {"startup":false,"activationEvent":"onLanguage:typescript"}
 [2019-05-01 18:03:25.500] [exthost] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/extension-editing/dist/extension
+[2019-05-01 19:43:07.580] [exthost] [info] ExtensionService#_doActivateExtension vscode.debug-server-ready {"startup":false,"activationEvent":"onDebugResolve"}
+[2019-05-01 19:43:07.581] [exthost] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/debug-server-ready/dist/extension
+[2019-05-01 19:43:07.585] [exthost] [info] ExtensionService#_doActivateExtension ms-vscode.node-debug2 {"startup":false,"activationEvent":"onDebugResolve:node"}
+[2019-05-01 19:43:07.585] [exthost] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/ms-vscode.node-debug2/out/src/extension
+[2019-05-01 19:43:07.588] [exthost] [info] ExtensionService#_doActivateExtension ms-vscode.node-debug {"startup":false,"activationEvent":"onDebugResolve:node"}
+[2019-05-01 19:43:07.588] [exthost] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/ms-vscode.node-debug/dist/extension.js

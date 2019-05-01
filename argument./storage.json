@@ -2,6 +2,7 @@
     "telemetry.machineId": "af41df9b73d2cfcb6a9b46abd50787700cd4cbf0b25160d78df06d53f6498110",
     "openedPathsList": {
         "workspaces3": [
+            "file:///home/fluper/archive/Projects/gohelpmate/gohelpmate-backend",
             "file:///home/fluper/archive/Projects/grandizar-backend"
         ],
         "files2": []
@@ -56,6 +57,17 @@
                                     },
                                     "enabled": true,
                                     "label": "~/archive/Projects/grandizar-backend"
+                                },
+                                {
+                                    "id": "openRecentFolder",
+                                    "uri": {
+                                        "$mid": 1,
+                                        "external": "file:///home/fluper/archive/Projects/gohelpmate/gohelpmate-backend",
+                                        "path": "/home/fluper/archive/Projects/gohelpmate/gohelpmate-backend",
+                                        "scheme": "file"
+                                    },
+                                    "enabled": true,
+                                    "label": "~/archive/Projects/gohelpmate/gohelpmate-backend"
                                 },
                                 {
                                     "id": "vscode.menubar.separator"
@@ -1328,5 +1340,6 @@
         }
     },
     "theme": "vs-dark",
-    "themeBackground": "#1e1e1e"
+    "themeBackground": "#1e1e1e",
+    "pickerWorkingDir": "/home/fluper/archive/Projects/gohelpmate"
 }

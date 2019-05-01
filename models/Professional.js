@@ -55,6 +55,7 @@ const professionalSchema = new Schema({
              type: mongoose.Schema.Types.ObjectId,
              ref: "User"
          },
+    createdAt:{type: Number,default:new Date().getTime()}
 },{
     
     collection : 'Professional',

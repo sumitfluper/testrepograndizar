@@ -19,7 +19,7 @@ const LocationSchema = new Schema({
         coordinates: [Number],
         default:[0.00,0.00] 
     },
-    createdAt:{ type : Date, default: Date.now }
+    createdAt:{type: Number,default:new Date().getTime()}
 },
 
 {

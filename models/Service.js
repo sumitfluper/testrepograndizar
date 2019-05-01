@@ -92,7 +92,7 @@ const ServiceSchema = new Schema({
 
     },
     cancelledBy: {type:mongoose.Schema.Types.ObjectId,ref:"User"},
-    createdAt:{ type : Date, default: Date.now }
+    createdAt:{type: Number,default:new Date().getTime()}
 },{
         collection : 'Service',
         versionKey : false

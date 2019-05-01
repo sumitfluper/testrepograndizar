@@ -69,7 +69,7 @@ exports.getAllOffers = async (req, res) => {
         
         OffersList = await offerModel.find({
             serviceId:req.body.srerviceId,
-        })
+        }).populate('serviceId').populate('serviceGivenBy')
         
         if (OffersList) {
             return res.status(200).send({

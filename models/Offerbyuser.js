@@ -26,7 +26,7 @@ const OfferbyuserSchema = new Schema({
        default:1 
     },
     
-    createdAt:{ type : Date, default: Date.now }
+    createdAt:{type: Number,default:new Date().getTime()}
 },{
         collection : 'Offerbyusers',
         versionKey : false
