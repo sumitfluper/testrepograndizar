@@ -5,6 +5,7 @@ const md5 = require('md5');
 const commFunc = require('../../modules/commonFunction');
 const _ = require('lodash');
 const responses = require('../../modules/responses');
+const models=require('mongoose').models;
 
 
 exports.userSignup = (req, res) => {
@@ -256,7 +257,7 @@ exports.varify_otp = (req, res) => {
 //create profile
 
 exports.createProfile = (req, res) => {
-    console.log(req.body)
+    console.log(models)
     const schema = Joi.object().keys({
         //  mobile_number: Joi.string().optional().error(e => 'Mobile number required.'),
         name: Joi.string(),
