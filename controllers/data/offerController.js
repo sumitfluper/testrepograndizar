@@ -69,7 +69,6 @@ exports.getAllOffers = async (req, res) => {
         
         OffersList = await offerModel.find({
             serviceId:req.body.srerviceId,
-            serviceGivenBy: req.userId, 
         })
         
         if (OffersList) {

@@ -10,6 +10,10 @@ router.route('/makeoffer')
 router.route('/getofferlist')
     .get(auth.requiresLogin, offerController.getOfferList);
 
+// get all offers of service
+router.route('/getalloffers')
+    .post(auth.requiresLogin, offerController.getAllOffers);
+
    
 
 router.route('/acceptoffer')

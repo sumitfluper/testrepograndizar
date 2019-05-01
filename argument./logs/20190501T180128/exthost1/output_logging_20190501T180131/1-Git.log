@@ -1,0 +1,1136 @@
+Looking for git in: git
+Using git 2.7.4 from git
+> git rev-parse --show-toplevel
+> git config --get commit.template
+Open repository: /home/fluper/archive/Projects/grandizar-backend
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git check-ignore -z --stdin
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git check-ignore -z --stdin
+> git check-ignore -z --stdin
+> git show :controllers/admin/adminController.js
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+git.getSCMResource.uri file:///home/fluper/archive/Projects/grandizar-backend/controllers/admin/adminController.js
+repo root /home/fluper/archive/Projects/grandizar-backend
+> git check-ignore -z --stdin
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git show :controllers/admin/adminController.js
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+git.getSCMResource.uri file:///home/fluper/archive/Projects/grandizar-backend/controllers/admin/adminController.js
+repo root /home/fluper/archive/Projects/grandizar-backend
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git check-ignore -z --stdin
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git check-ignore -z --stdin
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git check-ignore -z --stdin
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git check-ignore -z --stdin
+> git show :controllers/data/offerController.js
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git check-ignore -z --stdin
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git check-ignore -z --stdin
+> git check-ignore -z --stdin
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git check-ignore -z --stdin
+> git show :routes/data/offerRoutes.js
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git show :controllers/data/offerController.js
+> git show :routes/data/offerRoutes.js
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git show :controllers/data/offerController.js
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git show :routes/index.js
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master1
+> git rev-parse --symbolic-full-name master1@{u}
+> git rev-list --left-right master1...refs/remotes/origin/master1
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git status -z -u
