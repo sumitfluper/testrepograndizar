@@ -92,6 +92,8 @@ exports.getAllOffers = async (req, res) => {
         )
 
         OffersList.forEach(element => {
+            console.log(element);
+            
            arrOffers.push({
                offerId:element._id,
                offerStatus:element.offerStatus,
