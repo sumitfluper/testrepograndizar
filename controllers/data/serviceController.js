@@ -28,13 +28,10 @@ exports.deliveryNewOrder = async (req, res) => {
                     $minDistance: 0,
                 }
             },
-            orderStatus: 1,
-            serviceCreatedBy: {
-                $ne:req.userId
-            }
+            orderStatus: 1           
         }
 
-        var newService = await serviceModel.find(where)
+        let data = await serviceModel.find(where)
             .populate('serviceCreatedBy')
             .select('-pickup_location -drop_location');
 
@@ -53,15 +50,15 @@ exports.deliveryNewOrder = async (req, res) => {
         //     newServiceData = newService;
 
         // }
-        if (newService) {
+        if (data) {
             res.status(200).send({
                 message: 'List Of Near by orders',
-                response: newService
+                response: data
             })
         } else {
             res.status(200).send({
                 message: 'Sorry currently there are no orders available near by you...!',
-                response: newService
+                response: data
             })
         }
 
