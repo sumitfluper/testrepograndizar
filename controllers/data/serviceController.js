@@ -41,7 +41,7 @@ exports.deliveryNewOrder = async (req, res) => {
         var deliveryUserOffersData = await offersData.find({
             serviceGivenBy: req.userId
         })
-        if (deliveryUserOffersData.length != 0) {
+        if (deliveryUserOffersData.length != 0 && newService != null ) {
             newService.forEach(service => {
                 deliveryUserOffersData.forEach(offer => {
                     if (service._id.toString() != offer.serviceId.toString() && offer.serviceGivenBy.toString() != req.userId.toString()) {
@@ -148,7 +148,7 @@ exports.professionalNewOrder = async (req, res) => {
         var deliveryUserOffersData = await offersData.find({
                 serviceGivenBy: req.userId
             })
-            if (deliveryUserOffersData.length != 0) {
+            if (deliveryUserOffersData.length != 0 && newService != null ) {
                 newService.forEach(service => {
                     deliveryUserOffersData.forEach(offer => {
                         if (service._id.toString() != offer.serviceId.toString() && offer.serviceGivenBy.toString() != req.userId.toString()) {
