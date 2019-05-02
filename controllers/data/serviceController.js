@@ -7,6 +7,7 @@ const serviceModel = require('../../models/Service');
 const categoryModel = require('../../models/Category');
 const subCategoryModel = require('../../models/subcategories');
 const professionalModel = require('../../models/Professional');
+const offersData = require('../../models/Offerbyuser');
 var googleApiHelper = require('../../helpers/googleApiHelper');
 
 /*
@@ -15,6 +16,7 @@ var googleApiHelper = require('../../helpers/googleApiHelper');
 exports.deliveryNewOrder = async (req, res) => {
 
     try {
+      let newServiceData = [];
       var where = {
           pickup_location: {
               $near: {
@@ -29,15 +31,31 @@ exports.deliveryNewOrder = async (req, res) => {
           orderStatus: 1
       }
      
-      let newOrders = await serviceModel.find(where)
+      let newService = await serviceModel.find(where)
                                         .populate('serviceCreatedBy')
                                         .select('-pickup_location -drop_location')
-                                        
-      if (newOrders) {
+      let offersData = await offersData.find({
+        serviceGivenBy: req.userId
+      })
+      
+        newService.forEach(service => {
+            offersData.forEach(offer => {
+                if(service._id.toString() != offer.serviceId.toString() && offersData.serviceGivenBy.toString() != req.userId.toString()){
+                    newServiceData.push(service);
+                }
+            });            
+        });                                  
+      
+      if (newServiceData.length > 0) {
           res.status(200).send({
               message: 'List Of Near by orders',
               response: newOrders
           })
+      } else {
+        res.status(200).send({
+            message: 'Sorry currently there are no orders available near by you...!',
+            response: newServiceData
+        })
       }
 
     } catch (error) {

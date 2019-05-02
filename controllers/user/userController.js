@@ -6,9 +6,7 @@ const commFunc = require('../../modules/commonFunction');
 const _ = require('lodash');
 const responses = require('../../modules/responses');
 const models=require('mongoose').models;
-
 const uniqueRandom = require('unique-random');
- 
 const random = uniqueRandom(1, 10);
 
 exports.userSignup = (req, res) => {
@@ -564,7 +562,7 @@ console.log(random(), random(), random());
         }
 
         if (req.body.notificationType == '2') {
-            let user = UserModel.findByIdAndUpdate(req.userId, {
+            let user = await UserModel.findByIdAndUpdate(req.userId, {
                 $set: {
                     isProfessional: NewStatus
                 }
