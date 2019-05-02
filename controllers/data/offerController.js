@@ -66,8 +66,9 @@ exports.getOfferList = async (req, res) => {
 
 exports.getAllOffers = async (req, res) => {
     try {
+        var arrOffers = [];
         
-        OffersList = await offerModel.find({
+        var OffersList = await offerModel.find({
             serviceId:req.body.srerviceId,
         })
         .populate('serviceId')
@@ -89,13 +90,41 @@ exports.getAllOffers = async (req, res) => {
             -serviceCreatedBy
         `
         )
+
+        OffersList.forEach(element => {
+           arrOffers.push({
+               offerId:element._id,
+               offerStatus:element.offerStatus,
+               createdAt:element.createdAt,
+               serviceCreatedBy:element.serviceCreatedBy,
+               deliveryCharge:element.deliveryCharge,
+               deliveryMessage:element.deliveryMessage,
+               deliveryTime:element.deliveryTime,
+               serviceId:element.srerviceId._id,
+               pickup_lat:element.srerviceId.pickup_latitude,
+               pickup_long:element.srerviceId.pickup_longitude,
+               drop_lat:element.srerviceId.drop_latitude,
+               drop_long:element.srerviceId.drop_longitude,
+               deliveryBoyLat:element.serviceGivenBy.longitude,
+               deliveryBoyLong:element.serviceGivenBy.latitude,
+               deliveryName:element.serviceGivenBy.user_name ? element.serviceGivenBy.user_name : element.serviceGivenBy.name,
+               deliveryId:element.serviceGivenBy._id,
+
+           }) 
+        });
         
-        if (OffersList) {
+        if (arrOffers.length > 0) {
             return res.status(200).send({
-                message:"OffersList ",
-                response: OffersList
+                message:"list off offers ",
+                response: arrOffers
             })
-        } 
+        } else {
+            return res.status(200).send({
+                message: "No offers has been made to your request. Sorry......!",
+                response: arrOffers
+
+            })
+        }  
     } catch (error) {
 
         console.log(`\****************\ \n ${error} \n \**************** `);
