@@ -41,27 +41,27 @@ exports.deliveryNewOrder = async (req, res) => {
         var deliveryUserOffersData = await offersData.find({
             serviceGivenBy: req.userId
         })
-        if (deliveryUserOffersData.length != 0 && newService != null ) {
-            newService.forEach(service => {
-                deliveryUserOffersData.forEach(offer => {
-                    if (service._id.toString() != offer.serviceId.toString() && offer.serviceGivenBy.toString() != req.userId.toString()) {
-                        newServiceData.push(service);
-                    }
-                });
-            });
-        } else {
-            newServiceData = newService;
+        // if (deliveryUserOffersData.length != 0 && newService != null ) {
+        //     newService.forEach(service => {
+        //         deliveryUserOffersData.forEach(offer => {
+        //             if (service._id.toString() != offer.serviceId.toString() && offer.serviceGivenBy.toString() != req.userId.toString()) {
+        //                 newServiceData.push(service);
+        //             }
+        //         });
+        //     });
+        // } else {
+        //     newServiceData = newService;
 
-        }
-        if (newServiceData.length > 0) {
+        // }
+        if (newService) {
             res.status(200).send({
                 message: 'List Of Near by orders',
-                response: newServiceData
+                response: newService
             })
         } else {
             res.status(200).send({
                 message: 'Sorry currently there are no orders available near by you...!',
-                response: newServiceData
+                response: newService
             })
         }
 
@@ -148,29 +148,44 @@ exports.professionalNewOrder = async (req, res) => {
         var deliveryUserOffersData = await offersData.find({
                 serviceGivenBy: req.userId
             })
-            if (deliveryUserOffersData.length != 0 && newService != null ) {
-                newService.forEach(service => {
-                    deliveryUserOffersData.forEach(offer => {
-                        if (service._id.toString() != offer.serviceId.toString() && offer.serviceGivenBy.toString() != req.userId.toString()) {
-                            newServiceData.push(service);
-                        }
-                    });
-                });
-            } else {
-                newServiceData = newService;
-    
-            }
-            if (newServiceData.length > 0) {
+          
+            if (newService) {
                 res.status(200).send({
                     message: 'List Of Near by orders',
-                    response: newServiceData
+                    response: newService
                 })
             } else {
                 res.status(200).send({
                     message: 'Sorry currently there are no orders available near by you...!',
-                    response: newServiceData
+                    response: newService
                 })
             }
+        // var deliveryUserOffersData = await offersData.find({
+        //         serviceGivenBy: req.userId
+        //     })
+        //     if (deliveryUserOffersData.length != 0 && newService != null ) {
+        //         newService.forEach(service => {
+        //             deliveryUserOffersData.forEach(offer => {
+        //                 if (service._id.toString() != offer.serviceId.toString() && offer.serviceGivenBy.toString() != req.userId.toString()) {
+        //                     newServiceData.push(service);
+        //                 }
+        //             });
+        //         });
+        //     } else {
+        //         newServiceData = newService;
+    
+        //     }
+        //     if (newServiceData.length > 0) {
+        //         res.status(200).send({
+        //             message: 'List Of Near by orders',
+        //             response: newServiceData
+        //         })
+        //     } else {
+        //         res.status(200).send({
+        //             message: 'Sorry currently there are no orders available near by you...!',
+        //             response: newServiceData
+        //         })
+        //     }
 
     } catch (error) {
         responses.sendError(error.message, res)
