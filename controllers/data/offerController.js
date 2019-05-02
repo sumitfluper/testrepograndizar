@@ -95,22 +95,22 @@ exports.getAllOffers = async (req, res) => {
             console.log("offers",element);
             
            arrOffers.push({
-               offerId:element._id,
+               offerId:element.id,
                offerStatus:element.offerStatus,
                createdAt:element.createdAt,
                serviceCreatedBy:element.serviceCreatedBy,
                deliveryCharge:element.deliveryCharge,
                deliveryMessage:element.deliveryMessage,
                deliveryTime:element.deliveryTime,
-               serviceId:element.srerviceId._id,
-               pickup_lat:element.srerviceId.pickup_latitude,
-               pickup_long:element.srerviceId.pickup_longitude,
-               drop_lat:element.srerviceId.drop_latitude,
-               drop_long:element.srerviceId.drop_longitude,
+               serviceId:element.serviceId.id,
+               pickup_lat:element.serviceId.pickup_latitude,
+               pickup_long:element.serviceId.pickup_longitude,
+               drop_lat:element.serviceId.drop_latitude,
+               drop_long:element.serviceId.drop_longitude,
                deliveryBoyLat:element.serviceGivenBy.longitude,
                deliveryBoyLong:element.serviceGivenBy.latitude,
-               deliveryName:element.serviceGivenBy.user_name ? element.serviceGivenBy.user_name : element.serviceGivenBy.name,
-               deliveryId:element.serviceGivenBy._id,
+               deliveryName:element.serviceGivenBy.user_name ? element.serviceGivenBy.user_name : "N/A",
+               deliveryId:element.serviceGivenBy.id,
 
            }) 
         });
