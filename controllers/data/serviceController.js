@@ -16,51 +16,50 @@ var googleApiHelper = require('../../helpers/googleApiHelper');
 exports.deliveryNewOrder = async (req, res) => {
 
     try {
-      let newServiceData = [];
-      var where = {
-          pickup_location: {
-              $near: {
-                  $geometry: {
-                      type: "Point",
-                      coordinates: [Number(req.body.long), Number(req.body.lat)]
-                  },
-                  $maxDistance: 5000,
-                  $minDistance: 0,
-              }
-          },
-          orderStatus: 1
-      }
-     
-      let newService = await serviceModel.find(where)
-                                        .populate('serviceCreatedBy')
-                                        .select('-pickup_location -drop_location')
-      let offersData = await offersData.find({
-        serviceGivenBy: req.userId
-      })
-      if(offersData){
-        newService.forEach(service => {
-            offersData.forEach(offer => {
-                if(service._id.toString() != offer.serviceId.toString() && offersData.serviceGivenBy.toString() != req.userId.toString()){
-                    newServiceData.push(service);
+        let newServiceData = [];
+        var where = {
+            pickup_location: {
+                $near: {
+                    $geometry: {
+                        type: "Point",
+                        coordinates: [Number(req.body.long), Number(req.body.lat)]
+                    },
+                    $maxDistance: 5000,
+                    $minDistance: 0,
                 }
-            });            
-        });                                  
-    } else {
-        newService.forEach(service => {
-            newServiceData.push(service);
-        });    
-    }
-      if (newServiceData.length > 0) {
-          res.status(200).send({
-              message: 'List Of Near by orders',
-              response: newOrders
-          })
-      } else {
-        res.status(200).send({
-            message: 'Sorry currently there are no orders available near by you...!',
-            response: newServiceData
+            },
+            orderStatus: 1
+        }
+
+        let newService = await serviceModel.find(where)
+            .populate('serviceCreatedBy')
+            .select('-pickup_location -drop_location')
+        let offersData = await offersData.find({
+            serviceGivenBy: req.userId
         })
-      }
+        if (offersData) {
+            newService.forEach(service => {
+                offersData.forEach(offer => {
+                    if (service._id.toString() != offer.serviceId.toString() && offersData.serviceGivenBy.toString() != req.userId.toString()) {
+                        newServiceData.push(service);
+                    }
+                });
+            });
+        } else {
+            newServiceData = service;
+
+        }
+        if (newServiceData.length > 0) {
+            res.status(200).send({
+                message: 'List Of Near by orders',
+                response: newOrders
+            })
+        } else {
+            res.status(200).send({
+                message: 'Sorry currently there are no orders available near by you...!',
+                response: newServiceData
+            })
+        }
 
     } catch (error) {
         responses.sendError(error.message, res)
@@ -71,12 +70,12 @@ exports.deliveryAcceptedOrders = async (req, res) => {
 
     try {
         let acceptedOrders = await serviceModel.find({
-            orderStatus: 2,
-            serviceGivenBy: req.userId
+                orderStatus: 2,
+                serviceGivenBy: req.userId
 
-        })
-        .populate('serviceCreatedBy')
-        .select('-pickup_location -drop_location')
+            })
+            .populate('serviceCreatedBy')
+            .select('-pickup_location -drop_location')
         if (acceptedOrders) {
             res.status(200).send({
                 message: 'Get All list Of the eaccepted orders ',
@@ -94,12 +93,12 @@ exports.deliveryCompletedOrder = async (req, res) => {
     try {
 
         let acceptedOrders = await serviceModel.find({
-            orderStatus: 4,
-            serviceGivenBy: req.userId
+                orderStatus: 4,
+                serviceGivenBy: req.userId
 
-        })
-        .populate('serviceCreatedBy')
-        .select('-pickup_location -drop_location')
+            })
+            .populate('serviceCreatedBy')
+            .select('-pickup_location -drop_location')
         if (acceptedOrders) {
             res.status(200).send({
                 message: 'Get All list Of the eaccepted orders ',
@@ -136,8 +135,8 @@ exports.professionalNewOrder = async (req, res) => {
         }
 
         let newOrders = await professionalModel.find(where)
-                                                .populate('serviceCreatedBy')
-                                                .select('-pickup_location -drop_location');
+            .populate('serviceCreatedBy')
+            .select('-pickup_location -drop_location');
         if (newOrders) {
             res.status(200).send({
                 message: 'List Of Near by orders',
@@ -154,12 +153,12 @@ exports.professionalAcceptedOrders = async (req, res) => {
 
     try {
         let acceptedOrders = await professionalModel.find({
-            orderStatus: 2,
-            serviceGivenBy: req.userId
+                orderStatus: 2,
+                serviceGivenBy: req.userId
 
-        })
-        .populate('serviceCreatedBy')
-        .select('-pickup_location -drop_location');
+            })
+            .populate('serviceCreatedBy')
+            .select('-pickup_location -drop_location');
         if (acceptedOrders) {
             res.status(200).send({
                 message: 'Get All list Of the eaccepted orders ',
@@ -177,12 +176,12 @@ exports.professionalCompletedOrder = async (req, res) => {
     try {
 
         let acceptedOrders = await professionalModel.find({
-            orderStatus: 4,
-            serviceGivenBy: req.userId
+                orderStatus: 4,
+                serviceGivenBy: req.userId
 
-        })
-        .populate('serviceCreatedBy')
-        .select('-pickup_location -drop_location');
+            })
+            .populate('serviceCreatedBy')
+            .select('-pickup_location -drop_location');
         if (acceptedOrders) {
             res.status(200).send({
                 message: 'Get All list Of the completed orders ',
@@ -203,12 +202,12 @@ exports.getUserAcceptedOrder = async (req, res) => {
         console.log(req.body);
 
         let acceptedOrders = await serviceModel.find({
-            orderStatus: 2,
-            serviceCreatedBy: req.userId
+                orderStatus: 2,
+                serviceCreatedBy: req.userId
 
-        })
-        .populate('serviceGivenBy')
-        .select('-pickup_location -drop_location')
+            })
+            .populate('serviceGivenBy')
+            .select('-pickup_location -drop_location')
         if (acceptedOrders) {
             res.status(200).send({
                 message: 'Get All list Of the eaccepted orders ',
@@ -232,7 +231,7 @@ exports.getUserPendingOrders = async (req, res) => {
             serviceCreatedBy: req.userId
 
         }).select('-pickup_location -drop_location')
-       
+
         if (acceptedOrders) {
             res.status(200).send({
                 message: 'Get All list Of the eaccepted orders ',
@@ -252,12 +251,12 @@ exports.getUserCompletedOrder = async (req, res) => {
         console.log(req.body);
 
         let acceptedOrders = await serviceModel.find({
-            orderStatus: 4,
-            serviceCreatedBy: req.userId
+                orderStatus: 4,
+                serviceCreatedBy: req.userId
 
-        })
-        .populate('serviceGivenBy')
-        .select('-pickup_location -drop_location')
+            })
+            .populate('serviceGivenBy')
+            .select('-pickup_location -drop_location')
         if (acceptedOrders) {
             res.status(200).send({
                 message: 'Get All list Of the eaccepted orders ',
@@ -288,7 +287,7 @@ exports.serviceRequire = async (req, res) => {
             start_time: Joi.string().required(),
             end_time: Joi.string().required(),
             comments: Joi.string().required(),
-            service_name: Joi.string().optional(), 
+            service_name: Joi.string().optional(),
         })
 
         const result = Joi.validate(req.body, schema, {
@@ -413,31 +412,31 @@ exports.serviceRequire = async (req, res) => {
     }
 }
 
-exports.cancelServiceByUser = async (req,res) => {
+exports.cancelServiceByUser = async (req, res) => {
     try {
         let cancelService = await serviceModel.findByIdAndUpdate(req.body.serviceId, {
             $set: {
                 orderStatus: 3,
-                reasion:req.body.cancellationReason,
+                reasion: req.body.cancellationReason,
                 cancelComments: req.body.cancelComments,
-                cancelledBy:req.userId
+                cancelledBy: req.userId
             }
         }, {
             new: true
         })
-        if(cancelService){
+        if (cancelService) {
             res.status(200).send({
                 message: "Service is cancelled successfully",
-                response:cancelService
+                response: cancelService
             })
         }
     } catch (error) {
         console.error(`**********************${error}**********************`);
         res.status(200).send({
-            message:"Ooops........! Error occured Please try again",
-            response:error
+            message: "Ooops........! Error occured Please try again",
+            response: error
         })
-        
+
     }
 }
 
