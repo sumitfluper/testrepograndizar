@@ -135,18 +135,42 @@ exports.professionalNewOrder = async (req, res) => {
                     $minDistance: 0,
                 }
             },
-            orderStatus: 1
+            orderStatus: 1,
+            serviceCreatedBy:{
+                $ne:req.userId
+            }
         }
 
-        let newOrders = await professionalModel.find(where)
+        var newService = await professionalModel.find(where)
             .populate('serviceCreatedBy')
             .select('-pickup_location -drop_location');
-        if (newOrders) {
-            res.status(200).send({
-                message: 'List Of Near by orders',
-                response: newOrders
+            
+        var deliveryUserOffersData = await offersData.find({
+                serviceGivenBy: req.userId
             })
-        }
+            if (deliveryUserOffersData.length != 0) {
+                newService.forEach(service => {
+                    deliveryUserOffersData.forEach(offer => {
+                        if (service._id.toString() != offer.serviceId.toString() && offer.serviceGivenBy.toString() != req.userId.toString()) {
+                            newServiceData.push(service);
+                        }
+                    });
+                });
+            } else {
+                newServiceData = newService;
+    
+            }
+            if (newServiceData.length > 0) {
+                res.status(200).send({
+                    message: 'List Of Near by orders',
+                    response: newServiceData
+                })
+            } else {
+                res.status(200).send({
+                    message: 'Sorry currently there are no orders available near by you...!',
+                    response: newServiceData
+                })
+            }
 
     } catch (error) {
         responses.sendError(error.message, res)
