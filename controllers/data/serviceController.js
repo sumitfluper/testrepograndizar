@@ -33,14 +33,15 @@ exports.deliveryNewOrder = async (req, res) => {
 
         var newService = await serviceModel.find(where)
             .populate('serviceCreatedBy')
-            .select('-pickup_location -drop_location')
-        var offersData = await offersData.find({
+            .select('-pickup_location -drop_location');
+
+        var deliveryUserOffersData = await offersData.find({
             serviceGivenBy: req.userId
         })
-        if (offersData) {
+        if (deliveryUserOffersData) {
             newService.forEach(service => {
-                offersData.forEach(offer => {
-                    if (service._id.toString() != offer.serviceId.toString() && offersData.serviceGivenBy.toString() != req.userId.toString()) {
+                deliveryUserOffersData.forEach(offer => {
+                    if (service._id.toString() != offer.serviceId.toString() && offer.serviceGivenBy.toString() != req.userId.toString()) {
                         newServiceData.push(service);
                     }
                 });
