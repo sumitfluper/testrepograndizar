@@ -37,7 +37,7 @@ exports.deliveryNewOrder = async (req, res) => {
       let offersData = await offersData.find({
         serviceGivenBy: req.userId
       })
-      
+      if(offersData){
         newService.forEach(service => {
             offersData.forEach(offer => {
                 if(service._id.toString() != offer.serviceId.toString() && offersData.serviceGivenBy.toString() != req.userId.toString()){
@@ -45,7 +45,11 @@ exports.deliveryNewOrder = async (req, res) => {
                 }
             });            
         });                                  
-      
+    } else {
+        newService.forEach(service => {
+            newServiceData.push(service);
+        });    
+    }
       if (newServiceData.length > 0) {
           res.status(200).send({
               message: 'List Of Near by orders',
