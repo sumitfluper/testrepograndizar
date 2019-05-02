@@ -668,3 +668,29 @@ exports.getNewServices = async (req, res) => {
         responses.sendError(error.message, res)
     }
 }
+
+
+exports.acceptService = async (req, res) => {
+    try {
+        let updateService = await serviceModel.findById({_id:serviceId},{
+            $set:{
+                orderStatus:2
+            }
+        },{
+            new:true
+        })
+
+        if (updateService) {
+            res.status(200).send({
+                message: "OfferAccepted"
+            })
+        }
+        else{
+            res.status(200).send({
+                message: "offer can not be updated please try again later ....!"
+            })
+        }
+    } catch (error) {
+        responses.sendError(error.message, res)
+    }
+}

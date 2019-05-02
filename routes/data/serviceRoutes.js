@@ -54,6 +54,11 @@ router.route('/getusercompletedorder')
     .post(auth.requiresLogin, serviceController.getUserCompletedOrder);
 
 
+// get all order created by user type 1
+router.route('/acceptoffer')
+    .post(auth.requiresLogin, serviceController.acceptService);
+
+
 
 router.route("/service_require")
     .post(auth.requiresLogin, serviceController.serviceRequire);
