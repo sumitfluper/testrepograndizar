@@ -672,7 +672,7 @@ exports.getNewServices = async (req, res) => {
 
 exports.acceptService = async (req, res) => {
     try {
-        let updateService = await serviceModel.findById({_id:serviceId},{
+        let updateService = await serviceModel.findById({_id:req.body.serviceId},{
             $set:{
                 orderStatus:2
             }
