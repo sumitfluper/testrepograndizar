@@ -16,7 +16,7 @@ var googleApiHelper = require('../../helpers/googleApiHelper');
 exports.deliveryNewOrder = async (req, res) => {
 
     try {
-        let newServiceData = [];
+        var newServiceData = [];
         var where = {
             pickup_location: {
                 $near: {
@@ -31,10 +31,10 @@ exports.deliveryNewOrder = async (req, res) => {
             orderStatus: 1
         }
 
-        let newService = await serviceModel.find(where)
+        var newService = await serviceModel.find(where)
             .populate('serviceCreatedBy')
             .select('-pickup_location -drop_location')
-        let offersData = await offersData.find({
+        var offersData = await offersData.find({
             serviceGivenBy: req.userId
         })
         if (offersData) {
