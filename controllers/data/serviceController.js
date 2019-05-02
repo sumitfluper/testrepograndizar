@@ -672,7 +672,7 @@ exports.getNewServices = async (req, res) => {
 
 exports.acceptService = async (req, res) => {
     try {
-        let updateService = await serviceModel.findById({_id:req.body.serviceId},{
+        let updateService = await serviceModel.findByIdAndUpdate({_id:req.body.serviceId},{
             $set:{
                 orderStatus:2
             }
@@ -682,7 +682,8 @@ exports.acceptService = async (req, res) => {
 
         if (updateService) {
             res.status(200).send({
-                message: "OfferAccepted"
+                message: "Offer Accepted",
+                response:updateService
             })
         }
         else{
