@@ -116,8 +116,8 @@ exports.deliveryCompletedOrder = async (req, res) => {
 }
 
 exports.professionalNewOrder = async (req, res) => {
-
     try {
+        var newServiceData = [];
         console.log("reachedHere");
         console.log(req.body);
 
