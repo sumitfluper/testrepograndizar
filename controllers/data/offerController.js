@@ -92,7 +92,7 @@ exports.getAllOffers = async (req, res) => {
         )
 
         OffersList.forEach(element => {
-            console.log(element);
+            console.log("offers",element);
             
            arrOffers.push({
                offerId:element._id,
