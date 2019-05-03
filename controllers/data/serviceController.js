@@ -9,6 +9,8 @@ const subCategoryModel = require('../../models/subcategories');
 const professionalModel = require('../../models/Professional');
 const offersData = require('../../models/Offerbyuser');
 var googleApiHelper = require('../../helpers/googleApiHelper');
+const uniqueRandom = require('unique-random');
+
 
 /*
     get New orders 
@@ -426,12 +428,19 @@ exports.serviceRequire = async (req, res) => {
         //let allData = req.body
         //let access_token = req.user.access_token;
 
+        var order = uniqueRandom(10000, 999999);
+        
+        console.log("console.log",orderId);
+        
+
         let data = req.body;
         let serviceCreatedBy = req.userId;
         console.log(data.service_type)
         if (data.service_type === '1') {
+            var orderId = "Delivery-"+order();
             var {
                 service_type,
+                orderId,
                 pickup_address,
                 pickup_longitude,
                 pickup_latitude,
@@ -452,6 +461,7 @@ exports.serviceRequire = async (req, res) => {
             }
             let updateData = {
                 service_type,
+                orderId,
                 pickup_address,
                 pickup_latitude,
                 pickup_longitude,
@@ -478,8 +488,11 @@ exports.serviceRequire = async (req, res) => {
                 })
             }
         } else if (data.service_type === '2') {
+            var orderId = "Service-"+order();
+
             var {
                 service_type,
+                orderId,
                 service_name,
                 pickup_address,
                 pickup_longitude,
@@ -494,6 +507,7 @@ exports.serviceRequire = async (req, res) => {
             }
             let updateData = {
                 service_type,
+                orderId,
                 service_name,
                 pickup_address,
                 pickup_latitude,
@@ -527,6 +541,10 @@ exports.serviceRequire = async (req, res) => {
         responses.sendError(error.message, res)
     }
 }
+
+
+// createServiceNow
+
 
 exports.cancelServiceByUser = async (req, res) => {
     try {
