@@ -71,6 +71,8 @@ exports.deliveryNewOrder = async (req, res) => {
 
 exports.deliveryPendingOrder = async (req, res) => {
 
+    console.log("................"+req.body+"..........................");
+    
     try {
         var newServiceData = [];
         var where = {
