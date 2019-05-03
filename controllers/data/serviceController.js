@@ -91,16 +91,31 @@ exports.deliveryPendingOrder = async (req, res) => {
 
         var deliveryUserOffersData = await offersData.find({
             serviceGivenBy: req.userId
-        })
+        }).populate('serviceCreatedBy')
         if (deliveryUserOffersData.length != 0 && newService.length != 0) {
             newService.forEach(service => {
                 deliveryUserOffersData.forEach(offer => {
                     if (service._id.toString() == offer.serviceId.toString() && offer.serviceGivenBy.toString() == req.userId.toString()) {
-                        console.log("offer",offer)
-                        service.offerData = offer;
-                        console.log("service",service);
-                        
-                        newServiceData.push(service);
+                      
+                        newServiceData.push({
+                            _id:service._id,
+                            service_type:service.service_type,
+                            orderId:service.orderId,
+                            delivery_captains_50:service.delivery_captains_50,
+                            delivery_captains_100:service.delivery_captains_100,
+                            total_captains:service.total_captains,
+                            orderStatus:service.orderStatus,
+                            createdAt:service.createdAt,
+                            pickup_address:service.pickup_address,
+                            pickup_latitude:service.pickup_latitude,
+                            pickup_longitude:service.pickup_longitude,
+                            drop_address:service.drop_address,
+                            drop_latitude:service.drop_latitude,
+                            drop_longitude:service.drop_longitude,
+                            comments:service.pickup_longitude,
+                            serviceCreatedBy:service.serviceCreatedBy,
+                            offerData:offer
+                        });
                     }
                 });
             });
