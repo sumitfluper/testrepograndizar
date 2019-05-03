@@ -437,6 +437,7 @@ exports.serviceRequire = async (req, res) => {
         let serviceCreatedBy = req.userId;
         console.log(data.service_type)
         if (data.service_type === '1') {
+
             var orderId = "Delivery-"+order();
             var {
                 service_type,
@@ -488,6 +489,7 @@ exports.serviceRequire = async (req, res) => {
                 })
             }
         } else if (data.service_type === '2') {
+            
             var orderId = "Service-"+order();
 
             var {
