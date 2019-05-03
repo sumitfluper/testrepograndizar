@@ -7,6 +7,10 @@ const professionalSchema = new Schema({
         type : String,
         default : '0',
     },
+    orderId: {
+        type: String,
+        default: 'N/A'
+    }, 
     pickup_address : {
         type : String,
     },
