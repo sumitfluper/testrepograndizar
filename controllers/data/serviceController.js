@@ -441,7 +441,6 @@ exports.serviceRequire = async (req, res) => {
             var orderId = "Delivery-"+order();
             var {
                 service_type,
-                orderId,
                 pickup_address,
                 pickup_longitude,
                 pickup_latitude,
@@ -489,12 +488,11 @@ exports.serviceRequire = async (req, res) => {
                 })
             }
         } else if (data.service_type === '2') {
-            
+
             var orderId = "Service-"+order();
 
             var {
                 service_type,
-                orderId,
                 service_name,
                 pickup_address,
                 pickup_longitude,
