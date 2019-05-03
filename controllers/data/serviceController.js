@@ -38,7 +38,7 @@ exports.deliveryNewOrder = async (req, res) => {
         var deliveryUserOffersData = await offersData.find({
             serviceGivenBy: req.userId
         })
-        if (deliveryUserOffersData.length != 0 && !newService) {
+        if (deliveryUserOffersData.length != 0 && newService.length != 0) {
             newService.forEach(service => {
                 deliveryUserOffersData.forEach(offer => {
                     if (service._id.toString() != offer.serviceId.toString() && offer.serviceGivenBy.toString() != req.userId.toString()) {
@@ -66,6 +66,61 @@ exports.deliveryNewOrder = async (req, res) => {
         responses.sendError(error.message, res)
     }
 }
+
+exports.deliveryPendingOrder = async (req, res) => {
+
+    try {
+        var newServiceData = [];
+        var where = {
+            pickup_location: {
+                $near: {
+                    $geometry: {
+                        type: "Point",
+                        coordinates: [Number(req.body.long), Number(req.body.lat)]
+                    },
+                    $maxDistance: 5000,
+                    $minDistance: 0,
+                }
+            },
+            orderStatus: 1           
+        }
+
+        let newService = await serviceModel.find(where)
+            .populate('serviceCreatedBy')
+            .select('-pickup_location -drop_location');
+
+        var deliveryUserOffersData = await offersData.find({
+            serviceGivenBy: req.userId
+        })
+        if (deliveryUserOffersData.length != 0 && newService.length != 0) {
+            newService.forEach(service => {
+                deliveryUserOffersData.forEach(offer => {
+                    if (service._id.toString() == offer.serviceId.toString() && offer.serviceGivenBy.toString() == req.userId.toString()) {
+                        newServiceData.push(service);
+                    }
+                });
+            });
+        } else {
+            newServiceData = newService;
+
+        }
+        if (newServiceData.length > 0) {
+            res.status(200).send({
+                message: 'List Of Near by orders',
+                response: newServiceData
+            })
+        } else {
+            res.status(200).send({
+                message: 'Sorry currently there are no orders available near by you...!',
+                response: newServiceData
+            })
+        }
+
+    } catch (error) {
+        responses.sendError(error.message, res)
+    }
+}
+
 
 exports.deliveryAcceptedOrders = async (req, res) => {
 

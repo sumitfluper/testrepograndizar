@@ -7,7 +7,7 @@ const offerModel = require('../../models/Offerbyuser');
 exports.makeAnOffer = async (req, res) => {
     try {
         let data = {
-            serviceId:req.body.srerviceId,
+            serviceId:req.body.serviceId,
             serviceCreatedBy: req.body.serviceCreatedBy,
             serviceGivenBy: req.userId,
             deliveryCharge:req.body.deliveryCharge,
@@ -69,7 +69,7 @@ exports.getAllOffers = async (req, res) => {
         var arrOffers = [];
         
         var OffersList = await offerModel.find({
-            serviceId:req.body.serviceId,
+            serviceId: req.body.serviceId,
         })
         .populate('serviceId')
         .populate('serviceGivenBy')

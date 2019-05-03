@@ -11,7 +11,7 @@ router.route('/deliveryneworder')
 
 // routes to add location 
 router.route('/deliverypendingorders')
-    .post(auth.requiresLogin, serviceController.deliveryNewOrder);
+    .post(auth.requiresLogin, serviceController.deliveryPendingOrder);
 
 // get all order created by user type 1
 router.route('/deliveryacceptedorders')
