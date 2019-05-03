@@ -96,6 +96,7 @@ exports.deliveryPendingOrder = async (req, res) => {
             newService.forEach(service => {
                 deliveryUserOffersData.forEach(offer => {
                     if (service._id.toString() == offer.serviceId.toString() && offer.serviceGivenBy.toString() == req.userId.toString()) {
+                        log("offer",offer)
                         service.offerData = offer;
                         newServiceData.push(service);
                     }
