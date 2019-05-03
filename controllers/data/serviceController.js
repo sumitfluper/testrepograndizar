@@ -91,7 +91,7 @@ exports.deliveryPendingOrder = async (req, res) => {
 
         var deliveryUserOffersData = await offersData.find({
             serviceGivenBy: req.userId
-        }).populate('serviceCreatedBy')
+        })
         if (deliveryUserOffersData.length != 0 && newService.length != 0) {
             newService.forEach(service => {
                 deliveryUserOffersData.forEach(offer => {
@@ -114,7 +114,9 @@ exports.deliveryPendingOrder = async (req, res) => {
                             drop_longitude:service.drop_longitude,
                             comments:service.pickup_longitude,
                             serviceCreatedBy:service.serviceCreatedBy,
-                            offerData:offer
+                            offerMessage:offer.deliveryMessage,
+                            deliveryTime:offer.deliveryTime,
+                            deliveryCharge:offer.deliveryCharge,
                         });
                     }
                 });
