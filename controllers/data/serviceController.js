@@ -31,34 +31,34 @@ exports.deliveryNewOrder = async (req, res) => {
             orderStatus: 1           
         }
 
-        let data = await serviceModel.find(where)
+        let newService = await serviceModel.find(where)
             .populate('serviceCreatedBy')
             .select('-pickup_location -drop_location');
 
         var deliveryUserOffersData = await offersData.find({
             serviceGivenBy: req.userId
         })
-        // if (deliveryUserOffersData.length != 0 && newService != null ) {
-        //     newService.forEach(service => {
-        //         deliveryUserOffersData.forEach(offer => {
-        //             if (service._id.toString() != offer.serviceId.toString() && offer.serviceGivenBy.toString() != req.userId.toString()) {
-        //                 newServiceData.push(service);
-        //             }
-        //         });
-        //     });
-        // } else {
-        //     newServiceData = newService;
+        if (deliveryUserOffersData.length != 0 && newService != null ) {
+            newService.forEach(service => {
+                deliveryUserOffersData.forEach(offer => {
+                    if (service._id.toString() != offer.serviceId.toString() && offer.serviceGivenBy.toString() != req.userId.toString()) {
+                        newServiceData.push(service);
+                    }
+                });
+            });
+        } else {
+            newServiceData = newService;
 
-        // }
-        if (data) {
+        }
+        if (newServiceData.length > 0) {
             res.status(200).send({
                 message: 'List Of Near by orders',
-                response: data
+                response: newServiceData
             })
         } else {
             res.status(200).send({
                 message: 'Sorry currently there are no orders available near by you...!',
-                response: data
+                response: newServiceData
             })
         }
 
