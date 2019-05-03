@@ -144,6 +144,8 @@ exports.acceptOffer = async (req, res) => {
             $set: {
                 offerStatus: 2
             }
+        },{
+            new:true
         });
         if(offer){
             // let rejectOtherOffer = await offerModel.updateMany({
