@@ -2,6 +2,7 @@
     "telemetry.machineId": "af41df9b73d2cfcb6a9b46abd50787700cd4cbf0b25160d78df06d53f6498110",
     "openedPathsList": {
         "workspaces3": [
+            "file:///home/fluper/archive/Projects/grandizer/grandizar-backend",
             "file:///home/fluper/archive/Projects/gohelpmate/gohelpmate-backend",
             "file:///home/fluper/archive/Projects/grandizar-backend"
         ],
@@ -50,13 +51,13 @@
                                     "id": "openRecentFolder",
                                     "uri": {
                                         "$mid": 1,
-                                        "fsPath": "/home/fluper/archive/Projects/grandizar-backend",
-                                        "external": "file:///home/fluper/archive/Projects/grandizar-backend",
-                                        "path": "/home/fluper/archive/Projects/grandizar-backend",
+                                        "fsPath": "/home/fluper/archive/Projects/grandizer/grandizar-backend",
+                                        "external": "file:///home/fluper/archive/Projects/grandizer/grandizar-backend",
+                                        "path": "/home/fluper/archive/Projects/grandizer/grandizar-backend",
                                         "scheme": "file"
                                     },
                                     "enabled": true,
-                                    "label": "~/archive/Projects/grandizar-backend"
+                                    "label": "~/archive/Projects/grandizer/grandizar-backend"
                                 },
                                 {
                                     "id": "openRecentFolder",
@@ -68,6 +69,17 @@
                                     },
                                     "enabled": true,
                                     "label": "~/archive/Projects/gohelpmate/gohelpmate-backend"
+                                },
+                                {
+                                    "id": "openRecentFolder",
+                                    "uri": {
+                                        "$mid": 1,
+                                        "external": "file:///home/fluper/archive/Projects/grandizar-backend",
+                                        "path": "/home/fluper/archive/Projects/grandizar-backend",
+                                        "scheme": "file"
+                                    },
+                                    "enabled": true,
+                                    "label": "~/archive/Projects/grandizar-backend"
                                 },
                                 {
                                     "id": "vscode.menubar.separator"
@@ -721,13 +733,11 @@
                     },
                     {
                         "id": "workbench.action.debug.stop",
-                        "label": "&&Stop Debugging",
-                        "enabled": false
+                        "label": "&&Stop Debugging"
                     },
                     {
                         "id": "workbench.action.debug.restart",
-                        "label": "&&Restart Debugging",
-                        "enabled": false
+                        "label": "&&Restart Debugging"
                     },
                     {
                         "id": "vscode.menubar.separator"

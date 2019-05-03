@@ -12,10 +12,12 @@ let user = new Schema({
         default: null
     },
     name: {
-        type: String
+        type: String,
+        default:'N/A'
     },
     user_name: {
-        type: String
+        type: String,
+        default:'N/A'
 
     },
     is_verified: {
@@ -24,14 +26,16 @@ let user = new Schema({
     },
     is_username: {
         type: String,
+        default:'N/A'
     },
     email: {
-        type: String
+        type: String,
+        default:'N/A'
 
     },
     gender: {
         type: String,
-        default: null
+        default:'N/A'
     },
     dob: {
         type: String,
@@ -46,7 +50,8 @@ let user = new Schema({
         default: 0 // 0 = unverified 1 = verified
     },
     verification_code: {
-        type: String
+        type: String,
+        default:'N/A'
     },
 
     created_on: {
@@ -56,13 +61,15 @@ let user = new Schema({
         type: Date
     },
     device_token: {
-        type: String
+        type: String,
+        default:'N/A'
     },
     device_type: {
         type: Number
     },
     user_id: {
-        type: String
+        type: String,
+        default:'N/A'
     },
     latitude: {
         type: Number
@@ -71,13 +78,16 @@ let user = new Schema({
         type: Number
     },
     access_token: {
-        type: String
+        type: String,
+        default:'N/A'
     },
     app_langauge: {
-        type: String
+        type: String,
+        default:'N/A'
     },
     speak_langauge: {
-        type: String
+        type: String,
+        default:'N/A'
     },
     is_blocked: {
         type: Number,
