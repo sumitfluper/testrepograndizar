@@ -98,6 +98,8 @@ exports.deliveryPendingOrder = async (req, res) => {
                     if (service._id.toString() == offer.serviceId.toString() && offer.serviceGivenBy.toString() == req.userId.toString()) {
                         console.log("offer",offer)
                         service.offerData = offer;
+                        console.log("service",service);
+                        
                         newServiceData.push(service);
                     }
                 });
