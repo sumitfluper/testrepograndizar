@@ -139,7 +139,7 @@ exports.acceptOffer = async (req, res) => {
         
         let offer = await offerModel.findOneAndUpdate({
             serviceId: mongoose.Types.ObjectId(req.body.serviceId),
-            serviceGivenBy: req.userId,
+            serviceGivenBy:req.body.serviceGivenBy,
         }, {
             $set: {
                 offerStatus: 2
