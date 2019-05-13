@@ -8,9 +8,6 @@ const bodyParser = require('body-parser');
 const glob = require('glob')
 const cors = require('cors')
 const indexRoute = require('./routes/index.js');
-const attachModelsToRequest = require('./middleware/attachModelsToRequest.js')
-
-app.use(morgan(':method :url'));
 
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}))
 app.use(bodyParser.json({limit: '50mb', extended: true}));
@@ -18,7 +15,7 @@ app.use(bodyParser.json({limit: '50mb', extended: true}));
 app.use(express.static(path.join(__dirname, 'Images')));
 app.use(cors())
 
-app.use('/api', attachModelsToRequest, indexRoute);
+app.use('/api', morgan(':method :url'), indexRoute);
 
 // check env of the application and connect to the database accordingly 
 if (process.env.NODE_ENV !== 'test') {
@@ -37,8 +34,7 @@ if (process.env.NODE_ENV !== 'test') {
 
 
 var port = process.env.PORT || 3000;
-// var db = mongoose.connection;
 
 app.listen(port,() => {
-    console.log('server on port '+port);
+    console.log(`server on port ${port}`);
 })
