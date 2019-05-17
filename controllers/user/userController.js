@@ -676,4 +676,52 @@ exports.updateProfessionProfile = async (req, res) => {
     }
 }
 
+exports.getDeliveryBoyProfile = async (req, res) => {
+    try {
+        let data = DriverprofileModel.findOne({
+            userId: req.userId
+        });
+        if (data) {
+            res.status(200).send({
+                message: "driver profile",
+                response: data
+            })
+        } else {
+            res.status(200).send({
+                message: "OOOOOps error occured please try again after some time ",
+                response: data
+            })
+        }
+    } catch (error) {
+        res.status(200).send({
+            message: "OOOOOps error occured please try again after some time ",
+            response: [error]
+        })
+    }
+}
+
+exports.getProfessionalBoyProfile = async (req, res) => {
+    try {
+        let data = ProfessionalProfileModel.findOne({
+            userId: req.userId
+        });
+        if (data) {
+            res.status(200).send({
+                message: "professional profile",
+                response: data
+            })
+        } else {
+            res.status(200).send({
+                message: "OOOOOps error occured please try again after some time ",
+                response: data
+            })
+        }
+    } catch (error) {
+        res.status(200).send({
+            message: "OOOOOps error occured please try again after some time ",
+            response: [error]
+        })
+    }
+}
+
 
