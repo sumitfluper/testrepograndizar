@@ -46,14 +46,7 @@ router.route('/updatedeliveryboyprofile')
 router.route('/updateprofessionalboyprofile')
 	.post(auth.requiresLogin,upload.any(), userController.updateProfessionProfile);
 
-router.route('/checkmethod')
-	.get(userController.checkMethod);
-router.route('/checkmethod')
-	.post(userController.checkMethod);
-router.route('/checkmethod')
-	.put(userController.checkMethod);
-router.route('/checkmethod')
-	.delete(userController.checkMethod);
+
 	// .post(auth.requiresLogin,upload.any(), userController.updateUserDocuments);
 
 exports.Router = router;
