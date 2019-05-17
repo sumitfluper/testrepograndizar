@@ -29,7 +29,7 @@ const userDeliveryProfileSchema = new Schema({
         default: "N/A"
     },
     vehicle_type: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         required: true
     },
     vehicle_number: {

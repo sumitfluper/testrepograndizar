@@ -11,5 +11,22 @@ router.route('/addlocation')
 router.route('/getsavelocation')
     .get(auth.requiresLogin,dataController.getUserLocation);
 
+router.route('/industry')
+    .post(auth.requiresLogin,dataController.industry);
+router.route('/industry')
+    .get(auth.requiresLogin,dataController.industry);
+router.route('/industry/:industry_id')
+    .put(auth.requiresLogin,dataController.industry);
+router.route('/industry/:industry_id')
+    .delete(auth.requiresLogin,dataController.industry);
+
+router.route('/section')
+    .post(auth.requiresLogin,dataController.section);
+router.route('/section')
+    .get(auth.requiresLogin,dataController.section);
+router.route('/section/:section_id')
+    .put(auth.requiresLogin,dataController.section);
+router.route('/section/:section_id')
+    .delete(auth.requiresLogin,dataController.section);
  
 exports.Router = router;

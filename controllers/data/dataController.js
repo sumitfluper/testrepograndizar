@@ -4,6 +4,7 @@ var async = require('async');
 var responses = require('../../modules/responses');
 const locationModel = require('../../models/Savedlocation');
 const IndustryModel = require('../../models/Industries');
+const SectionModel = require('../../models/Section');
 
 /**
  * Save Location of the user 
@@ -87,15 +88,18 @@ exports.getUserLocation = async (req, res) => {
 exports.industry = async (req, res) => {
     try {
         if(req.method == "POST"){
-
+            console.log(req.body);
+            
+            let tpsave = new IndustryModel(req.body)
+            await tpsave.save();
             let newIndustry = await IndustryModel.create(req.body);
             if(newIndustry){
-                req.status(200).response({
+                res.status(200).send({
                     message: "Created Successfully",
                     response: newIndustry
                 })
             } else {
-                req.status(200).response({
+                res.status(200).send({
                     message: "unable to create industry",
                     response:[]
                 })
@@ -103,19 +107,19 @@ exports.industry = async (req, res) => {
         }
         if(req.method == "PUT"){
             let updateData = req.body;
-            let industry_id = req.param.industry_id;
-            let newIndustry = await IndustryModel.findByIdAndUpdate(req.userId,{
-                $set: {updateData}
+            let industry_id = mongoose.Types.ObjectId(req.params.industry_id) ;
+            let newIndustry = await IndustryModel.findByIdAndUpdate(industry_id,{
+                $set: updateData
             },{
                 new: true
             });
             if(newIndustry){
-                req.status(200).response({
+                res.status(200).send({
                     message: "updated Successfully",
                     response: newIndustry
                 })
             } else {
-                req.status(200).response({
+                res.status(200).send({
                     message: "unable to update industry",
                     response:[]
                 })
@@ -136,13 +140,103 @@ exports.industry = async (req, res) => {
             
         }
         if(req.method == "DELETE"){
-    
+            let industryList = await IndustryModel.remove({
+                _id: req.param.industry_id
+            });
+            if(industryList){
+                res.status(200).send({
+                    message: "Deleted Successfully",
+                    response: industryList
+                })
+            } else {
+                res.status(200).send({
+                    message: "unable to delete the industry"
+                })
+            }
+
         }
     } catch (error) {
         console.log("*****************",error,"***********************");
-        req.status(200).response({
+        res.status(200).send({
             message: "unable to create industry",
             response:[]
         })
     }
 }
+
+exports.section = async (req, res) => {
+    try {
+        if(req.method == "POST"){
+
+            let newSection = await SectionModel.create(req.body);
+            if(newSection){
+                res.status(200).send({
+                    message: "Created Successfully",
+                    response: newSection
+                })
+            } else {
+                res.status(200).send({
+                    message: "unable to create Section",
+                    response:[]
+                })
+            }
+        }
+        if(req.method == "PUT"){
+            let updateData = req.body;
+            let section_id = req.param.section_id;
+            let newSection = await SectionModel.findByIdAndUpdate(section_id,{
+                $set: {updateData}
+            },{
+                new: true
+            });
+            if(newSection){
+                res.status(200).send({
+                    message: "updated Successfully",
+                    response: newSection
+                })
+            } else {
+                res.status(200).send({
+                    message: "unable to update Section",
+                    response:[]
+                })
+            }
+        }
+        if(req.method == "GET"){
+            let sectionList = await SectionModel.find();
+            if(sectionList){
+                res.status(200).send({
+                    message: "List of Section",
+                    response: sectionList
+                })
+            } else {
+                res.status(200).send({
+                    message: "Unable to fetch data Please try again"
+                })
+            }
+            
+        }
+        if(req.method == "DELETE"){
+            let sectionList = await SectionModel.remove({
+                _id: req.param.sectionList
+            });
+            if(industryList){
+                res.status(200).send({
+                    message: "Deleted Successfully",
+                    response: industryList
+                })
+            } else {
+                res.status(200).send({
+                    message: "unable to delete the industry"
+                })
+            }
+
+        }
+    } catch (error) {
+        console.log("*****************",error,"***********************");
+        res.status(200).send({
+            message: "unable to create industry",
+            response:[]
+        })
+    }
+}
+

@@ -29,15 +29,15 @@ const userProfessionalProfileSchema = new Schema({
         default: "N/A"
     },
     industry_id: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         required: true
     },
     section_id: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         required: true
     },
     professional_type_id: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         required: true
     },
     certificate_image: {
