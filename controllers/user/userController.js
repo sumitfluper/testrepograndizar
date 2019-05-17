@@ -678,7 +678,7 @@ exports.updateProfessionProfile = async (req, res) => {
 
 exports.getDeliveryBoyProfile = async (req, res) => {
     try {
-        let data = DriverprofileModel.findOne({
+        let data = await DriverprofileModel.findOne({
             userId: req.userId
         });
         if (data) {
@@ -702,7 +702,7 @@ exports.getDeliveryBoyProfile = async (req, res) => {
 
 exports.getProfessionalBoyProfile = async (req, res) => {
     try {
-        let data = ProfessionalProfileModel.findOne({
+        let data = await ProfessionalProfileModel.findOne({
             userId: req.userId
         });
         if (data) {

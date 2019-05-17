@@ -50,10 +50,9 @@ router.route('/updateprofessionalboyprofile')
 
 router.route('/getdeliveryboyprofile')
 	.get(auth.requiresLogin, userController.getDeliveryBoyProfile);
-	
+
 router.route('/getprofessionalboyprofile')
 	.get(auth.requiresLogin, userController.getProfessionalBoyProfile);
 
-// .post(auth.requiresLogin,upload.any(), userController.updateUserDocuments);
 
 exports.Router = router;

@@ -5,6 +5,7 @@ var responses = require('../../modules/responses');
 const locationModel = require('../../models/Savedlocation');
 const IndustryModel = require('../../models/Industries');
 const SectionModel = require('../../models/Section');
+const VehicletypeModel = require('../../models/Vehicletype');
 
 /**
  * Save Location of the user 
@@ -107,8 +108,8 @@ exports.industry = async (req, res) => {
         }
         if(req.method == "PUT"){
             let updateData = req.body;
-            let industry_id = mongoose.Types.ObjectId(req.params.industry_id) ;
-            let newIndustry = await IndustryModel.findByIdAndUpdate(industry_id,{
+            let _id = mongoose.Types.ObjectId(req.params._id) ;
+            let newIndustry = await IndustryModel.findByIdAndUpdate(_id,{
                 $set: updateData
             },{
                 new: true
@@ -141,7 +142,7 @@ exports.industry = async (req, res) => {
         }
         if(req.method == "DELETE"){
             let industryList = await IndustryModel.remove({
-                _id: req.param.industry_id
+                _id: mongoose.Types.ObjectId(req.param._id)
             });
             if(industryList){
                 res.status(200).send({
@@ -158,7 +159,7 @@ exports.industry = async (req, res) => {
     } catch (error) {
         console.log("*****************",error,"***********************");
         res.status(200).send({
-            message: "unable to create industry",
+            message: "some error occurred",
             response:[]
         })
     }
@@ -183,8 +184,8 @@ exports.section = async (req, res) => {
         }
         if(req.method == "PUT"){
             let updateData = req.body;
-            let section_id = req.param.section_id;
-            let newSection = await SectionModel.findByIdAndUpdate(section_id,{
+            let _id = mongoose.Types.ObjectId(req.param._id);
+            let newSection = await SectionModel.findByIdAndUpdate(_id,{
                 $set: {updateData}
             },{
                 new: true
@@ -217,7 +218,7 @@ exports.section = async (req, res) => {
         }
         if(req.method == "DELETE"){
             let sectionList = await SectionModel.remove({
-                _id: req.param.sectionList
+                _id: mongoose.Types.ObjectId(req.param._id)
             });
             if(industryList){
                 res.status(200).send({
@@ -234,9 +235,161 @@ exports.section = async (req, res) => {
     } catch (error) {
         console.log("*****************",error,"***********************");
         res.status(200).send({
-            message: "unable to create industry",
+            message: "some error occurred",
             response:[]
         })
     }
 }
 
+exports.vehiletype = async (req, res) => {
+    try {
+        if(req.method == "POST"){
+
+            let newData = await VehicletypeModel.create(req.body);
+            if(newData){
+                res.status(200).send({
+                    message: "Created Successfully",
+                    response: newData
+                })
+            } else {
+                res.status(200).send({
+                    message: "Unable to Create",
+                    response:[]
+                })
+            }
+        }
+        if(req.method == "PUT"){
+            let updateData = req.body;
+            let _id = mongoose.Types.ObjectId(req.param._id);
+            let updatedData = await VehicletypeModel.findByIdAndUpdate(_id,{
+                $set: {updateData}
+            },{
+                new: true
+            });
+            if(updatedData){
+                res.status(200).send({
+                    message: "updated Successfully",
+                    response: updatedData
+                })
+            } else {
+                res.status(200).send({
+                    message: "Unable to Update ",
+                    response:[]
+                })
+            }
+        }
+        if(req.method == "GET"){
+            let dataList = await VehicletypeModel.find();
+            if(dataList){
+                res.status(200).send({
+                    message: "Successfull",
+                    response: dataList
+                })
+            } else {
+                res.status(200).send({
+                    message: "Unable to fetch data Please try again"
+                })
+            }
+            
+        }
+        if(req.method == "DELETE"){
+            let deletedData = await VehicletypeModel.remove({
+                _id: req.param._id
+            });
+            if(deletedData){
+                res.status(200).send({
+                    message: "Deleted Successfully",
+                    response: deletedData
+                })
+            } else {
+                res.status(200).send({
+                    message: "unable to delete the industry"
+                })
+            }
+
+        }
+    } catch (error) {
+        console.log("*****************",error,"***********************");
+        res.status(200).send({
+            message: "some error occurred",
+            response:[]
+        })
+    }
+}
+
+
+exports.licenseType = async (req, res)=>{
+    try {
+        if(req.method == "POST"){
+
+            let newData = await VehicletypeModel.create(req.body);
+            if(newData){
+                res.status(200).send({
+                    message: "Created Successfully",
+                    response: newData
+                })
+            } else {
+                res.status(200).send({
+                    message: "Unable to Create",
+                    response:[]
+                })
+            }
+        }
+        if(req.method == "PUT"){
+            let updateData = req.body;
+            let _id = mongoose.Types.ObjectId(req.param._id);
+            let updatedData = await VehicletypeModel.findByIdAndUpdate(_id,{
+                $set: {updateData}
+            },{
+                new: true
+            });
+            if(updatedData){
+                res.status(200).send({
+                    message: "updated Successfully",
+                    response: updatedData
+                })
+            } else {
+                res.status(200).send({
+                    message: "Unable to Update ",
+                    response:[]
+                })
+            }
+        }
+        if(req.method == "GET"){
+            let dataList = await VehicletypeModel.find();
+            if(dataList){
+                res.status(200).send({
+                    message: "Successfull",
+                    response: dataList
+                })
+            } else {
+                res.status(200).send({
+                    message: "Unable to fetch data Please try again"
+                })
+            }
+            
+        }
+        if(req.method == "DELETE"){
+            let deletedData = await VehicletypeModel.remove({
+                _id: req.param._id
+            });
+            if(deletedData){
+                res.status(200).send({
+                    message: "Deleted Successfully",
+                    response: deletedData
+                })
+            } else {
+                res.status(200).send({
+                    message: "unable to delete the industry"
+                })
+            }
+
+        }
+    } catch (error) {
+        console.log("*****************",error,"***********************");
+        res.status(200).send({
+            message: "some error occurred",
+            response:[]
+        })
+    }
+}

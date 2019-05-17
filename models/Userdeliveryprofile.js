@@ -60,7 +60,6 @@ const userDeliveryProfileSchema = new Schema({
         type: Number,
         default: 0
     },
-    
     createdAt: {
         type: Number,
         default: new Date().getTime()

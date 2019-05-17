@@ -15,18 +15,18 @@ router.route('/industry')
     .post(auth.requiresLogin,dataController.industry);
 router.route('/industry')
     .get(auth.requiresLogin,dataController.industry);
-router.route('/industry/:industry_id')
+router.route('/industry/:_id')
     .put(auth.requiresLogin,dataController.industry);
-router.route('/industry/:industry_id')
+router.route('/industry/:_id')
     .delete(auth.requiresLogin,dataController.industry);
 
 router.route('/section')
     .post(auth.requiresLogin,dataController.section);
 router.route('/section')
     .get(auth.requiresLogin,dataController.section);
-router.route('/section/:section_id')
+router.route('/section/:_id')
     .put(auth.requiresLogin,dataController.section);
-router.route('/section/:section_id')
+router.route('/section/:_id')
     .delete(auth.requiresLogin,dataController.section);
  
 exports.Router = router;
