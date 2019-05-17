@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 var async = require('async');
 var responses = require('../../modules/responses');
 const locationModel = require('../../models/Savedlocation');
+const IndustryModel = require('../../models/Industries');
 
 /**
  * Save Location of the user 
@@ -81,4 +82,67 @@ exports.getUserLocation = async (req, res) => {
         responses.sendError(error.message, res)
     }
 
+}
+
+exports.industry = async (req, res) => {
+    try {
+        if(req.method == "POST"){
+
+            let newIndustry = await IndustryModel.create(req.body);
+            if(newIndustry){
+                req.status(200).response({
+                    message: "Created Successfully",
+                    response: newIndustry
+                })
+            } else {
+                req.status(200).response({
+                    message: "unable to create industry",
+                    response:[]
+                })
+            }
+        }
+        if(req.method == "PUT"){
+            let updateData = req.body;
+            let industry_id = req.param.industry_id;
+            let newIndustry = await IndustryModel.findByIdAndUpdate(req.userId,{
+                $set: {updateData}
+            },{
+                new: true
+            });
+            if(newIndustry){
+                req.status(200).response({
+                    message: "updated Successfully",
+                    response: newIndustry
+                })
+            } else {
+                req.status(200).response({
+                    message: "unable to update industry",
+                    response:[]
+                })
+            }
+        }
+        if(req.method == "GET"){
+            let industryList = await IndustryModel.find();
+            if(industryList){
+                res.status(200).send({
+                    message: "List of Industry",
+                    response: industryList
+                })
+            } else {
+                res.status(200).send({
+                    message: "Unable to fetch data Please try again"
+                })
+            }
+            
+        }
+        if(req.method == "DELETE"){
+    
+        }
+    } catch (error) {
+        console.log("*****************",error,"***********************");
+        req.status(200).response({
+            message: "unable to create industry",
+            response:[]
+        })
+    }
 }

@@ -40,8 +40,20 @@ router.route('/managenotification')
 	.post(auth.requiresLogin, userController.manageNotification);
 
 // upload documents
-router.route('/updateprofile')
-	.post(auth.requiresLogin,upload.any(), userController.updateUserDocuments);
+router.route('/updatedeliveryboyprofile')
+	.post(auth.requiresLogin,upload.any(), userController.updateUserDeliveryBoyDocuments);
+
+router.route('/updateprofessionalboyprofile')
+	.post(auth.requiresLogin,upload.any(), userController.updateProfessionProfile);
+
+router.route('/checkmethod')
+	.get(userController.checkMethod);
+router.route('/checkmethod')
+	.post(userController.checkMethod);
+router.route('/checkmethod')
+	.put(userController.checkMethod);
+router.route('/checkmethod')
+	.delete(userController.checkMethod);
 	// .post(auth.requiresLogin,upload.any(), userController.updateUserDocuments);
 
 exports.Router = router;

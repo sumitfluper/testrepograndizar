@@ -1,12 +1,13 @@
 const UserModel = require('../../models/User');
 const DriverprofileModel = require('../../models/Userdeliveryprofile');
+const ProfessionalProfileModel = require('../../models/Userprofessionalprofile');
 const Joi = require('joi');
 const status = require('../../modules/status');
 const md5 = require('md5');
 const commFunc = require('../../modules/commonFunction');
 const _ = require('lodash');
 const responses = require('../../modules/responses');
-const models=require('mongoose').models;
+const models = require('mongoose').models;
 const uniqueRandom = require('unique-random');
 const random = uniqueRandom(1, 10);
 
@@ -515,20 +516,20 @@ exports.manageNotification = async (req, res) => {
 
     try {
 
-console.log(random(), random(), random());
+        console.log(random(), random(), random());
 
         console.log(req.body);
-        
-        if(!req.body.notificationType){
+
+        if (!req.body.notificationType) {
             res.status(200).send({
                 message: "Notification type is missing. Please check"
             })
         }
 
-        if(req.body.status == 'true'){
+        if (req.body.status == 'true') {
             var NewStatus = true
         } else {
-            var  NewStatus = false
+            var NewStatus = false
         }
 
         if (req.body.notificationType == '1') {
@@ -545,10 +546,9 @@ console.log(random(), random(), random());
                     isDeliveryBoy: NewStatus
                 }
             }, {
-                    new: true
-                }
-            );
-    
+                new: true
+            });
+
             if (user) {
                 res.status(200).send({
                     message: "updated successfully",
@@ -557,7 +557,7 @@ console.log(random(), random(), random());
             } else {
                 res.status(200).send({
                     message: "Unable to update please check and try again",
-                    response:[]
+                    response: []
                 })
             }
         }
@@ -570,7 +570,7 @@ console.log(random(), random(), random());
             }, {
                 new: true
             })
-    
+
             if (user) {
                 res.status(200).send({
                     message: "updated successfully",
@@ -579,10 +579,10 @@ console.log(random(), random(), random());
             } else {
                 res.status(200).send({
                     message: "Unable to update please check and try again",
-                    response:[]
+                    response: []
                 })
             }
-        } 
+        }
 
 
     } catch (error) {
@@ -595,28 +595,26 @@ console.log(random(), random(), random());
 }
 
 
-exports.updateUserDocuments = async (req, res) => {
+exports.updateUserDeliveryBoyDocuments = async (req, res) => {
     try {
-        let documentsData = req.files ;
+        let documentsData = req.files;
         let profileData = {
-            userId: req.body.userId ? req.body.userId : "N/A",
+            userId: req.userId ? req.userId : "N/A",
             name: req.body.name ? req.body.name : "N/A",
-            about:req.body.about ? req.body.about : "N/A",
-            vehicle_type:req.body.vehicle_type ? req.body.vehicle_type : "N/A",
+            about: req.body.about ? req.body.about : "N/A",
+            vehicle_type: req.body.vehicle_type ? req.body.vehicle_type : "N/A",
             vehicle_number: req.body.vehicle_number ? req.body.vehicle_number : "N/A",
-            insurance_number:req.body.insurance_number ? req.body.insurance_number : "N/A",
-            bank_acc_number:req.body.bank_acc_number ? req.body.bank_acc_number : "N/A",
-            emergrncy_contact:req.body.emergrncy_contact ? req.body.emergrncy_contact : "N/A",
+            insurance_number: req.body.insurance_number ? req.body.insurance_number : "N/A",
+            bank_acc_number: req.body.bank_acc_number ? req.body.bank_acc_number : "N/A",
+            emergrncy_contact: req.body.emergrncy_contact ? req.body.emergrncy_contact : "N/A",
         }
 
         for (let index = 0; index < documentsData.length; index++) {
-            profileData[documentsData[index].fieldname] = documentsData[index].path   
+            profileData[documentsData[index].fieldname] = documentsData[index].path
         }
-
         let driverProfile = new DriverprofileModel(profileData)
         let updatedProfile = await driverProfile.save()
-
-        if(updatedProfile){
+        if (updatedProfile) {
             res.status(200).send({
                 message: "Profile Updated Successfully",
                 response: updatedProfile
@@ -628,16 +626,54 @@ exports.updateUserDocuments = async (req, res) => {
             })
         }
 
-
-
-        console.log("profileData",profileData);
-        
     } catch (error) {
         console.error(`***********************error occurred**************************`);
         res.status(200).send({
             message: "OOOOOps error occured please try again after some time ",
             response: [error]
         })
-        
     }
 }
+
+exports.updateProfessionProfile = async (req, res) => {
+    try {
+        let documentsData = req.files;
+        let profileData = {
+            userId: req.userId ? req.userId : "N/A",
+            name: req.body.name ? req.body.name : "N/A",
+            about: req.body.about ? req.body.about : "N/A",
+            industry_id: req.body.industry_id ? req.body.industry_id : "N/A",
+            section_id: req.body.section_id ? req.body.section_id : "N/A",
+            professional_type_id: req.body.professional_type_id ? req.body.professional_type_id : "N/A",
+            vehicle_number: req.body.vehicle_number ? req.body.vehicle_number : "N/A",
+            bank_acc_number: req.body.bank_acc_number ? req.body.bank_acc_number : "N/A",
+            emergrncy_contact: req.body.emergrncy_contact ? req.body.emergrncy_contact : "N/A",
+        }
+
+        for (let index = 0; index < documentsData.length; index++) {
+            profileData[documentsData[index].fieldname] = documentsData[index].path
+        }
+        let professionalProfile = new ProfessionalProfileModel(profileData)
+        let updatedProfile = await professionalProfile.save()
+        if (updatedProfile) {
+            res.status(200).send({
+                message: "Profile Updated Successfully",
+                response: updatedProfile
+            })
+        } else {
+            res.status(200).send({
+                message: "OOOOOps error occured please try again after some time ",
+                response: updatedProfile
+            })
+        }
+
+    } catch (error) {
+        console.error(`***********************error occurred**************************`);
+        res.status(200).send({
+            message: "OOOOOps error occured please try again after some time ",
+            response: [error]
+        })
+    }
+}
+
+

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const userDeliveryProfileSchema = new Schema({
+const userProfessionalProfileSchema = new Schema({
 
     userId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -28,26 +28,32 @@ const userDeliveryProfileSchema = new Schema({
         type: String,
         default: "N/A"
     },
-    vehicle_type: {
+    industry_id: {
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
-    vehicle_number: {
-        type: String,
+    section_id: {
+        type: mongoose.Schema.Types.ObjectId,
         required: true
     },
+    professional_type_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    },
+    certificate_image: {
+        type: String,
+        default: "N/A"
+    },
+    vehicle_number: {
+        type: String,
+        default: "N/A"
+    },
+    
     license_image: {
         type: String,
         default: "N/A"
     },
-    insurance_number: {
-        type: String,
-        default: "N/A"
-    },
-    insurance_image: {
-        type: String,
-        default: "N/A"
-    },
+    
     bank_acc_number: {
         type: String,
         default: "N/A"
@@ -66,7 +72,7 @@ const userDeliveryProfileSchema = new Schema({
         default: new Date().getTime()
     }
 }, {
-    collection: 'userdeliveryprofile',
+    collection: 'userprofessionalprofile',
     versionKey: false
 });
-module.exports = mongoose.model("userdeliveryprofile", userDeliveryProfileSchema);
+module.exports = mongoose.model("userprofessionalprofile", userProfessionalProfileSchema);
