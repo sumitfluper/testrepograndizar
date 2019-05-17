@@ -39,4 +39,9 @@ router.route('/resend_otp')
 router.route('/managenotification')
 	.post(auth.requiresLogin, userController.manageNotification);
 
+// upload documents
+router.route('/updateprofile')
+	.post(auth.requiresLogin,upload.any(), userController.updateUserDocuments);
+	// .post(auth.requiresLogin,upload.any(), userController.updateUserDocuments);
+
 exports.Router = router;

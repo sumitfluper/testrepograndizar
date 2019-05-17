@@ -1,4 +1,5 @@
 const UserModel = require('../../models/User');
+const DriverprofileModel = require('../../models/Userdeliveryprofile');
 const Joi = require('joi');
 const status = require('../../modules/status');
 const md5 = require('md5');
@@ -590,5 +591,53 @@ console.log(random(), random(), random());
             message: "oops.......! error occured please try again",
             response: error
         })
+    }
+}
+
+
+exports.updateUserDocuments = async (req, res) => {
+    try {
+        let documentsData = req.files ;
+        let profileData = {
+            userId: req.body.userId ? req.body.userId : "N/A",
+            name: req.body.name ? req.body.name : "N/A",
+            about:req.body.about ? req.body.about : "N/A",
+            vehicle_type:req.body.vehicle_type ? req.body.vehicle_type : "N/A",
+            vehicle_number: req.body.vehicle_number ? req.body.vehicle_number : "N/A",
+            insurance_number:req.body.insurance_number ? req.body.insurance_number : "N/A",
+            bank_acc_number:req.body.bank_acc_number ? req.body.bank_acc_number : "N/A",
+            emergrncy_contact:req.body.emergrncy_contact ? req.body.emergrncy_contact : "N/A",
+        }
+
+        for (let index = 0; index < documentsData.length; index++) {
+            profileData[documentsData[index].fieldname] = documentsData[index].path   
+        }
+
+        let driverProfile = new DriverprofileModel(profileData)
+        let updatedProfile = await driverProfile.save()
+
+        if(updatedProfile){
+            res.status(200).send({
+                message: "Profile Updated Successfully",
+                response: updatedProfile
+            })
+        } else {
+            res.status(200).send({
+                message: "OOOOOps error occured please try again after some time ",
+                response: updatedProfile
+            })
+        }
+
+
+
+        console.log("profileData",profileData);
+        
+    } catch (error) {
+        console.error(`***********************error occurred**************************`);
+        res.status(200).send({
+            message: "OOOOOps error occured please try again after some time ",
+            response: [error]
+        })
+        
     }
 }
