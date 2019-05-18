@@ -28,5 +28,25 @@ router.route('/section/:_id')
     .put(auth.requiresLogin,dataController.section);
 router.route('/section/:_id')
     .delete(auth.requiresLogin,dataController.section);
+
+
+router.route('/vehiletype')
+    .post(auth.requiresLogin,dataController.vehiletype);
+router.route('/vehiletype')
+    .get(auth.requiresLogin,dataController.vehiletype);
+router.route('/vehiletype/:_id')
+    .put(auth.requiresLogin,dataController.vehiletype);
+router.route('/vehiletype/:_id')
+    .delete(auth.requiresLogin,dataController.vehiletype);
+
+
+router.route('/licensetype')
+    .post(auth.requiresLogin,dataController.licenseType);
+router.route('/licensetype')
+    .get(auth.requiresLogin,dataController.licenseType);
+router.route('/licensetype/:_id')
+    .put(auth.requiresLogin,dataController.licenseType);
+router.route('/licensetype/:_id')
+    .delete(auth.requiresLogin,dataController.licenseType);
  
 exports.Router = router;

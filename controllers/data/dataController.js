@@ -6,6 +6,7 @@ const locationModel = require('../../models/Savedlocation');
 const IndustryModel = require('../../models/Industries');
 const SectionModel = require('../../models/Section');
 const VehicletypeModel = require('../../models/Vehicletype');
+const licenseTypeModel = require('../../models/Licensetype');
 
 /**
  * Save Location of the user 
@@ -322,7 +323,7 @@ exports.licenseType = async (req, res)=>{
     try {
         if(req.method == "POST"){
 
-            let newData = await VehicletypeModel.create(req.body);
+            let newData = await licenseTypeModel.create(req.body);
             if(newData){
                 res.status(200).send({
                     message: "Created Successfully",
@@ -338,7 +339,7 @@ exports.licenseType = async (req, res)=>{
         if(req.method == "PUT"){
             let updateData = req.body;
             let _id = mongoose.Types.ObjectId(req.param._id);
-            let updatedData = await VehicletypeModel.findByIdAndUpdate(_id,{
+            let updatedData = await licenseTypeModel.findByIdAndUpdate(_id,{
                 $set: {updateData}
             },{
                 new: true
@@ -356,7 +357,7 @@ exports.licenseType = async (req, res)=>{
             }
         }
         if(req.method == "GET"){
-            let dataList = await VehicletypeModel.find();
+            let dataList = await licenseTypeModel.find();
             if(dataList){
                 res.status(200).send({
                     message: "Successfull",
@@ -370,7 +371,7 @@ exports.licenseType = async (req, res)=>{
             
         }
         if(req.method == "DELETE"){
-            let deletedData = await VehicletypeModel.remove({
+            let deletedData = await licenseTypeModel.remove({
                 _id: req.param._id
             });
             if(deletedData){
