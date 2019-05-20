@@ -9,8 +9,8 @@ const glob = require('glob')
 const cors = require('cors')
 const indexRoute = require('./routes/index.js');
 
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}))
-app.use(bodyParser.json({limit: '50mb', extended: true}));
+app.use(bodyParser.urlencoded({limit: '150mb', extended: true,parameterLimit: 1000000}))
+app.use(bodyParser.json({limit: '150mb', extended: true}));
 
 app.use(express.static(path.join(__dirname, 'Images')));
 app.use(cors())

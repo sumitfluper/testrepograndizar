@@ -682,15 +682,11 @@ exports.updateProfessionProfile = async (req, res) => {
                 name: req.body.name ? req.body.name : "N/A",
                 about: req.body.about ? req.body.about : "N/A",
                 industry_id: req.body.industry_id ? req.body.industry_id : "N/A",
-                industry_name:req.body.industry_name ? req.body.industry_name :"N/A",
                 section_id: req.body.section_id ? req.body.section_id : "N/A",
-                section_name: req.body.section_name ? req.body.section_name : "N/A",
-                professional_type_id: req.body.professional_type_id ? req.body.professional_type_id : "N/A",
+                professional_id: req.body.professional_id ? req.body.professional_id : "N/A",
                 professional_type_name: req.body.professional_type_name ? req.body.professional_type_name : "N/A",
-                goverment_id_type: req.body.goverment_id_type ? req.body.goverment_id_type : "N/A",
-                goverment_id_name: req.body.goverment_id_name ? req.body.goverment_id_name : "N/A",
-                user_profession_id: req.body.user_profession_id ? req.body.user_profession_id : "N/A",
-                user_profession_name: req.body.user_profession_name ? req.body.user_profession_name : "N/A",
+                goverment_id: req.body.goverment_id ? req.body.goverment_id : "N/A",
+                user_profession: req.body.user_profession ? req.body.user_profession : "N/A",
                 vehicle_number: req.body.vehicle_number ? req.body.vehicle_number : "N/A",
                 bank_acc_number: req.body.bank_acc_number ? req.body.bank_acc_number : "N/A",
                 emergrncy_contact: req.body.emergrncy_contact ? req.body.emergrncy_contact : "N/A",
@@ -716,15 +712,11 @@ exports.updateProfessionProfile = async (req, res) => {
                 name: req.body.name ? req.body.name : "N/A",
                 about: req.body.about ? req.body.about : "N/A",
                 industry_id: req.body.industry_id ? req.body.industry_id : "N/A",
-                industry_name:req.body.industry_name ? req.body.industry_name :"N/A",
                 section_id: req.body.section_id ? req.body.section_id : "N/A",
-                section_name: req.body.section_name ? req.body.section_name : "N/A",
-                professional_type_id: req.body.professional_type_id ? req.body.professional_type_id : "N/A",
+                professional_id: req.body.professional_id ? req.body.professional_id : "N/A",
                 professional_type_name: req.body.professional_type_name ? req.body.professional_type_name : "N/A",
-                goverment_id_type: req.body.goverment_id_type ? req.body.goverment_id_type : "N/A",
-                goverment_id_name: req.body.goverment_id_name ? req.body.goverment_id_name : "N/A",
-                user_profession_id: req.body.user_profession_id ? req.body.user_profession_id : "N/A",
-                user_profession_name: req.body.user_profession_name ? req.body.user_profession_name : "N/A",
+                goverment_id: req.body.goverment_id ? req.body.goverment_id : "N/A",
+                user_profession: req.body.user_profession ? req.body.user_profession : "N/A",
                 vehicle_number: req.body.vehicle_number ? req.body.vehicle_number : "N/A",
                 bank_acc_number: req.body.bank_acc_number ? req.body.bank_acc_number : "N/A",
                 emergrncy_contact: req.body.emergrncy_contact ? req.body.emergrncy_contact : "N/A",
@@ -788,7 +780,7 @@ exports.getProfessionalBoyProfile = async (req, res) => {
     try {
         let data = await ProfessionalProfileModel.findOne({
             userId: mongoose.Types.ObjectId(req.userId) 
-        });
+        }).populate('industry_id section_id professional_id goverment_id')
         if (data) {
             res.status(200).send({
                 message: "professional profile",

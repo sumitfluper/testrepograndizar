@@ -30,44 +30,32 @@ const userProfessionalProfileSchema = new Schema({
     },
     industry_id: {
         type: mongoose.Schema.Types.ObjectId,
+        ref: 'industries',
         required: true
     },
-    industry_name: {
-        type: String,
-        required: true
-    },
+  
     section_id: {
         type: mongoose.Schema.Types.ObjectId,
+        ref: 'sections',
         required: true
     },
-    section_name: {
-        type: String,
-        required: true
-    },
-    professional_type_id: {
+
+    professional_id: {
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
-    professional_type_name: {
-        type: String,
-        required: true
-    },
-    goverment_id_type: {
+ 
+    goverment_id: {
         type: mongoose.Schema.Types.ObjectId,
+        ref: 'govermentsid',
         required: true
     },
-    goverment_id_name: {
+
+    user_profession: {
         type: String,
         required: true
     },
-    user_profession_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true
-    },
-    user_profession_name: {
-        type: String,
-        required: true
-    },
+ 
     certificate_image: {
         type: String,
         default: "N/A"
