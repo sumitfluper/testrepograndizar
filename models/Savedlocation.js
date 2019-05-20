@@ -10,7 +10,11 @@ const LocationSchema = new Schema({
     locationType:{
         type : Number,
         default:0
-    }, //1 for home 2 for office 
+    }, //1 for home 2 for office 3 fro others
+    locationName:{
+        type : String,
+        default:"N/A"
+    }, 
     location : {
         type: {
             type: String,

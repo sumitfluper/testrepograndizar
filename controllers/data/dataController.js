@@ -31,6 +31,7 @@ exports.addNewUserLocation = async (req, res) => {
             locationAdd:req.body.locationAdd,
             userId:req.userId,
             locationType: req.body.locationType,
+            locationName: req.body.locationName ? req.body.locationName : "N/A",
             location:{
                 "type": "Point",
                 "coordinates": [req.body.long,req.body.lat]
