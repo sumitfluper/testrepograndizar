@@ -44,7 +44,7 @@ const userProfessionalProfileSchema = new Schema({
         type: String,
         required: true
     },
-    user_professiona: {
+    user_professional: {
         type: String,
         required: true
     },
