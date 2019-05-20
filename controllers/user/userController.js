@@ -762,7 +762,7 @@ exports.getDeliveryBoyProfile = async (req, res) => {
             })
         } else {
             res.status(200).send({
-                message: "OOOOOps error occured please try again after some time ",
+                message: "No Data Found",
                 response: data
             })
         }
