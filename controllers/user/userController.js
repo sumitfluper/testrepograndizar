@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const UserModel = require('../../models/User');
 const DriverprofileModel = require('../../models/Userdeliveryprofile');
 const ProfessionalProfileModel = require('../../models/Userprofessionalprofile');
@@ -7,7 +8,6 @@ const md5 = require('md5');
 const commFunc = require('../../modules/commonFunction');
 const _ = require('lodash');
 const responses = require('../../modules/responses');
-const models = require('mongoose').models;
 const uniqueRandom = require('unique-random');
 const random = uniqueRandom(1, 10);
 
@@ -642,11 +642,13 @@ exports.updateProfessionProfile = async (req, res) => {
       
             var documentsData = req.files;
             var profileData = {
-                userId: req.userId ? req.userId : "N/A",
+                userId: req.userId ? mongoose.Types.ObjectId(req.userId) : "N/A",
                 name: req.body.name ? req.body.name : "N/A",
                 about: req.body.about ? req.body.about : "N/A",
                 industry_id: req.body.industry_id ? req.body.industry_id : "N/A",
                 section_id: req.body.section_id ? req.body.section_id : "N/A",
+                goverment_id_type: req.body.goverment_id_type ? req.body.goverment_id_type : "N/A",
+                user_professional: req.body.user_professional ? req.body.user_professional : "N/A",
                 professional_type_id: req.body.professional_type_id ? req.body.professional_type_id : "N/A",
                 vehicle_number: req.body.vehicle_number ? req.body.vehicle_number : "N/A",
                 bank_acc_number: req.body.bank_acc_number ? req.body.bank_acc_number : "N/A",
