@@ -598,6 +598,33 @@ exports.manageNotification = async (req, res) => {
 exports.updateUserDeliveryBoyDocuments = async (req, res) => {
     try {
 
+        var existAlredy = DriverprofileModel.findOne({
+            userId: req.userId
+        });
+        if (existAlredy.length > 0) {
+            var documentsData = req.files;
+            var profileData = {
+                userId: req.userId ? req.userId : "N/A",
+                name: req.body.name ? req.body.name : "N/A",
+                about: req.body.about ? req.body.about : "N/A",
+                vehicle_type: req.body.vehicle_type ? req.body.vehicle_type : "N/A",
+                vehicle_number: req.body.vehicle_number ? req.body.vehicle_number : "N/A",
+                insurance_number: req.body.insurance_number ? req.body.insurance_number : "N/A",
+                bank_acc_number: req.body.bank_acc_number ? req.body.bank_acc_number : "N/A",
+                emergrncy_contact: req.body.emergrncy_contact ? req.body.emergrncy_contact : "N/A",
+            }
+
+            for (let index = 0; index < documentsData.length; index++) {
+                profileData[documentsData[index].fieldname] = 'users/' + documentsData[index].filename
+            }
+            var updatedProfile = await DriverprofileModel.upadte({
+                userId: req.userId
+            },{
+                $set:profileData
+            },{
+                new: true
+            })
+        } else {
             var documentsData = req.files;
             var profileData = {
                 userId: req.userId ? req.userId : "N/A",
@@ -615,7 +642,10 @@ exports.updateUserDeliveryBoyDocuments = async (req, res) => {
             }
             var driverProfile = new DriverprofileModel(profileData)
             var updatedProfile = await driverProfile.save()
-      
+        }
+
+
+
         if (updatedProfile) {
             res.status(200).send({
                 message: "Profile Updated Successfully",
@@ -639,7 +669,11 @@ exports.updateUserDeliveryBoyDocuments = async (req, res) => {
 
 exports.updateProfessionProfile = async (req, res) => {
     try {
-      
+
+        var existAlready = ProfessionalProfileModel.findOne({
+            userId: req.userId
+        })
+        if (existAlready.length > 0) {
             var documentsData = req.files;
             var profileData = {
                 userId: req.userId ? mongoose.Types.ObjectId(req.userId) : "N/A",
@@ -654,12 +688,45 @@ exports.updateProfessionProfile = async (req, res) => {
                 bank_acc_number: req.body.bank_acc_number ? req.body.bank_acc_number : "N/A",
                 emergrncy_contact: req.body.emergrncy_contact ? req.body.emergrncy_contact : "N/A",
             }
-    
+
             for (let index = 0; index < documentsData.length; index++) {
-                profileData[documentsData[index].fieldname] =  'users/' + documentsData[index].filename
+                profileData[documentsData[index].fieldname] = 'users/' + documentsData[index].filename
+            }
+
+            var updatedProfile = await professionalProfile.upadte({
+                userId: req.userId
+            },{
+                $set:profileData
+            },{
+                new: true
+            })
+
+
+        } else {
+            var documentsData = req.files;
+            var profileData = {
+                userId: req.userId ? mongoose.Types.ObjectId(req.userId) : "N/A",
+                name: req.body.name ? req.body.name : "N/A",
+                about: req.body.about ? req.body.about : "N/A",
+                industry_id: req.body.industry_id ? req.body.industry_id : "N/A",
+                section_id: req.body.section_id ? req.body.section_id : "N/A",
+                goverment_id_type: req.body.goverment_id_type ? req.body.goverment_id_type : "N/A",
+                user_professional: req.body.user_professional ? req.body.user_professional : "N/A",
+                professional_type_id: req.body.professional_type_id ? req.body.professional_type_id : "N/A",
+                vehicle_number: req.body.vehicle_number ? req.body.vehicle_number : "N/A",
+                bank_acc_number: req.body.bank_acc_number ? req.body.bank_acc_number : "N/A",
+                emergrncy_contact: req.body.emergrncy_contact ? req.body.emergrncy_contact : "N/A",
+            }
+
+            for (let index = 0; index < documentsData.length; index++) {
+                profileData[documentsData[index].fieldname] = 'users/' + documentsData[index].filename
             }
             var professionalProfile = new ProfessionalProfileModel(profileData)
             var updatedProfile = await professionalProfile.save()
+        }
+
+
+       
         if (updatedProfile) {
             res.status(200).send({
                 message: "Profile Updated Successfully",
@@ -684,7 +751,7 @@ exports.updateProfessionProfile = async (req, res) => {
 exports.getDeliveryBoyProfile = async (req, res) => {
     try {
         let data = await DriverprofileModel.findOne({
-            userId: req.userId
+            userId: mongoose.Types.ObjectId(req.userId) 
         });
         if (data) {
             res.status(200).send({
@@ -708,7 +775,7 @@ exports.getDeliveryBoyProfile = async (req, res) => {
 exports.getProfessionalBoyProfile = async (req, res) => {
     try {
         let data = await ProfessionalProfileModel.findOne({
-            userId: req.userId
+            userId: mongoose.Types.ObjectId(req.userId) 
         });
         if (data) {
             res.status(200).send({
@@ -728,5 +795,3 @@ exports.getProfessionalBoyProfile = async (req, res) => {
         })
     }
 }
-
-
