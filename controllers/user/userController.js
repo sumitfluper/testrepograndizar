@@ -607,8 +607,7 @@ exports.updateUserDeliveryBoyDocuments = async (req, res) => {
                 userId: req.userId ? req.userId : "N/A",
                 name: req.body.name ? req.body.name : "N/A",
                 about: req.body.about ? req.body.about : "N/A",
-                vehicle_type_id: req.body.vehicle_type_id ? req.body.vehicle_type_id : "N/A",
-                vehicle_type_name: req.body.vehicle_type_name ? req.body.vehicle_type_name : "N/A",
+                vehicle_type: req.body.vehicle_type ? req.body.vehicle_type : "N/A",
                 vehicle_number: req.body.vehicle_number ? req.body.vehicle_number : "N/A",
                 insurance_number: req.body.insurance_number ? req.body.insurance_number : "N/A",
                 bank_acc_number: req.body.bank_acc_number ? req.body.bank_acc_number : "N/A",
@@ -631,8 +630,7 @@ exports.updateUserDeliveryBoyDocuments = async (req, res) => {
                 userId: req.userId ? req.userId : "N/A",
                 name: req.body.name ? req.body.name : "N/A",
                 about: req.body.about ? req.body.about : "N/A",
-                vehicle_type_id: req.body.vehicle_type_id ? req.body.vehicle_type_id : "N/A",
-                vehicle_type_name: req.body.vehicle_type_name ? req.body.vehicle_type_name : "N/A",
+                vehicle_type: req.body.vehicle_type ? req.body.vehicle_type : "N/A",
                 vehicle_number: req.body.vehicle_number ? req.body.vehicle_number : "N/A",
                 insurance_number: req.body.insurance_number ? req.body.insurance_number : "N/A",
                 bank_acc_number: req.body.bank_acc_number ? req.body.bank_acc_number : "N/A",
@@ -756,7 +754,7 @@ exports.getDeliveryBoyProfile = async (req, res) => {
     try {
         let data = await DriverprofileModel.findOne({
             userId: mongoose.Types.ObjectId(req.userId) 
-        });
+        }).populate('vehicle_type')
         if (data) {
             res.status(200).send({
                 message: "driver profile",
