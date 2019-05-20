@@ -23,7 +23,7 @@ router.route('/edit_profile')
     .post(adminController.editProfile);
 
 router.route('/getUserDetails')
-    .post(adminController.getUserDetails);
+    .get(adminController.getUserDetails);
 
 router.route('/is_user_blocked')
     .post(adminController.isUserBlocked);

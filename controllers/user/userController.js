@@ -598,10 +598,10 @@ exports.manageNotification = async (req, res) => {
 exports.updateUserDeliveryBoyDocuments = async (req, res) => {
     try {
 
-        var existAlredy = DriverprofileModel.findOne({
+        var existAlredy = await DriverprofileModel.findOne({
             userId: req.userId
         });
-        if (existAlredy.length > 0) {
+        if (existAlredy) {
             var documentsData = req.files;
             var profileData = {
                 userId: req.userId ? req.userId : "N/A",
@@ -617,7 +617,7 @@ exports.updateUserDeliveryBoyDocuments = async (req, res) => {
             for (let index = 0; index < documentsData.length; index++) {
                 profileData[documentsData[index].fieldname] = 'users/' + documentsData[index].filename
             }
-            var updatedProfile = await DriverprofileModel.upadte({
+            var updatedProfile = await DriverprofileModel.findOneAndUpdate({
                 userId: req.userId
             },{
                 $set:profileData
@@ -659,7 +659,7 @@ exports.updateUserDeliveryBoyDocuments = async (req, res) => {
         }
 
     } catch (error) {
-        console.error(`***********************error occurred**************************`);
+        console.error(`***********************error occurred**************************`,error);
         res.status(200).send({
             message: "OOOOOps error occured please try again after some time ",
             response: [error]
@@ -670,13 +670,12 @@ exports.updateUserDeliveryBoyDocuments = async (req, res) => {
 exports.updateProfessionProfile = async (req, res) => {
     try {
 
-        var existAlready = ProfessionalProfileModel.findOne({
+        var existAlready = await ProfessionalProfileModel.findOne({
             userId: req.userId
         })
-        if (existAlready.length > 0) {
+        if (existAlready) {
             var documentsData = req.files;
             var profileData = {
-                userId: req.userId ? mongoose.Types.ObjectId(req.userId) : "N/A",
                 name: req.body.name ? req.body.name : "N/A",
                 about: req.body.about ? req.body.about : "N/A",
                 industry_id: req.body.industry_id ? req.body.industry_id : "N/A",
@@ -693,11 +692,11 @@ exports.updateProfessionProfile = async (req, res) => {
             for (let index = 0; index < documentsData.length; index++) {
                 profileData[documentsData[index].fieldname] = 'users/' + documentsData[index].filename
             }
-
-            var updatedProfile = await professionalProfile.upadte({
+            
+            var updatedProfile = await ProfessionalProfileModel.findOneAndUpdate({
                 userId: req.userId
             },{
-                $set:profileData
+                $set: profileData
             },{
                 new: true
             })
@@ -742,7 +741,7 @@ exports.updateProfessionProfile = async (req, res) => {
         }
 
     } catch (error) {
-        console.error(`***********************error occurred**************************`);
+        console.error(`***********************error occurred**************************`,error);
         res.status(200).send({
             message: "Oooops error occured please try again after some time ",
             response: [error]
