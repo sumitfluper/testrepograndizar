@@ -66,6 +66,7 @@ exports.getUserLocation = async (req, res) => {
                 locationType:element.locationType,
                 _id: element._id,
                 locationAdd: element.locationAdd,
+                locationName:element.locationName,
                 userId: element.userId,
                 createdAt: element.createdAt,
                 lat: element.location.coordinates[1],
