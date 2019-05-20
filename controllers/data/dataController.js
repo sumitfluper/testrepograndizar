@@ -130,6 +130,8 @@ exports.industry = async (req, res) => {
             }
         }
         if(req.method == "GET"){
+            console.log(req.userId);
+            
             let industryList = await IndustryModel.find();
             if(industryList){
                 res.status(200).send({
