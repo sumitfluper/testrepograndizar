@@ -44,6 +44,10 @@ const userProfessionalProfileSchema = new Schema({
         type: String,
         required: true
     },
+    user_professiona: {
+        type: String,
+        required: true
+    },
     certificate_image: {
         type: String,
         default: "N/A"
