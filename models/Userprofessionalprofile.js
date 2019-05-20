@@ -29,22 +29,42 @@ const userProfessionalProfileSchema = new Schema({
         default: "N/A"
     },
     industry_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    },
+    industry_name: {
         type: String,
         required: true
     },
     section_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    },
+    section_name: {
         type: String,
         required: true
     },
     professional_type_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    },
+    professional_type_name: {
         type: String,
         required: true
     },
     goverment_id_type: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    },
+    goverment_id_name: {
         type: String,
         required: true
     },
-    user_professional: {
+    user_profession_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    },
+    user_profession_name: {
         type: String,
         required: true
     },
