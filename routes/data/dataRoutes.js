@@ -26,6 +26,8 @@ router.route('/section')
     .get(auth.requiresLogin,dataController.section);
 router.route('/section/:_id')
     .put(auth.requiresLogin,dataController.section);
+router.route('/getsectionbyindustryid/:_id')
+    .get(auth.requiresLogin,dataController.getSectionByIndustry);
 router.route('/section/:_id')
     .delete(auth.requiresLogin,dataController.section);
 

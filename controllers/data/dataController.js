@@ -143,7 +143,7 @@ exports.industry = async (req, res) => {
         }
         if(req.method == "DELETE"){
             let industryList = await IndustryModel.remove({
-                _id: mongoose.Types.ObjectId(req.param._id)
+                _id: mongoose.Types.ObjectId(req.params._id)
             });
             if(industryList){
                 res.status(200).send({
@@ -185,7 +185,7 @@ exports.section = async (req, res) => {
         }
         if(req.method == "PUT"){
             let updateData = req.body;
-            let _id = mongoose.Types.ObjectId(req.param._id);
+            let _id = mongoose.Types.ObjectId(req.params._id);
             let newSection = await SectionModel.findByIdAndUpdate(_id,{
                 $set: {updateData}
             },{
@@ -219,7 +219,7 @@ exports.section = async (req, res) => {
         }
         if(req.method == "DELETE"){
             let sectionList = await SectionModel.remove({
-                _id: mongoose.Types.ObjectId(req.param._id)
+                _id: mongoose.Types.ObjectId(req.params._id)
             });
             if(industryList){
                 res.status(200).send({
@@ -242,6 +242,29 @@ exports.section = async (req, res) => {
     }
 }
 
+exports.getSectionByIndustry = async (req, res) =>{
+    try {
+        console.log(req.params._id);
+        
+        let sectionList = await SectionModel.find({
+            industry_type: mongoose.Types.ObjectId(req.params._id)
+        });
+        if(sectionList){
+            res.status(200).send({
+                message: "List of Section",
+                response: sectionList
+            })
+        } else {
+            res.status(200).send({
+                message: "Unable to fetch data Please try again"
+            })
+        }
+        
+    } catch (error) {
+        
+    }
+}
+
 exports.vehiletype = async (req, res) => {
     try {
         if(req.method == "POST"){
@@ -261,7 +284,7 @@ exports.vehiletype = async (req, res) => {
         }
         if(req.method == "PUT"){
             let updateData = req.body;
-            let _id = mongoose.Types.ObjectId(req.param._id);
+            let _id = mongoose.Types.ObjectId(req.params._id);
             let updatedData = await VehicletypeModel.findByIdAndUpdate(_id,{
                 $set: {updateData}
             },{
@@ -295,7 +318,7 @@ exports.vehiletype = async (req, res) => {
         }
         if(req.method == "DELETE"){
             let deletedData = await VehicletypeModel.remove({
-                _id: req.param._id
+                _id: req.params._id
             });
             if(deletedData){
                 res.status(200).send({
@@ -338,7 +361,7 @@ exports.licenseType = async (req, res)=>{
         }
         if(req.method == "PUT"){
             let updateData = req.body;
-            let _id = mongoose.Types.ObjectId(req.param._id);
+            let _id = mongoose.Types.ObjectId(req.params._id);
             let updatedData = await licenseTypeModel.findByIdAndUpdate(_id,{
                 $set: {updateData}
             },{
@@ -372,7 +395,7 @@ exports.licenseType = async (req, res)=>{
         }
         if(req.method == "DELETE"){
             let deletedData = await licenseTypeModel.remove({
-                _id: req.param._id
+                _id: req.params._id
             });
             if(deletedData){
                 res.status(200).send({

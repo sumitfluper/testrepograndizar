@@ -1,2 +1,0 @@
-[2019-05-01 12:32:51:247] [/home/fluper/archive/Projects/grandizar-backend] Git Command failed: /usr/bin/git -c core.quotepath=false -c color.ui=false cat-file -e 177d0c531781cd454aaec4307230ee97b6793dec^:./controllers/admin/adminController.js • Not a valid object name 177d0c531781cd454aaec4307230ee97b6793dec^:./controllers/admin/adminController.js • 6 ms 
-[2019-05-01 12:32:51:352] Warning(/usr/bin/git -c core.quotepath=false -c color.ui=false -c log.showSignature=false show 177d0c531781cd454aaec4307230ee97b6793dec:./controllers/admin/adminController.js --): 
