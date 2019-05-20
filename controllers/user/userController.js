@@ -652,7 +652,7 @@ exports.updateUserDeliveryBoyDocuments = async (req, res) => {
             })
         } else {
             res.status(200).send({
-                message: "OOOOOps error occured please try again after some time ",
+                message: " error occured please try again after some time ",
                 response: updatedProfile
             })
         }
@@ -660,7 +660,7 @@ exports.updateUserDeliveryBoyDocuments = async (req, res) => {
     } catch (error) {
         console.error(`***********************error occurred**************************`,error);
         res.status(200).send({
-            message: "OOOOOps error occured please try again after some time ",
+            message: " error occured please try again after some time ",
             response: [error]
         })
     }
@@ -766,7 +766,7 @@ exports.getDeliveryBoyProfile = async (req, res) => {
         }
     } catch (error) {
         res.status(200).send({
-            message: "OOOOOps error occured please try again after some time ",
+            message: " error occured please try again after some time ",
             response: [error]
         })
     }
@@ -784,13 +784,13 @@ exports.getProfessionalBoyProfile = async (req, res) => {
             })
         } else {
             res.status(200).send({
-                message: "OOOOOps error occured please try again after some time ",
+                message: "You have not completed your profile",
                 response: data
             })
         }
     } catch (error) {
         res.status(200).send({
-            message: "OOOOOps error occured please try again after some time ",
+            message: "error occured please try again after some time ",
             response: [error]
         })
     }
