@@ -60,5 +60,18 @@ router.route('/govermentid/:_id')
     .put(auth.requiresLogin,dataController.govermentIdType);
 router.route('/govermentid/:_id')
     .delete(auth.requiresLogin,dataController.govermentIdType);
+
+
+router.route('/professions')
+    .post(auth.requiresLogin, dataController.professions);
+router.route('/professions')
+    .get(auth.requiresLogin, dataController.professions);
+router.route('/professions/:_id')
+    .put(auth.requiresLogin, dataController.professions);
+router.route('/professions/:_id')
+    .delete(auth.requiresLogin, dataController.professions);
+
+router.route('/getprofessionsbysection/:_id')
+    .get(auth.requiresLogin, dataController.getProfessionsBySection);
  
 exports.Router = router;

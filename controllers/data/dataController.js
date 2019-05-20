@@ -8,6 +8,7 @@ const SectionModel = require('../../models/Section');
 const VehicletypeModel = require('../../models/Vehicletype');
 const licenseTypeModel = require('../../models/Licensetype');
 const GovermentIdModel = require('../../models/Govermentid');
+const professions = require('../../models/Professions');
 
 /**
  * Save Location of the user 
@@ -483,6 +484,108 @@ exports.govermentIdType = async (req, res)=>{
             }
 
         }
+    } catch (error) {
+        console.log("*****************",error,"***********************");
+        res.status(200).send({
+            message: "some error occurred",
+            response:[]
+        })
+    }
+}
+exports.professions = async (req, res)=>{
+    try {
+        if(req.method == "POST"){
+
+            let newData = await professions.create(req.body);
+            if(newData){
+                res.status(200).send({
+                    message: "Created Successfully",
+                    response: newData
+                })
+            } else {
+                res.status(200).send({
+                    message: "Unable to Create",
+                    response:[]
+                })
+            }
+        }
+        if(req.method == "PUT"){
+            let updateData = req.body;
+            let _id = mongoose.Types.ObjectId(req.params._id);
+            let updatedData = await professions.findByIdAndUpdate(_id,{
+                $set: {updateData}
+            },{
+                new: true
+            });
+            if(updatedData){
+                res.status(200).send({
+                    message: "updated Successfully",
+                    response: updatedData
+                })
+            } else {
+                res.status(200).send({
+                    message: "Unable to Update ",
+                    response:[]
+                })
+            }
+        }
+        if(req.method == "GET"){
+            let dataList = await professions.find();
+            if(dataList){
+                res.status(200).send({
+                    message: "Successfull",
+                    response: dataList
+                })
+            } else {
+                res.status(200).send({
+                    message: "Unable to fetch data Please try again"
+                })
+            }
+            
+        }
+        if(req.method == "DELETE"){
+            let deletedData = await professions.remove({
+                _id: req.params._id
+            });
+            if(deletedData){
+                res.status(200).send({
+                    message: "Deleted Successfully",
+                    response: deletedData
+                })
+            } else {
+                res.status(200).send({
+                    message: "unable to delete the industry"
+                })
+            }
+
+        }
+    } catch (error) {
+        console.log("*****************",error,"***********************");
+        res.status(200).send({
+            message: "some error occurred",
+            response:[]
+        })
+    }
+}
+
+exports.getProfessionsBySection = async (req, res) =>{
+    try {
+        console.log(req.params._id);
+        
+        let list = await professions.find({
+            section_id: mongoose.Types.ObjectId(req.params._id)
+        });
+        if(list){
+            res.status(200).send({
+                message: "List Available",
+                response: list
+            })
+        } else {
+            res.status(200).send({
+                message: "Unable to fetch data Please try again"
+            })
+        }
+        
     } catch (error) {
         console.log("*****************",error,"***********************");
         res.status(200).send({
