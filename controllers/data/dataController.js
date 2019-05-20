@@ -92,8 +92,6 @@ exports.industry = async (req, res) => {
         if(req.method == "POST"){
             console.log(req.body);
             
-            let tpsave = new IndustryModel(req.body)
-            await tpsave.save();
             let newIndustry = await IndustryModel.create(req.body);
             if(newIndustry){
                 res.status(200).send({
