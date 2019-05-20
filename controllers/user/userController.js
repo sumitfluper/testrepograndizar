@@ -598,10 +598,6 @@ exports.manageNotification = async (req, res) => {
 exports.updateUserDeliveryBoyDocuments = async (req, res) => {
     try {
 
-        let profileExist = await DriverprofileModel.findOne({
-            userId: req.userId
-        });
-        if(profileExist.length > 0){
             var documentsData = req.files;
             var profileData = {
                 userId: req.userId ? req.userId : "N/A",
@@ -615,34 +611,11 @@ exports.updateUserDeliveryBoyDocuments = async (req, res) => {
             }
 
             for (let index = 0; index < documentsData.length; index++) {
-                profileData[documentsData[index].fieldname] = documentsData[index].path
-            }
-            var driverProfile = await DriverprofileModel.findByIdAndUpdate(req.userId,{
-                $set:profileData
-            },{
-                new: true
-            })
-        } else {
-            var documentsData = req.files;
-            var profileData = {
-                userId: req.userId ? req.userId : "N/A",
-                name: req.body.name ? req.body.name : "N/A",
-                about: req.body.about ? req.body.about : "N/A",
-                vehicle_type: req.body.vehicle_type ? req.body.vehicle_type : "N/A",
-                vehicle_number: req.body.vehicle_number ? req.body.vehicle_number : "N/A",
-                insurance_number: req.body.insurance_number ? req.body.insurance_number : "N/A",
-                bank_acc_number: req.body.bank_acc_number ? req.body.bank_acc_number : "N/A",
-                emergrncy_contact: req.body.emergrncy_contact ? req.body.emergrncy_contact : "N/A",
-            }
-
-            for (let index = 0; index < documentsData.length; index++) {
-                profileData[documentsData[index].fieldname] = documentsData[index].path
+                profileData[documentsData[index].fieldname] = 'users/' + documentsData[index].filename
             }
             var driverProfile = new DriverprofileModel(profileData)
             var updatedProfile = await driverProfile.save()
-        }
-
-        
+      
         if (updatedProfile) {
             res.status(200).send({
                 message: "Profile Updated Successfully",
@@ -666,10 +639,7 @@ exports.updateUserDeliveryBoyDocuments = async (req, res) => {
 
 exports.updateProfessionProfile = async (req, res) => {
     try {
-        let checkdata = await ProfessionalProfileModel.find({
-            userId: req.userId
-        });
-        if (checkdata.length > 0) {
+      
             var documentsData = req.files;
             var profileData = {
                 userId: req.userId ? req.userId : "N/A",
@@ -684,31 +654,10 @@ exports.updateProfessionProfile = async (req, res) => {
             }
     
             for (let index = 0; index < documentsData.length; index++) {
-                profileData[documentsData[index].fieldname] = documentsData[index].path
+                profileData[documentsData[index].fieldname] =  'users/' + documentsData[index].filename
             }
             var professionalProfile = new ProfessionalProfileModel(profileData)
             var updatedProfile = await professionalProfile.save()
-            
-        } else {
-            var documentsData = req.files;
-            var profileData = {
-                userId: req.userId ? req.userId : "N/A",
-                name: req.body.name ? req.body.name : "N/A",
-                about: req.body.about ? req.body.about : "N/A",
-                industry_id: req.body.industry_id ? req.body.industry_id : "N/A",
-                section_id: req.body.section_id ? req.body.section_id : "N/A",
-                professional_type_id: req.body.professional_type_id ? req.body.professional_type_id : "N/A",
-                vehicle_number: req.body.vehicle_number ? req.body.vehicle_number : "N/A",
-                bank_acc_number: req.body.bank_acc_number ? req.body.bank_acc_number : "N/A",
-                emergrncy_contact: req.body.emergrncy_contact ? req.body.emergrncy_contact : "N/A",
-            }
-    
-            for (let index = 0; index < documentsData.length; index++) {
-                profileData[documentsData[index].fieldname] = documentsData[index].path
-            }
-            var professionalProfile = new ProfessionalProfileModel(profileData)
-            var updatedProfile = await professionalProfile.save()
-        }
         if (updatedProfile) {
             res.status(200).send({
                 message: "Profile Updated Successfully",

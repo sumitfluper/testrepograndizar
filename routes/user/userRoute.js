@@ -43,10 +43,10 @@ router.route('/managenotification')
 
 // upload documents
 router.route('/updatedeliveryboyprofile')
-	.post(auth.requiresLogin, upload.any(), userController.updateUserDeliveryBoyDocuments);
+	.post(upload.any(), userController.updateUserDeliveryBoyDocuments);
 
 router.route('/updateprofessionalboyprofile')
-	.post(auth.requiresLogin, upload.any(), userController.updateProfessionProfile);
+	.post(upload.any(), userController.updateProfessionProfile);
 
 router.route('/getdeliveryboyprofile')
 	.get(auth.requiresLogin, userController.getDeliveryBoyProfile);
