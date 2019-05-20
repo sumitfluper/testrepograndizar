@@ -42,6 +42,7 @@ const userProfessionalProfileSchema = new Schema({
 
     professional_id: {
         type: mongoose.Schema.Types.ObjectId,
+        ref:'licensetypes',
         required: true
     },
  
