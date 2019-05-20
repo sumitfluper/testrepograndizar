@@ -339,7 +339,6 @@ exports.vehicletype = async (req, res) => {
     }
 }
 
-
 exports.licenseType = async (req, res)=>{
     try {
         if(req.method == "POST"){
