@@ -32,14 +32,14 @@ router.route('/section/:_id')
     .delete(auth.requiresLogin,dataController.section);
 
 
-router.route('/vehiletype')
-    .post(auth.requiresLogin,dataController.vehiletype);
-router.route('/vehiletype')
-    .get(auth.requiresLogin,dataController.vehiletype);
-router.route('/vehiletype/:_id')
-    .put(auth.requiresLogin,dataController.vehiletype);
-router.route('/vehiletype/:_id')
-    .delete(auth.requiresLogin,dataController.vehiletype);
+router.route('/vehicletype')
+    .post(auth.requiresLogin,dataController.vehicletype);
+router.route('/vehicletype')
+    .get(auth.requiresLogin,dataController.vehicletype);
+router.route('/vehicletype/:_id')
+    .put(auth.requiresLogin,dataController.vehicletype);
+router.route('/vehicletype/:_id')
+    .delete(auth.requiresLogin,dataController.vehicletype);
 
 
 router.route('/licensetype')

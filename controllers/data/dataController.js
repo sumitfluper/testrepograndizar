@@ -265,7 +265,7 @@ exports.getSectionByIndustry = async (req, res) =>{
     }
 }
 
-exports.vehiletype = async (req, res) => {
+exports.vehicletype = async (req, res) => {
     try {
         if(req.method == "POST"){
 
