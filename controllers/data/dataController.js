@@ -7,6 +7,7 @@ const IndustryModel = require('../../models/Industries');
 const SectionModel = require('../../models/Section');
 const VehicletypeModel = require('../../models/Vehicletype');
 const licenseTypeModel = require('../../models/Licensetype');
+const GovermentIdModel = require('../../models/Govermentid');
 
 /**
  * Save Location of the user 
@@ -392,6 +393,82 @@ exports.licenseType = async (req, res)=>{
         }
         if(req.method == "DELETE"){
             let deletedData = await licenseTypeModel.remove({
+                _id: req.params._id
+            });
+            if(deletedData){
+                res.status(200).send({
+                    message: "Deleted Successfully",
+                    response: deletedData
+                })
+            } else {
+                res.status(200).send({
+                    message: "unable to delete the industry"
+                })
+            }
+
+        }
+    } catch (error) {
+        console.log("*****************",error,"***********************");
+        res.status(200).send({
+            message: "some error occurred",
+            response:[]
+        })
+    }
+}
+
+exports.govermentIdType = async (req, res)=>{
+    try {
+        if(req.method == "POST"){
+
+            let newData = await GovermentIdModel.create(req.body);
+            if(newData){
+                res.status(200).send({
+                    message: "Created Successfully",
+                    response: newData
+                })
+            } else {
+                res.status(200).send({
+                    message: "Unable to Create",
+                    response:[]
+                })
+            }
+        }
+        if(req.method == "PUT"){
+            let updateData = req.body;
+            let _id = mongoose.Types.ObjectId(req.params._id);
+            let updatedData = await GovermentIdModel.findByIdAndUpdate(_id,{
+                $set: {updateData}
+            },{
+                new: true
+            });
+            if(updatedData){
+                res.status(200).send({
+                    message: "updated Successfully",
+                    response: updatedData
+                })
+            } else {
+                res.status(200).send({
+                    message: "Unable to Update ",
+                    response:[]
+                })
+            }
+        }
+        if(req.method == "GET"){
+            let dataList = await GovermentIdModel.find();
+            if(dataList){
+                res.status(200).send({
+                    message: "Successfull",
+                    response: dataList
+                })
+            } else {
+                res.status(200).send({
+                    message: "Unable to fetch data Please try again"
+                })
+            }
+            
+        }
+        if(req.method == "DELETE"){
+            let deletedData = await GovermentIdModel.remove({
                 _id: req.params._id
             });
             if(deletedData){

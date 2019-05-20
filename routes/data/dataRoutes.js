@@ -50,5 +50,15 @@ router.route('/licensetype/:_id')
     .put(auth.requiresLogin,dataController.licenseType);
 router.route('/licensetype/:_id')
     .delete(auth.requiresLogin,dataController.licenseType);
+
+
+router.route('/govermentid')
+    .post(auth.requiresLogin,dataController.govermentIdType);
+router.route('/govermentid')
+    .get(auth.requiresLogin,dataController.govermentIdType);
+router.route('/govermentid/:_id')
+    .put(auth.requiresLogin,dataController.govermentIdType);
+router.route('/govermentid/:_id')
+    .delete(auth.requiresLogin,dataController.govermentIdType);
  
 exports.Router = router;
