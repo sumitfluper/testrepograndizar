@@ -260,7 +260,6 @@ exports.varify_otp = (req, res) => {
 //create profile
 
 exports.createProfile = (req, res) => {
-    console.log(models)
     const schema = Joi.object().keys({
         //  mobile_number: Joi.string().optional().error(e => 'Mobile number required.'),
         name: Joi.string(),
