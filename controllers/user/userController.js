@@ -635,7 +635,7 @@ exports.updateUserDeliveryBoyDocuments = async (req, res) => {
                 insurance_number: req.body.insurance_number ? req.body.insurance_number : "N/A",
                 bank_acc_number: req.body.bank_acc_number ? req.body.bank_acc_number : "N/A",
                 emergrncy_contact: req.body.emergrncy_contact ? req.body.emergrncy_contact : "N/A",
-                is_updated: req.body.is_updated ? req.body.is_updated : 1,
+                is_updated_delivery: req.body.is_updated_delivery ? req.body.is_updated_delivery : 1,
             }
 
             for (let index = 0; index < documentsData.length; index++) {
@@ -718,7 +718,7 @@ exports.updateProfessionProfile = async (req, res) => {
                 vehicle_number: req.body.vehicle_number ? req.body.vehicle_number : "N/A",
                 bank_acc_number: req.body.bank_acc_number ? req.body.bank_acc_number : "N/A",
                 emergrncy_contact: req.body.emergrncy_contact ? req.body.emergrncy_contact : "N/A",
-                is_updated: req.body.is_updated ? req.body.is_updated : 1,
+                is_updated_professional: req.body.is_updated_professional ? req.body.is_updated_professional : 1,
             }
 
             for (let index = 0; index < documentsData.length; index++) {

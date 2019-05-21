@@ -79,7 +79,7 @@ const userProfessionalProfileSchema = new Schema({
         type: String,
         default: "N/A"
     },
-    is_updated:{
+    is_updated_professional:{
         type: Number,
         default: 0
     },

@@ -58,7 +58,7 @@ const userDeliveryProfileSchema = new Schema({
         type: String,
         default: "N/A"
     },
-    is_updated:{
+    is_updated_delivery:{
         type: Number,
         default: 0
     },
