@@ -21,15 +21,17 @@ router.route('/industry/:_id')
     .delete(auth.requiresLogin,dataController.industry);
 
 router.route('/section')
-    .post(auth.requiresLogin,dataController.section);
+    .post(auth.requiresLogin, dataController.section);
 router.route('/section')
-    .get(auth.requiresLogin,dataController.section);
+    .get(auth.requiresLogin, dataController.section);
 router.route('/section/:_id')
-    .put(auth.requiresLogin,dataController.section);
+    .put(auth.requiresLogin, dataController.section);
 router.route('/getsectionbyindustryid/:_id')
-    .get(auth.requiresLogin,dataController.getSectionByIndustry);
+    .get(auth.requiresLogin, dataController.getSectionByIndustry);
 router.route('/section/:_id')
-    .delete(auth.requiresLogin,dataController.section);
+    .delete(auth.requiresLogin, dataController.section);
+router.route('/getallsections')
+    .get(auth.requiresLogin, dataController.getAllSections);
 
 
 router.route('/vehicletype')

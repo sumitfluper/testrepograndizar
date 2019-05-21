@@ -191,7 +191,7 @@ exports.section = async (req, res) => {
             let updateData = req.body;
             let _id = mongoose.Types.ObjectId(req.params._id);
             let newSection = await SectionModel.findByIdAndUpdate(_id,{
-                $set: {updateData}
+                $set: updateData
             },{
                 new: true
             });
@@ -246,6 +246,24 @@ exports.section = async (req, res) => {
     }
 }
 
+exports.getAllSections = async (req, res) => {
+    try {
+        let sectionList = await SectionModel.find().populate('');
+        if(sectionList){
+            res.status(200).send({
+                message: "List of Section",
+                response: sectionList
+            })
+        } else {
+            res.status(200).send({
+                message: "Unable to fetch data Please try again"
+            })
+        }
+    } catch (error) {
+        
+    }
+}
+
 exports.getSectionByIndustry = async (req, res) =>{
     try {
         console.log(req.params._id);
@@ -290,7 +308,7 @@ exports.vehicletype = async (req, res) => {
             let updateData = req.body;
             let _id = mongoose.Types.ObjectId(req.params._id);
             let updatedData = await VehicletypeModel.findByIdAndUpdate(_id,{
-                $set: {updateData}
+                $set: updateData
             },{
                 new: true
             });
@@ -366,7 +384,7 @@ exports.licenseType = async (req, res)=>{
             let updateData = req.body;
             let _id = mongoose.Types.ObjectId(req.params._id);
             let updatedData = await licenseTypeModel.findByIdAndUpdate(_id,{
-                $set: {updateData}
+                $set: updateData
             },{
                 new: true
             });
@@ -442,7 +460,7 @@ exports.govermentIdType = async (req, res)=>{
             let updateData = req.body;
             let _id = mongoose.Types.ObjectId(req.params._id);
             let updatedData = await GovermentIdModel.findByIdAndUpdate(_id,{
-                $set: {updateData}
+                $set: updateData
             },{
                 new: true
             });
