@@ -624,6 +624,8 @@ exports.updateUserDeliveryBoyDocuments = async (req, res) => {
             },{
                 new: true
             })
+
+           
         } else {
             var documentsData = req.files;
             var profileData = {
@@ -641,6 +643,16 @@ exports.updateUserDeliveryBoyDocuments = async (req, res) => {
             for (let index = 0; index < documentsData.length; index++) {
                 profileData[documentsData[index].fieldname] = 'users/' + documentsData[index].filename
             }
+            await UserModel.findOneAndUpdate({
+                _id: req.userId
+            },{
+                $set:{
+                    is_updated_delivery: 1  
+                }
+            },{
+                new: true
+            });
+
             var driverProfile = new DriverprofileModel(profileData)
             var updatedProfile = await driverProfile.save()
         }
@@ -724,6 +736,17 @@ exports.updateProfessionProfile = async (req, res) => {
             for (let index = 0; index < documentsData.length; index++) {
                 profileData[documentsData[index].fieldname] = 'users/' + documentsData[index].filename
             }
+
+            await UserModel.findOneAndUpdate({
+                _id: req.userId
+            },{
+                $set:{
+                    is_updated_professional: 1  
+                }
+            },{
+                new: true
+            });
+
             var professionalProfile = new ProfessionalProfileModel(profileData)
             var updatedProfile = await professionalProfile.save()
         }

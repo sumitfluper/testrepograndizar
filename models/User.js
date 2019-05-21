@@ -104,6 +104,14 @@ let user = new Schema({
     isProfessional:{
         type: Boolean,
         default: false
-    }
+    },
+    is_updated_delivery:{
+        type: Number,
+        default: 0
+    },
+    is_updated_professional:{
+        type: Number,
+        default: 0
+    },
 });
 module.exports = mongoose.model('User', user);
