@@ -79,6 +79,10 @@ const userProfessionalProfileSchema = new Schema({
         type: String,
         default: "N/A"
     },
+    is_updated:{
+        type: Number,
+        default: 0
+    },
     is_approved: {
         type: Number,
         default: 0
