@@ -163,34 +163,33 @@ exports.deliveryAcceptedOrders = async (req, res) => {
                 $match: {
                     orderStatus: 2,
                     serviceGivenBy: req.userId
-    
+
                 }
-               
+
+            }, {
+                $lookup: {
+                    from: "Offerbyusers",
+                    localField: "_id",
+                    foreignField: "serviceId",
+                    as: "offerDetails"
+                }
+            }, {
+                $unwind: "$offerDetails"
+            }, {
+                $lookup: {
+                    from: "User",
+                    localField: "serviceCreatedBy",
+                    foreignField: "_id",
+                    as: "serviceCreatedBy"
+                }
+            }, {
+                $unwind: "$serviceCreatedBy"
             },
             {
-              $lookup:
-                {
-                  from: "Offerbyusers",
-                  localField: "_id",
-                  foreignField: "serviceId",
-                  as: "offerDetails"
+                $group : {
+                    _id : '$_id',
                 }
-           },
-           {
-            $unwind: "$offerDetails"
-            },
-            {
-              $lookup:
-                {
-                  from: "User",
-                  localField: "serviceCreatedBy",
-                  foreignField: "_id",
-                  as: "serviceCreatedBy"
-                }
-           },
-           {
-            $unwind: "$serviceCreatedBy"
-            },
+            }
         ])
         if (acceptedOrders) {
             res.status(200).send({
