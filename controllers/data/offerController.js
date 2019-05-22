@@ -72,7 +72,7 @@ exports.getAllOffers = async (req, res) => {
         var arrOffers = [];
         
         var OffersList = await offerModel.find({
-            serviceId: req.body.serviceId,
+            serviceId: mongoose.Types.ObjectId(req.body.serviceId),
         })
         .populate('serviceId')
         .populate('serviceGivenBy')
