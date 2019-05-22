@@ -176,6 +176,9 @@ exports.deliveryAcceptedOrders = async (req, res) => {
                   as: "offerDetails"
                 }
            },
+           {
+            $unwind: "$offerDetails"
+            },
             {
               $lookup:
                 {
@@ -184,7 +187,10 @@ exports.deliveryAcceptedOrders = async (req, res) => {
                   foreignField: "_id",
                   as: "serviceCreatedBy"
                 }
-           }
+           },
+           {
+            $unwind: "$serviceCreatedBy"
+            },
         ])
         if (acceptedOrders) {
             res.status(200).send({
