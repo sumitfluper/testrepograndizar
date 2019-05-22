@@ -30,7 +30,10 @@ exports.deliveryNewOrder = async (req, res) => {
                     $minDistance: 0,
                 }
             },
-            orderStatus: 1           
+            orderStatus: 1,
+            serviceCreatedBy: {
+                $ne : req.userId
+            }           
         }
 
         let newService = await serviceModel.find(where)
