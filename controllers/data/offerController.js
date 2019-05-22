@@ -68,6 +68,7 @@ exports.getOfferList = async (req, res) => {
 
 exports.getAllOffers = async (req, res) => {
     try {
+        console.log(req.body);
         var arrOffers = [];
         
         var OffersList = await offerModel.find({
