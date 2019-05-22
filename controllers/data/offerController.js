@@ -126,19 +126,7 @@ exports.getAllOffers = async (req, res) => {
 exports.acceptOffer = async (req, res) => {
     try {
         console.log("reached here");
-        
-
-        // let offerStatus={$set:2};
-        // let _id= req.body.offerId;
-        // let offer = await offerModel.findByIdAndUpdate(_id,offerStatus);
-        // // responses.success(res,'Successfully updated the user',user)
-
-
-
-
-
-
-        
+       
         let offer = await offerModel.findOneAndUpdate({
             serviceId: mongoose.Types.ObjectId(req.body.serviceId),
             serviceGivenBy: mongoose.Types.ObjectId(req.body.serviceGivenBy),
@@ -151,27 +139,14 @@ exports.acceptOffer = async (req, res) => {
         });
 
         if(offer){
-            await offerModel.find({
-                serviceId: {
-                    $eq: mongoose.Types.ObjectId(req.body.serviceId)
-                },
-                serviceGivenBy: {
-                    $ne: mongoose.Types.ObjectId(req.body.offerMadeBy)
-                }
-            }, {
-                $set: {
-                    offerStatus: 3
-                }
-            }, {
-                new: true
-            });
-
-            await serviceModel.findOneAndUpdate({
+           await serviceModel.findOneAndUpdate({
                 _id: mongoose.Types.ObjectId(req.body.serviceId),
-                serviceGivenBy: {
-                    $ne: mongoose.Types.ObjectId(req.body.offerMadeBy)
-                }
             },{
+                $set:{
+                    serviceGivenBy: mongoose.Types.ObjectId(req.body.offerMadeBy)
+                }
+            }
+            ,{
                 new: true
             }          
             )
