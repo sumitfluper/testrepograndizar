@@ -35,6 +35,8 @@ exports.deliveryNewOrder = async (req, res) => {
                 $ne : req.userId
             }           
         }
+        console.log("where ",where);
+        
 
         let newService = await serviceModel.find(where)
             .populate('serviceCreatedBy')
