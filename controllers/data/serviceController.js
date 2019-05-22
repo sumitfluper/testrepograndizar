@@ -790,11 +790,23 @@ exports.acceptService = async (req, res) => {
     try {
         let updateService = await serviceModel.findByIdAndUpdate({_id:req.body.serviceId},{
             $set:{
-                orderStatus:2
+                orderStatus:2,
+                serviceGivenBy: mongoose.Types.ObjectId(req.body.serviceGivenBy),
             }
         },{
             new:true
         })
+
+        await offerModel.findOneAndUpdate({
+            serviceId: mongoose.Types.ObjectId(req.body.serviceId),
+            serviceGivenBy: mongoose.Types.ObjectId(req.body.serviceGivenBy),
+        }, {
+            $set: {
+                offerStatus: 2
+            }
+        },{
+            new:true
+        });
 
         if (updateService) {
             res.status(200).send({

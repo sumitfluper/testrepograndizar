@@ -122,7 +122,7 @@ exports.getAllOffers = async (req, res) => {
     }
 }
 
-
+// not working anywhere 
 exports.acceptOffer = async (req, res) => {
     try {
         console.log("reached here");
@@ -144,6 +144,7 @@ exports.acceptOffer = async (req, res) => {
             },{
                 $set:{
                     serviceGivenBy: mongoose.Types.ObjectId(req.body.offerMadeBy)
+                    
                 }
             }
             ,{
