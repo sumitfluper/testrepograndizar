@@ -94,7 +94,7 @@ exports.userSignup = (req, res) => {
                         
                           var id = userData._id
                           var profileImage = userData.profile_image
-                          commFunc.createFirebaseNode(id,userName,profileImage);
+                        //   commFunc.createFirebaseNode(id,userName,profileImage);
 
                         //var country_code = userData.country_code;
                         var to = userData.country_code + userData.mobile_number;
