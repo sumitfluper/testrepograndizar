@@ -175,6 +175,7 @@ exports.deliveryAcceptedOrders = async (req, res) => {
                     as: "offerDetails"
                 }
             },  
+         
             {
                 $lookup: {
                     from: "users",
@@ -183,6 +184,8 @@ exports.deliveryAcceptedOrders = async (req, res) => {
                     as: "serviceCreatedBy"
                 }
             },
+            { "$unwind": { "path": "$offerDetails", "preserveNullAndEmptyArrays": true } },
+            { "$unwind": { "path": "$serviceCreatedBy", "preserveNullAndEmptyArrays": true } },
         ])
 
 
