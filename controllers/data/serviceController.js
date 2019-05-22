@@ -81,30 +81,28 @@ exports.deliveryPendingOrder = async (req, res) => {
     
     try {
         var newServiceData = [];
-        var where = {
-            pickup_location: {
-                $near: {
-                    $geometry: {
-                        type: "Point",
-                        coordinates: [Number(req.body.long), Number(req.body.lat)]
-                    },
-                    $maxDistance: 5000,
-                    $minDistance: 0,
-                }
-            },
-            orderStatus: 1,
-            serviceCreatedBy: {
-                $ne : mongoose.Types.ObjectId(req.userId)
-            }              
-        }
-
-        let newService = await serviceModel.find(where)
-            .populate('serviceCreatedBy')
-            .select('-pickup_location -drop_location');
+        var arrServiceIds = [];
+        
 
         var deliveryUserOffersData = await offersData.find({
             serviceGivenBy: req.userId
         })
+
+        if(deliveryUserOffersData.length > 0 ){
+            deliveryUserOffersData.forEach(element => {
+                arrServiceIds.push(element.serviceId);
+            });
+
+        }
+
+        let newService = await serviceModel.find({
+          _id: {
+              $in: arrServiceIds
+          }  
+        }).populate('serviceCreatedBy')
+          .select('-pickup_location -drop_location');
+
+
         if (deliveryUserOffersData.length != 0 && newService.length != 0) {
             newService.forEach(service => {
                 deliveryUserOffersData.forEach(offer => {
