@@ -97,7 +97,7 @@ exports.getAllOffers = async (req, res) => {
                deliveryBoyLat:element.serviceGivenBy.longitude,
                deliveryBoyLong:element.serviceGivenBy.latitude,
                deliveryName:element.serviceGivenBy.user_name ? element.serviceGivenBy.user_name : "N/A",
-               deliveryId:element.serviceGivenBy.id,
+               serviceGivenBy:element.serviceGivenBy.id,
 
            }) 
         });
