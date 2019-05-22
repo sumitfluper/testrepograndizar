@@ -13,7 +13,7 @@ var firebase = require("firebase-admin");
 app.use(bodyParser.urlencoded({limit: '150mb', extended: true,parameterLimit: 1000000}))
 app.use(bodyParser.json({limit: '150mb', extended: true}));
 
-var config = {
+var config1 = {
     "type": "service_account",
     "project_id": "charged-mind-234610",
     "private_key_id": "f91f49d4bad15d3d49d3bb14aad64d19726e05ef",
@@ -27,7 +27,7 @@ var config = {
   }
 
 firebase.initializeApp({
-	credential: firebase.credential.cert(config),
+	credential: firebase.credential.cert(config1),
 	databaseURL: 'https://charged-mind-234610.firebaseio.com'
 });
 
