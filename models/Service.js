@@ -75,7 +75,7 @@ const ServiceSchema = new Schema({
      * type 4 id order is completed
      */
     orderStatus: {
-       type:Number,
+       type: Number,
        default:1 
     },
 

@@ -98,6 +98,7 @@ exports.getAllOffers = async (req, res) => {
                deliveryBoyLong:element.serviceGivenBy.latitude,
                deliveryName:element.serviceGivenBy.user_name ? element.serviceGivenBy.user_name : "N/A",
                serviceGivenBy:element.serviceGivenBy.id,
+               serviceGivenByProfilePic: element.serviceGivenBy.profile_image,
 
            }) 
         });

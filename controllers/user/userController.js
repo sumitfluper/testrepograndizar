@@ -205,6 +205,30 @@ exports.userSignin = (req, res) => {
 }
 //verify_otp
 
+
+exports.checkUserStatus = async (req, res) =>{
+    try {
+        let userData = await UserModel.findById(req.userId);
+        if(userData){
+            res.status(200).send({
+                message: "login successful",
+                response: userData
+            })
+        }
+        else{
+            res.status(200).send({
+                message: "Access token expire login again",
+                response: userData
+            })
+        }        
+    } catch (error) {
+        res.status(200).send({
+            message: "error occured",
+            response: error
+        })
+    }
+}
+
 exports.varify_otp = (req, res) => {
 
     let {

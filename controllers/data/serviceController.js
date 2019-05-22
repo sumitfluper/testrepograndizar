@@ -554,10 +554,7 @@ exports.serviceRequire = async (req, res) => {
     }
 }
 
-
 // createServiceNow
-
-
 exports.cancelServiceByUser = async (req, res) => {
     try {
         let cancelService = await serviceModel.findByIdAndUpdate(req.body.serviceId, {
@@ -584,7 +581,7 @@ exports.cancelServiceByUser = async (req, res) => {
         })
 
     }
-}
+ }
 
 exports.getNearbyOutlets = async (req, res) => {
     try {
