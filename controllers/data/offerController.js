@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const async = require('async');
 const responses = require('../../modules/responses');
 const offerModel = require('../../models/Offerbyuser');
+const serviceModel = require('../../models/Service');
+
 
 
 exports.makeAnOffer = async (req, res) => {
@@ -139,7 +141,7 @@ exports.acceptOffer = async (req, res) => {
         
         let offer = await offerModel.findOneAndUpdate({
             serviceId: mongoose.Types.ObjectId(req.body.serviceId),
-            serviceGivenBy:req.body.serviceGivenBy,
+            serviceGivenBy: mongoose.Types.ObjectId(req.body.serviceGivenBy),
         }, {
             $set: {
                 offerStatus: 2
@@ -147,25 +149,34 @@ exports.acceptOffer = async (req, res) => {
         },{
             new:true
         });
-        if(offer){
-            // let rejectOtherOffer = await offerModel.updateMany({
-            //     serviceId: {
-            //         $ne: req.body.serviceId
-            //     },
-            //     serviceGivenBy: {
-            //         $ne: req.body.offerMadeBy
-            //     }
-            // }, {
-            //     $set: {
-            //         offerStatus: 3
-            //     }
-            // }, {
-            //     new: true
-            // });
 
-            // if(rejectOtherOffer){
-               
-            // }
+        if(offer){
+            await offerModel.find({
+                serviceId: {
+                    $eq: mongoose.Types.ObjectId(req.body.serviceId)
+                },
+                serviceGivenBy: {
+                    $ne: mongoose.Types.ObjectId(req.body.offerMadeBy)
+                }
+            }, {
+                $set: {
+                    offerStatus: 3
+                }
+            }, {
+                new: true
+            });
+
+            await serviceModel.findOneAndUpdate({
+                _id: mongoose.Types.ObjectId(req.body.serviceId),
+                serviceGivenBy: {
+                    $ne: mongoose.Types.ObjectId(req.body.offerMadeBy)
+                }
+            },{
+                new: true
+            }          
+            )
+
+
 
             res.status(200).send({
                 message: "Offer accepted Successfully",
