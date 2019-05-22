@@ -35,9 +35,7 @@ exports.deliveryNewOrder = async (req, res) => {
                 $ne : mongoose.Types.ObjectId(req.userId)
             }           
         }
-        console.log("where ",where);
         
-
         let newService = await serviceModel.find(where)
             .populate('serviceCreatedBy')
             .select('-pickup_location -drop_location');
@@ -45,6 +43,9 @@ exports.deliveryNewOrder = async (req, res) => {
         var deliveryUserOffersData = await offersData.find({
             serviceGivenBy: req.userId
         })
+        console.log("deliveryUserOffersData.length",deliveryUserOffersData.length);
+        console.log("newService.length != 0",newService.length != 0);
+        
         if (deliveryUserOffersData.length != 0 && newService.length != 0) {
             newService.forEach(service => {
                 deliveryUserOffersData.forEach(offer => {
@@ -91,7 +92,10 @@ exports.deliveryPendingOrder = async (req, res) => {
                     $minDistance: 0,
                 }
             },
-            orderStatus: 1           
+            orderStatus: 1,
+            serviceCreatedBy: {
+                $ne : mongoose.Types.ObjectId(req.userId)
+            }              
         }
 
         let newService = await serviceModel.find(where)
