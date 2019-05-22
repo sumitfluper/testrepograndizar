@@ -19,6 +19,21 @@ exports.deliveryNewOrder = async (req, res) => {
 
     try {
         var newServiceData = [];
+        var arrServiceIds = [];
+
+
+        var deliveryUserOffersData = await offersData.find({
+            serviceGivenBy: req.userId
+        })
+
+
+        if (deliveryUserOffersData.length > 0) {
+            deliveryUserOffersData.forEach(element => {
+                arrServiceIds.push(element.serviceId);
+            });
+
+        }
+
         var where = {
             pickup_location: {
                 $near: {
@@ -32,41 +47,27 @@ exports.deliveryNewOrder = async (req, res) => {
             },
             orderStatus: 1,
             serviceCreatedBy: {
-                $ne : mongoose.Types.ObjectId(req.userId)
-            }           
+                $ne: mongoose.Types.ObjectId(req.userId)
+            },
+            _id: {
+                $nin: arrServiceIds
+            }
         }
-        
+
         let newService = await serviceModel.find(where)
             .populate('serviceCreatedBy')
             .select('-pickup_location -drop_location');
 
-        var deliveryUserOffersData = await offersData.find({
-            serviceGivenBy: req.userId
-        })
-        console.log("deliveryUserOffersData.length",deliveryUserOffersData.length);
-        console.log("newService.length != 0",newService.length != 0);
-        
-        if (deliveryUserOffersData.length != 0 && newService.length != 0) {
-            newService.forEach(service => {
-                deliveryUserOffersData.forEach(offer => {
-                    if (service._id.toString() != offer.serviceId.toString() && offer.serviceGivenBy.toString() != req.userId.toString()) {
-                        newServiceData.push(service);
-                    }
-                });
-            });
-        } else {
-            newServiceData = newService;
 
-        }
-        if (newServiceData.length > 0) {
+        if (newService.length > 0) {
             res.status(200).send({
                 message: 'List Of Near by orders',
-                response: newServiceData
+                response: newService
             })
         } else {
             res.status(200).send({
                 message: 'Sorry currently there are no orders available near by you...!',
-                response: newServiceData
+                response: newService
             })
         }
 
