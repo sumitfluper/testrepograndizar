@@ -361,13 +361,44 @@ exports.getUserAcceptedOrder = async (req, res) => {
         console.log("reachedHere");
         console.log(req.body);
 
-        let acceptedOrders = await serviceModel.find({
-                orderStatus: 2,
-                serviceCreatedBy: req.userId
+        let acceptedOrders = await serviceModel. aggregate([
+            {
+                $match: {
+                    orderStatus: 2,
+                    serviceCreatedBy: req.userId
 
-            })
-            .populate('serviceGivenBy')
-            .select('-pickup_location -drop_location')
+                }
+
+            }, 
+            {
+                $lookup: {
+                    from: "Offerbyusers",
+                    localField: "_id",
+                    foreignField: "serviceId",
+                    as: "offerDetails"
+                }
+            },  
+         
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "serviceGivenBy",
+                    foreignField: "_id",
+                    as: "serviceGivenBy"
+                }
+            },
+            { "$unwind": { "path": "$offerDetails", "preserveNullAndEmptyArrays": true } },
+            { "$unwind": { "path": "$serviceGivenBy", "preserveNullAndEmptyArrays": true } },
+        ])
+
+
+        // let acceptedOrders = await serviceModel.find({
+        //         orderStatus: 2,
+        //         serviceCreatedBy: req.userId
+
+        //     })
+        //     .populate('serviceGivenBy')
+        //     .select('-pickup_location -drop_location')
         if (acceptedOrders) {
             res.status(200).send({
                 message: 'Get All list Of the eaccepted orders ',
