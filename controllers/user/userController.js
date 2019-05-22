@@ -86,9 +86,9 @@ exports.userSignup = (req, res) => {
 
                     .then((userData) => {
                         if(userData.user_name != "N/A"){
-                            var userName = userData.user_name,
+                            var userName = userData.user_name
                           } else {
-                            var userName = JSON.parse(userData.name),
+                            var userName = JSON.parse(userData.name)
                           }
                         
                           var id = userData._id
@@ -96,7 +96,7 @@ exports.userSignup = (req, res) => {
                         //var country_code = userData.country_code;
                         var to = userData.country_code + userData.mobile_number;
                         commFunc.sendotp(verification_code, to);
-                        
+
                         commFunc.createFirebaseNode(id,userName,profileImage);
                         res.status(200).json({
                             message: "SignUp successfull and OTP successfully sent",
