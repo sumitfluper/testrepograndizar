@@ -158,30 +158,38 @@ exports.deliveryPendingOrder = async (req, res) => {
 exports.deliveryAcceptedOrders = async (req, res) => {
 
     try {
-        let acceptedOrders = await serviceModel. aggregate([
-            {
-                $match: {
-                    orderStatus: 2,
-                    serviceGivenBy: req.userId
+        // let acceptedOrders = await serviceModel. aggregate([
+        //     {
+        //         $match: {
+        //             orderStatus: 2,
+        //             serviceGivenBy: req.userId
 
-                }
+        //         }
 
-            }, {
-                $lookup: {
-                    from: "Offerbyusers",
-                    localField: "_id",
-                    foreignField: "serviceId",
-                    as: "offerDetails"
-                }
-            },  {
-                $lookup: {
-                    from: "User",
-                    localField: "serviceCreatedBy",
-                    foreignField: "_id",
-                    as: "serviceCreatedBy"
-                }
-            },
-        ])
+        //     }, {
+        //         $lookup: {
+        //             from: "Offerbyusers",
+        //             localField: "_id",
+        //             foreignField: "serviceId",
+        //             as: "offerDetails"
+        //         }
+        //     },  {
+        //         $lookup: {
+        //             from: "User",
+        //             localField: "serviceCreatedBy",
+        //             foreignField: "_id",
+        //             as: "serviceCreatedBy"
+        //         }
+        //     },
+        // ])
+        let acceptedOrders = await serviceModel.find({
+                orderStatus: 2,
+                serviceGivenBy: req.userId
+
+            })
+            .populate('serviceCreatedBy')
+            .select('-pickup_location -drop_location')
+
         if (acceptedOrders) {
             res.status(200).send({
                 message: 'Get All list Of the eaccepted orders ',
