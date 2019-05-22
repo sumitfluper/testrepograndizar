@@ -10,6 +10,25 @@ const _ = require('lodash');
 const responses = require('../../modules/responses');
 const uniqueRandom = require('unique-random');
 const random = uniqueRandom(1, 10);
+const firbase = require('firebase-admin');
+
+var firebaseconfig = {
+    "type": "service_account",
+    "project_id": "charged-mind-234610",
+    "private_key_id": "f91f49d4bad15d3d49d3bb14aad64d19726e05ef",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCzxtW6JUajyAfF\nxYOvj8PJPvRl0GDrobgVtOleqzZ+bqxDyMv5nEODHZJ+DwzdPbVQQBfIxwWu89r/\nQipZLgOJEBTi0ExAOShcdIrOq68OJiJJ8OAinYj2QNaQIvyLqcSpZNxT33mTkgIK\nLaxP5b+AjJFdJrzpV7QyzB0TC0fK6WtX5qBs4cKgJuFFbav0EOjSpSvaSP7d+Moz\nsAOXOZSs/PVrMm+32z/78tH9tb+i9GO01snZT1iymSuhqw9XWgX1/onG27aD/cba\nCmD7/oj5RNaiar7F2zdEixEhEhgMt/m3cD6Ird1HTGffO0I6JKPexKLsKCS3VkWu\nQE7r9LShAgMBAAECggEABZnNeUvlgD9AXL07TconEZs8PnrINjcW1thIx/oCC9zT\nUZZNIoTnhotyj6pU3oSoZCxnAUqQBwQSX872JkqcchX17J4MLhkJxJ2d4HPxU3nF\nKjQOq41oYbGh7aIlZ419ssBRa+yDq2EKXrpPCrsv5OecNMB69LMWilmZE0mP7kab\ngVcQfGgUmLVaeRuVF03Qn785AH8ceDl+0ptMWMh7qf9zQakaRKMGznillSkGAj0F\n3lOEezWLt2IWONxW4zm+4OwCLYjQQIvA2+WNvsERWaRRT2QK4yb+CtFVRi3ffaV9\ndoIVhuQ/PodM8jVmKR9YJvRYcPtiQsb2qnoRtidcUQKBgQDd3W3883ngH5M81zy0\nSI3WSxzfzmLYp/Bji88ZK8lbhqOr8fd/katv9l5F2AbElmpqTjuVHhtVVfUIAMKP\nrTSgap17mVIQqwt4rFcN6mK3Fm8/hyZaM3Xegb26DEjsnl6mMu8S5tNRLq2eWyBD\n2Q/fisV3O94noIsNzs/bo6ldOQKBgQDPb636tn17RrAEyrd6ZUc2EVDYwtFvHD1e\nhkLIXjtZiEIfPLAmAJkEBkaVgyyfzN84lMrwLmUkIIN2u4NQq1oTXdESf4n88X1N\n0J1lZhPMR78PCkvZf4JxRAZIoRoVNFyimli66pKXiLzx41pcEZaA5cEei4rgAuyD\ntJdzuYF6qQKBgAY0kEP351u+ZlbYSklckiMBPNCBrEAVCmMuYN96WwplTKSdgued\ngmcCRAa+EQpkjptkjsQP8IHFgrHzm317QbKO6NKxKhtvPUXlxBWOja5DQV9Mf2Uc\ndVqA1Hakq1F66HjLieZEcHqfzJlWQSPEqW3+KqG4GfGPyvPa6fNhs3X5AoGBAKX8\nLlIUnpn7OTPMZj6pNe88sd2RHnbzOOQfOOcOCB2fW5GVRTpTdh1zTB2tJhMEo4Wq\nAi1oYoQjBC8I4o21X1Fp27camPbu4Z5XlOqjYKowquBFE+aJEn7BuOl7B9z51jpC\nmUeQFhbtUouXqiFL7YtczUg8zrZrgIfvBNWUFdhpAoGAD9qsLKNPSrnL/P/deFa4\nIgD5Q7t/tO89r0giElwzln8YIjSpx7VisfhSpQH8ueBjtgTvkfUSC0ddR4l1n1NW\n/CTpsDBybaYBOXOmaaJWCneDjwysMeqRLRC1jwuDoYxmr6VMsMDMpMA/TNHguUl4\nFIyajo6dO3ysif2Mj1XEgGw=\n-----END PRIVATE KEY-----\n",
+    "client_email": "firebase-adminsdk-6di4p@charged-mind-234610.iam.gserviceaccount.com",
+    "client_id": "109928781414178787614",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-6di4p%40charged-mind-234610.iam.gserviceaccount.com"
+  }
+
+  firbase.initializeApp({
+    credential: firbase.credential.cert(firebaseconfig),
+    databaseURL: "https://charged-mind-234610.firebaseio.com"
+  });
 
 exports.userSignup = (req, res) => {
     console.log(req.body);
@@ -85,8 +104,8 @@ exports.userSignup = (req, res) => {
                 user.save(updateData)
 
                     .then((userData) => {
-                        
-                        if(userData.user_name != "N/A"){
+
+                         if(userData.user_name != "N/A"){
                             var userName = userData.user_name
                           } else {
                             var userName = JSON.parse(userData.name)
@@ -94,12 +113,11 @@ exports.userSignup = (req, res) => {
                         
                           var id = userData._id
                           var profileImage = userData.profile_image
-                        //   commFunc.createFirebaseNode(id,userName,profileImage);
+                          commFunc.createFirebaseNode(id,userName,profileImage);
 
                         //var country_code = userData.country_code;
                         var to = userData.country_code + userData.mobile_number;
                         commFunc.sendotp(verification_code, to);
-
                         res.status(200).json({
                             message: "SignUp successfull and OTP successfully sent",
                             response: userData
