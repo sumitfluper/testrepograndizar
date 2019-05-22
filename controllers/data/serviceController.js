@@ -797,7 +797,7 @@ exports.acceptService = async (req, res) => {
             new:true
         })
 
-        await offerModel.findOneAndUpdate({
+        await offersData.findOneAndUpdate({
             serviceId: mongoose.Types.ObjectId(req.body.serviceId),
             serviceGivenBy: mongoose.Types.ObjectId(req.body.serviceGivenBy),
         }, {
