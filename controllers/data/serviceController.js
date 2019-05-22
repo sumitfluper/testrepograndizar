@@ -185,11 +185,7 @@ exports.deliveryAcceptedOrders = async (req, res) => {
             }, {
                 $unwind: "$serviceCreatedBy"
             },
-            {
-                $group : {
-                    _id : '$_id',
-                }
-            }
+           
         ])
         if (acceptedOrders) {
             res.status(200).send({
