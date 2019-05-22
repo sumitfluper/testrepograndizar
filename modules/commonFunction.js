@@ -1,5 +1,8 @@
 var twilio  = require( 'twilio');
 var config = require('../services/config');
+var firebase = require("firebase-admin");
+//  var FCM = require('fcm-node');
+
 /*
  * -----------------------
  * GENERATE RANDOM STRING
@@ -27,3 +30,18 @@ exports.sendotp = (verification_code,sendTo) => {
 	.then((message) => console.log(message.sid))
 	.catch((err) => console.log(err));
 };
+
+exports.createFirebaseNode = (id, name, profile_image) => {
+    console.log("comming to firebase node.");
+    id = id.toString();
+    var ref = firebase.app().database().ref();
+
+    var usersRef = ref.child("users").child(id);
+    var userRef = usersRef.push();
+    console.log("user key", userRef.key);
+    var userRef = usersRef.set({
+        userName: name,
+        profilePic: profile_image,
+        id :id
+    });
+}
