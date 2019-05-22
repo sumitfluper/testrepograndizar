@@ -89,7 +89,7 @@ exports.userSignup = (req, res) => {
                          if(userData.user_name != "N/A"){
                             var userName = userData.user_name
                           } else {
-                            var userName = JSON.parse(userData.name)
+                            var userName = userData.name
                           }
                         
                           var id = userData._id
