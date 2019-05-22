@@ -32,7 +32,7 @@ exports.deliveryNewOrder = async (req, res) => {
             },
             orderStatus: 1,
             serviceCreatedBy: {
-                $ne : req.userId
+                $ne : mongoose.Types.ObjectId(req.userId)
             }           
         }
         console.log("where ",where);
