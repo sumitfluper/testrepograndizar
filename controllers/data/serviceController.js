@@ -167,14 +167,14 @@ exports.deliveryAcceptedOrders = async (req, res) => {
                 }
 
             }, 
-            // {
-            //     $lookup: {
-            //         from: "Offerbyusers",
-            //         localField: "_id",
-            //         foreignField: "serviceId",
-            //         as: "offerDetails"
-            //     }
-            // },  
+            {
+                $lookup: {
+                    from: "Offerbyusers",
+                    localField: "_id",
+                    foreignField: "serviceId",
+                    as: "offerDetails"
+                }
+            },  
             {
                 $lookup: {
                     from: "users",
