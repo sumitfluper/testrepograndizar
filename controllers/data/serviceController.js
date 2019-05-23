@@ -1035,7 +1035,7 @@ exports.acceptService = async (req, res) => {
             new:true
         });
         if(updateService.drop_longitude !='' && updateService.drop_latitude !=''){
-            let deliverydetails = {
+            var deliverydetails = {
                 delivery_status:"Not Started", 
                 service_id: updateService._id,
                 pickup_address : updateService.pickup_address,
@@ -1054,7 +1054,7 @@ exports.acceptService = async (req, res) => {
                 }
             }     
         } else {
-            let deliverydetails = {
+            var deliverydetails = {
                 delivery_status:"Not Started", 
                 service_id: updateService._id,
                 pickup_address : updateService.pickup_address,
