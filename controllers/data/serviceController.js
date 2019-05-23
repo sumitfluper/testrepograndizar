@@ -531,18 +531,41 @@ exports.getUserAcceptedOrder = async (req, res) => {
             { "$unwind": { "path": "$serviceGivenBy", "preserveNullAndEmptyArrays": true } },
         ])
 
+        let acceptedService = await serviceModel. aggregate([
+            {
+                $match: {
+                    orderStatus: 2,
+                    serviceCreatedBy: req.userId
 
-        // let acceptedOrders = await serviceModel.find({
-        //         orderStatus: 2,
-        //         serviceCreatedBy: req.userId
+                }
 
-        //     })
-        //     .populate('serviceGivenBy')
-        //     .select('-pickup_location -drop_location')
-        if (acceptedOrders) {
+            }, 
+            {
+                $lookup: {
+                    from: "Offerbyusers",
+                    localField: "_id",
+                    foreignField: "serviceId",
+                    as: "offerDetails"
+                }
+            },  
+         
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "serviceGivenBy",
+                    foreignField: "_id",
+                    as: "serviceGivenBy"
+                }
+            },
+            { "$unwind": { "path": "$offerDetails", "preserveNullAndEmptyArrays": true } },
+            { "$unwind": { "path": "$serviceGivenBy", "preserveNullAndEmptyArrays": true } },
+        ])
+
+        var new_data = acceptedOrders.concat(acceptedservice)
+        if (new_data) {
             res.status(200).send({
                 message: 'Get All list Of the eaccepted orders ',
-                response: acceptedOrders
+                response: new_data
             })
         }
 
