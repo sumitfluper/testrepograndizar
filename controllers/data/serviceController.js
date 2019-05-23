@@ -1060,6 +1060,8 @@ exports.acceptService = async (req, res) => {
             })
         }
     } catch (error) {
+        console.log(error);
+        
         responses.sendError(error.message, res)
     }
 }
