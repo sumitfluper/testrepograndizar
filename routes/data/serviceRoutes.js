@@ -112,6 +112,10 @@ router.route("/updateservicestatus")
 router.route("/uploadimageonchat")
     .post(auth.requiresLogin,upload.any(), serviceController.uploadImageonchat)
 
+//change delivery staus
+router.route("/sendchatnotification")
+    .post(auth.requiresLogin, serviceController.sendChatNotification)
+
 
 
 exports.Router = router;

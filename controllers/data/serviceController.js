@@ -11,6 +11,9 @@ const offersData = require('../../models/Offerbyuser');
 var googleApiHelper = require('../../helpers/googleApiHelper');
 const uniqueRandom = require('unique-random');
 const DeliverydetailsModel = require('../../models/Deliverydetails');
+const FCM = require('../../modules/FCM');
+const UserModel = require('../../models/User');
+
 
 
 /*
@@ -966,6 +969,31 @@ exports.uploadImageonchat = async (req , res) =>{
             message: "send successfully",
             response: 'chatimage/' + documentsData[0].filename
         })
+    } catch (error) {
+        return res.status(200).send({
+            message: "error occured",
+            response: error
+        })
+    }
+}
+
+exports.sendChatNotification = async (req , res) =>{
+    try {
+        const serverKey = 'AAAAGsVckmo:APA91bEAtxMaIVSPcA_Y6BYKtkQVLCyFt7n1qhN1H39Ysv7hGrNShzPT1b585NnSDrf_X21RnOPQj-XTP-DtJ4vbGKAWEJY8lvjLbNFoTQIMebqejAhgq4m4zQQtOxSc3hc_BjMvtMUp'
+        let payload = {
+            _id: req.body._id,
+            sender_id: req.body.sender_id,
+            receiver_id: req.body.receiver_id,
+            message: req.body.message,
+            data_type: req.body.data_type,
+            is_first: req.body.is_first,
+        }
+        let userData = await UserModel.findById(mongoose.Types.ObjectId(req.body.receiver_id))
+        let token = userData.device_token;
+        let device_type = userData.device_type
+
+        FCM.push_notification(serverKey, token = "", device_type, payload, notify, callback)
+
     } catch (error) {
         return res.status(200).send({
             message: "error occured",

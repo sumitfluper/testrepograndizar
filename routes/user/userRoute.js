@@ -58,4 +58,5 @@ router.route('/checkuserstatus')
 	.get(auth.requiresLogin, userController.checkUserStatus);
 
 
+	
 exports.Router = router;
