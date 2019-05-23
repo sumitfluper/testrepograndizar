@@ -563,7 +563,14 @@ exports.getUserPendingOrders = async (req, res) => {
 
         }).select('-pickup_location -drop_location')
 
-        if (acceptedOrders) {
+        let acceptedservice = await professionalModel.find({
+            orderStatus: 1,
+            serviceCreatedBy: req.userId
+
+        }).select('-pickup_location');
+        var new_data = acceptedOrders.concat(acceptedservice)
+
+        if (new_data) {
             res.status(200).send({
                 message: 'Get All list Of the eaccepted orders ',
                 response: acceptedOrders
