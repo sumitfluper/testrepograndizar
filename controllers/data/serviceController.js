@@ -126,9 +126,9 @@ exports.deliveryPendingOrder = async (req, res) => {
                             drop_latitude:service.drop_latitude,
                             drop_longitude:service.drop_longitude,
                             comments:service.pickup_longitude,
+                            serviceCreatedBy:service.serviceCreatedBy,
                             offerDetails:{
-                                serviceCreatedBy:service.serviceCreatedBy,
-                                offerMessage:offer.deliveryMessage,
+                               offerMessage:offer.deliveryMessage,
                                 deliveryTime:offer.deliveryTime,
                                 deliveryCharge:offer.deliveryCharge,
                                 offerStatus:offer.offerStatus,
