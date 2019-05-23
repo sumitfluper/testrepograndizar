@@ -1040,10 +1040,17 @@ exports.acceptService = async (req, res) => {
             pickup_address : updateService.pickup_address,
             pickup_latitude : updateService.pickup_latitude,
             pickup_longitude : updateService.pickup_longitude,
+            pickup_location : {
+                type: 'Point',
+                coordinates: [Number(updateService.pickup_longitude), Number(updateService.pickup_latitude)]
+            },
             drop_address : updateService.drop_address,
             drop_latitude : updateService.drop_latitude,
             drop_longitude : updateService.drop_longitude,
-          
+            drop_location : {
+                type: 'Point',
+                coordinates: [Number(updateService.drop_longitude), Number(updateService.drop_latitude)]
+            }
         }
 
         await DeliverydetailsModel.create(deliverydetails);
@@ -1061,7 +1068,7 @@ exports.acceptService = async (req, res) => {
         }
     } catch (error) {
         console.log(error);
-        
+
         responses.sendError(error.message, res)
     }
 }
