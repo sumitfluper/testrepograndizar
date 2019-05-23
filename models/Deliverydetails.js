@@ -51,6 +51,6 @@ const deliveryDetailsSchema = new Schema({
         collection : 'deliverydetails',
         versionKey : false
 });
-ServiceSchema.index({ pickup_location : '2dsphere' })
-ServiceSchema.index({ drop_location : '2dsphere' })
+deliveryDetailsSchema.index({ pickup_location : '2dsphere' })
+deliveryDetailsSchema.index({ drop_location : '2dsphere' })
 module.exports = mongoose.model("deliverydetails", deliveryDetailsSchema);

@@ -126,10 +126,18 @@ exports.deliveryPendingOrder = async (req, res) => {
                             drop_latitude:service.drop_latitude,
                             drop_longitude:service.drop_longitude,
                             comments:service.pickup_longitude,
-                            serviceCreatedBy:service.serviceCreatedBy,
-                            offerMessage:offer.deliveryMessage,
-                            deliveryTime:offer.deliveryTime,
-                            deliveryCharge:offer.deliveryCharge,
+                            offerDetails:{
+                                serviceCreatedBy:service.serviceCreatedBy,
+                                offerMessage:offer.deliveryMessage,
+                                deliveryTime:offer.deliveryTime,
+                                deliveryCharge:offer.deliveryCharge,
+                                offerStatus:offer.offerStatus,
+                                serviceGivenBy:offer.serviceGivenBy,
+                                serviceId:offer.serviceId,
+                            }
+                            
+                            
+                            
                         });
                     }
                 });
