@@ -10,6 +10,7 @@ const professionalModel = require('../../models/Professional');
 const offersData = require('../../models/Offerbyuser');
 var googleApiHelper = require('../../helpers/googleApiHelper');
 const uniqueRandom = require('unique-random');
+const DeliverydetailsModel = require('../../models/Deliverydetails');
 
 
 /*
@@ -869,6 +870,26 @@ exports.acceptService = async (req, res) => {
         },{
             new:true
         });
+        let deliverydetails = {
+            delivery_status:"Not Started", 
+            service_id: updateService._id,
+            pickup_address : updateService.pickup_address,
+            pickup_latitude : updateService.pickup_latitude,
+            pickup_longitude : updateService.pickup_longitude,
+            pickup_location : {
+                type: 'Point',
+                coordinates: [Number(updateService.pickup_longitude), Number(updateService.pickup_latitude)]
+            },
+            drop_address : updateService.drop_address,
+            drop_latitude : updateService.drop_latitude,
+            drop_longitude : updateService.drop_longitude,
+            drop_location : {
+                type: 'Point',
+                coordinates: [Number(updateService.drop_longitude), Number(updateService.drop_latitude)]
+            }
+        }
+
+        await DeliverydetailsModel.create(deliverydetails);
 
         if (updateService) {
             res.status(200).send({
@@ -883,5 +904,37 @@ exports.acceptService = async (req, res) => {
         }
     } catch (error) {
         responses.sendError(error.message, res)
+    }
+}
+
+
+exports.updateServiceStatus = async (req, res) => {
+    try {
+        let Data = DeliverydetailsModel.findOneAndUpdate({
+            _id: mongoose.Types.ObjectId(req.body._id)
+        },{
+            $set:{
+                delivery_status: req.body.deliveryStatus
+            }
+        },{
+            new: true
+        })
+
+        if(Data) {
+            res.status(200).send({
+                message: "updated successfully",
+                response:Data
+            })
+        } else {
+            res.status(200).send({
+                message: "Unable to update status",
+                response: Data
+            })
+        }
+    } catch (error) {
+        res.status(200).send({
+            message: "error occurred",
+            response: error
+        })
     }
 }

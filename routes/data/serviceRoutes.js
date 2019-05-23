@@ -84,5 +84,10 @@ router.route("/getSubCategoryList")
     .get(auth.requiresLogin, serviceController.getSubCategoryList)
 
 
+//change delivery staus
+router.route("/updateservicestatus")
+    .get(auth.requiresLogin, serviceController.updateServiceStatus)
+
+
 
 exports.Router = router;
