@@ -1042,14 +1042,14 @@ exports.acceptService = async (req, res) => {
             pickup_longitude : updateService.pickup_longitude,
             pickup_location : {
                 type: 'Point',
-                coordinates: [Number(updateService.pickup_longitude), Number(updateService.pickup_latitude)]
+                coordinates: [updateService.pickup_longitude, updateService.pickup_latitude]
             },
             drop_address : updateService.drop_address,
             drop_latitude : updateService.drop_latitude,
             drop_longitude : updateService.drop_longitude,
             drop_location : {
                 type: 'Point',
-                coordinates: [Number(updateService.drop_longitude), Number(updateService.drop_latitude)]
+                coordinates: [updateService.drop_longitude, updateService.drop_latitude]
             }
         }
 
