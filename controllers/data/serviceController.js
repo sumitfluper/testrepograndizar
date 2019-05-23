@@ -501,7 +501,7 @@ exports.getUserAcceptedOrder = async (req, res) => {
         console.log("reachedHere");
         console.log(req.body);
 
-        let acceptedOrders = await serviceModel. aggregate([
+        var acceptedOrders = await serviceModel. aggregate([
             {
                 $match: {
                     orderStatus: 2,
@@ -531,7 +531,7 @@ exports.getUserAcceptedOrder = async (req, res) => {
             { "$unwind": { "path": "$serviceGivenBy", "preserveNullAndEmptyArrays": true } },
         ])
 
-        let acceptedService = await serviceModel. aggregate([
+        var acceptedService = await professionalModel.aggregate([
             {
                 $match: {
                     orderStatus: 2,
@@ -561,7 +561,7 @@ exports.getUserAcceptedOrder = async (req, res) => {
             { "$unwind": { "path": "$serviceGivenBy", "preserveNullAndEmptyArrays": true } },
         ])
 
-        var new_data = acceptedOrders.concat(acceptedservice)
+        var new_data = acceptedOrders.concat(acceptedService)
         if (new_data) {
             res.status(200).send({
                 message: 'Get All list Of the eaccepted orders ',
