@@ -79,7 +79,7 @@ exports.getAllOffers = async (req, res) => {
                 .populate('serviceId')
                 .populate('serviceGivenBy')
         } else {
-            var OffersList = await offerModel. aggregate([
+            var OffersList = await offerModel.aggregate([
                 {
                     $match: {
                         serviceId: mongoose.Types.ObjectId(req.body.serviceId),
@@ -88,7 +88,7 @@ exports.getAllOffers = async (req, res) => {
                 }, 
                 {
                     $lookup: {
-                        from: "Service",
+                        from: "Professional",
                         localField: "serviceId",
                         foreignField: "_id",
                         as: "serviceId"
@@ -105,21 +105,20 @@ exports.getAllOffers = async (req, res) => {
                 { "$unwind": { "path": "$serviceId", "preserveNullAndEmptyArrays": true } },
                 { "$unwind": { "path": "$serviceGivenBy", "preserveNullAndEmptyArrays": true } },
             ])
-
         }
 
         OffersList.forEach(element => {
             console.log("offers",element);
             
            arrOffers.push({
-               offerId:element.id,
+               offerId:element._id,
                offerStatus:element.offerStatus,
                createdAt:element.createdAt,
                serviceCreatedBy:element.serviceCreatedBy,
                deliveryCharge:element.deliveryCharge,
                deliveryMessage:element.deliveryMessage,
                deliveryTime:element.deliveryTime,
-               serviceId:element.serviceId.id,
+               serviceId:element.serviceId._id,
                pickup_lat:element.serviceId.pickup_latitude,
                pickup_long:element.serviceId.pickup_longitude,
                drop_lat:element.serviceId.drop_latitude,
@@ -127,7 +126,7 @@ exports.getAllOffers = async (req, res) => {
                deliveryBoyLat:element.serviceGivenBy.longitude,
                deliveryBoyLong:element.serviceGivenBy.latitude,
                deliveryName:element.serviceGivenBy.user_name ? element.serviceGivenBy.user_name : "N/A",
-               serviceGivenBy:element.serviceGivenBy.id,
+               serviceGivenBy:element.serviceGivenBy._id,
                serviceGivenByProfilePic: element.serviceGivenBy.profile_image,
 
            }) 
