@@ -31,12 +31,15 @@ const deliveryDetailsSchema = new Schema({
     },
     drop_address : {
         type : String,
+        default: 'N/A'
     },
     drop_latitude : {
         type: Number,
+        default: 0.00
     },
     drop_longitude : {
-        type : Number, 
+        type : Number,
+        default: 0.00 
     },
     drop_location : {
         type: {
