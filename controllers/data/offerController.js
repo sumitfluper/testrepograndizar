@@ -71,12 +71,42 @@ exports.getAllOffers = async (req, res) => {
         console.log(req.body);
         var arrOffers = [];
         
-        var OffersList = await offerModel.find({
-            serviceId: mongoose.Types.ObjectId(req.body.serviceId),
-        })
-        .populate('serviceId')
-        .populate('serviceGivenBy')
-        
+        var isdeliveryService = await serviceModel.findById(req.body.serviceId); 
+        if (isdeliveryService) {
+           var OffersList = await offerModel.find({
+                    serviceId: mongoose.Types.ObjectId(req.body.serviceId),
+                })
+                .populate('serviceId')
+                .populate('serviceGivenBy')
+        } else {
+            var OffersList = await offerModel. aggregate([
+                {
+                    $match: {
+                        serviceId: mongoose.Types.ObjectId(req.body.serviceId),
+                    }
+    
+                }, 
+                {
+                    $lookup: {
+                        from: "Service",
+                        localField: "serviceId",
+                        foreignField: "_id",
+                        as: "serviceId"
+                    }
+                },  
+                {
+                    $lookup: {
+                        from: "users",
+                        localField: "serviceGivenBy",
+                        foreignField: "_id",
+                        as: "serviceGivenBy"
+                    }
+                },
+                { "$unwind": { "path": "$serviceId", "preserveNullAndEmptyArrays": true } },
+                { "$unwind": { "path": "$serviceGivenBy", "preserveNullAndEmptyArrays": true } },
+            ])
+
+        }
 
         OffersList.forEach(element => {
             console.log("offers",element);

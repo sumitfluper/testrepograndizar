@@ -363,7 +363,7 @@ exports.professionalpendingorders = async (req, res) => {
                             pickup_latitude:service.pickup_latitude,
                             pickup_longitude:service.pickup_longitude,
                             comments:service.pickup_longitude,
-                             serviceCreatedBy:service.serviceCreatedBy,
+                            serviceCreatedBy:service.serviceCreatedBy,
                              offerDetails:{
                                 offerMessage:offer.deliveryMessage,
                                 deliveryTime:offer.deliveryTime,
