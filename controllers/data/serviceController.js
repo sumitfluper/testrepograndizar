@@ -176,6 +176,14 @@ exports.deliveryAcceptedOrders = async (req, res) => {
                     as: "offerDetails"
                 }
             },  
+            {
+                $lookup: {
+                    from: "userdeliveryprofile",
+                    localField: "_id",
+                    foreignField: "service_id",
+                    as: "deliverydetails"
+                }
+            },  
          
             {
                 $lookup: {
@@ -186,6 +194,7 @@ exports.deliveryAcceptedOrders = async (req, res) => {
                 }
             },
             { "$unwind": { "path": "$offerDetails", "preserveNullAndEmptyArrays": true } },
+            { "$unwind": { "path": "$deliverydetails", "preserveNullAndEmptyArrays": true } },
             { "$unwind": { "path": "$serviceCreatedBy", "preserveNullAndEmptyArrays": true } },
         ])
 
