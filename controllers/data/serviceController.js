@@ -146,6 +146,8 @@ exports.deliveryPendingOrder = async (req, res) => {
             newServiceData = newService;
 
         }
+        console.log("newServiceData",newServiceData);
+        
         if (newServiceData.length > 0) {
             res.status(200).send({
                 message: 'List Of Near by orders',
