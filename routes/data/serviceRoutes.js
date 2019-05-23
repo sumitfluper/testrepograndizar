@@ -47,7 +47,7 @@ router.route('/professionalneworder')
 
 // routes to add location 
 router.route('/professionalpendingorders')
-    .post(auth.requiresLogin, serviceController.professionalNewOrder);
+    .post(auth.requiresLogin, serviceController.professionalpendingorders);
 
 // get all order created by user type 1
 router.route('/professionalacceptedorders')

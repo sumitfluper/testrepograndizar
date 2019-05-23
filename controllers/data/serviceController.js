@@ -257,75 +257,145 @@ exports.deliveryCompletedOrder = async (req, res) => {
 
 exports.professionalNewOrder = async (req, res) => {
     try {
+
         var newServiceData = [];
-        console.log("reachedHere");
-        console.log(req.body);
+        var arrServiceIds = [];
+
+
+        var deliveryUserOffersData = await offersData.find({
+            serviceGivenBy: req.userId
+        })
+
+
+        if (deliveryUserOffersData.length > 0) {
+            deliveryUserOffersData.forEach(element => {
+                arrServiceIds.push(element.serviceId);
+            });
+
+        }
 
         var where = {
             pickup_location: {
                 $near: {
                     $geometry: {
                         type: "Point",
-                        coordinates: [
-                            req.body.long,
-                            req.body.lat
-                        ]
+                        coordinates: [Number(req.body.long), Number(req.body.lat)]
                     },
                     $maxDistance: 5000,
                     $minDistance: 0,
                 }
             },
             orderStatus: 1,
-            serviceCreatedBy:{
-                $ne:req.userId
+            serviceCreatedBy: {
+                $ne: mongoose.Types.ObjectId(req.userId)
+            },
+            _id: {
+                $nin: arrServiceIds
             }
         }
 
-        var newService = await professionalModel.find(where)
+        let newService = await professionalModel.find(where)
             .populate('serviceCreatedBy')
             .select('-pickup_location -drop_location');
-            
-        var deliveryUserOffersData = await offersData.find({
-                serviceGivenBy: req.userId
+
+
+        if (newService.length > 0) {
+            res.status(200).send({
+                message: 'List Of Near by orders',
+                response: newService
             })
-          
-            if (newService) {
-                res.status(200).send({
-                    message: 'List Of Near by orders',
-                    response: newService
-                })
-            } else {
-                res.status(200).send({
-                    message: 'Sorry currently there are no orders available near by you...!',
-                    response: newService
-                })
-            }
-        // var deliveryUserOffersData = await offersData.find({
-        //         serviceGivenBy: req.userId
-        //     })
-        //     if (deliveryUserOffersData.length != 0 && newService != null ) {
-        //         newService.forEach(service => {
-        //             deliveryUserOffersData.forEach(offer => {
-        //                 if (service._id.toString() != offer.serviceId.toString() && offer.serviceGivenBy.toString() != req.userId.toString()) {
-        //                     newServiceData.push(service);
-        //                 }
-        //             });
-        //         });
-        //     } else {
-        //         newServiceData = newService;
+        } else {
+            res.status(200).send({
+                message: 'Sorry currently there are no orders available near by you...!',
+                response: newService
+            })
+        }
+
+    } catch (error) {
+        responses.sendError(error.message, res)
+    }
+}
+
+
+exports.professionalpendingorders = async (req, res) => {
+
+    console.log("................"+req.body.long+".........................."+req.body.lat);
     
-        //     }
-        //     if (newServiceData.length > 0) {
-        //         res.status(200).send({
-        //             message: 'List Of Near by orders',
-        //             response: newServiceData
-        //         })
-        //     } else {
-        //         res.status(200).send({
-        //             message: 'Sorry currently there are no orders available near by you...!',
-        //             response: newServiceData
-        //         })
-        //     }
+    try {
+        var newServiceData = [];
+        var arrServiceIds = [];
+        
+
+        var deliveryUserOffersData = await offersData.find({
+            serviceGivenBy: req.userId
+        })
+
+        if(deliveryUserOffersData.length > 0 ){
+            deliveryUserOffersData.forEach(element => {
+                arrServiceIds.push(element.serviceId);
+            });
+
+        }
+
+        let newService = await professionalModel.find({
+          _id: {
+              $in: arrServiceIds
+          }  
+        }).populate('serviceCreatedBy')
+          .select('-pickup_location -drop_location');
+
+
+        if (deliveryUserOffersData.length != 0 && newService.length != 0) {
+            newService.forEach(service => {
+                deliveryUserOffersData.forEach(offer => {
+                    if (service._id.toString() == offer.serviceId.toString() && offer.serviceGivenBy.toString() == req.userId.toString()) {
+                      
+                        newServiceData.push({
+                            _id:service._id,
+                            service_type:service.service_type,
+                            orderId:service.orderId,
+                            delivery_captains_50:service.delivery_captains_50,
+                            delivery_captains_100:service.delivery_captains_100,
+                            total_captains:service.total_captains,
+                            orderStatus:service.orderStatus,
+                            createdAt:service.createdAt,
+                            pickup_address:service.pickup_address,
+                            pickup_latitude:service.pickup_latitude,
+                            pickup_longitude:service.pickup_longitude,
+                            comments:service.pickup_longitude,
+                             serviceCreatedBy:service.serviceCreatedBy,
+                             offerDetails:{
+                                offerMessage:offer.deliveryMessage,
+                                deliveryTime:offer.deliveryTime,
+                                deliveryCharge:offer.deliveryCharge,
+                                offerStatus:offer.offerStatus,
+                                serviceGivenBy:offer.serviceGivenBy,
+                                serviceId:offer.serviceId,
+                            }
+                            
+                            
+                     
+                        });
+                    }
+                });
+            });
+        } else {
+            newServiceData = newService;
+
+        }
+        console.log("newServiceData",newServiceData);
+        
+        if (newServiceData.length > 0) {
+            res.status(200).send({
+                message: 'List Of Near by orders',
+                response: newServiceData
+            })
+        } else {
+            res.status(200).send({
+                message: 'Sorry currently there are no orders available near by you...!',
+                response: newServiceData
+            })
+        }
 
     } catch (error) {
         responses.sendError(error.message, res)
@@ -335,18 +405,65 @@ exports.professionalNewOrder = async (req, res) => {
 exports.professionalAcceptedOrders = async (req, res) => {
 
     try {
-        let acceptedOrders = await professionalModel.find({
-                orderStatus: 2,
-                serviceGivenBy: req.userId
+            let acceptedOrders = await professionalModel. aggregate([
+                {
+                    $match: {
+                        orderStatus: 2,
+                        serviceGivenBy: req.userId
+    
+                    }
+    
+                }, 
+                {
+                    $lookup: {
+                        from: "Offerbyusers",
+                        localField: "_id",
+                        foreignField: "serviceId",
+                        as: "offerDetails"
+                    }
+                },  
+                {
+                    $lookup: {
+                        from: "userdeliveryprofile",
+                        localField: "_id",
+                        foreignField: "service_id",
+                        as: "deliverydetails"
+                    }
+                },  
+             
+                {
+                    $lookup: {
+                        from: "users",
+                        localField: "serviceCreatedBy",
+                        foreignField: "_id",
+                        as: "serviceCreatedBy"
+                    }
+                },
+                { "$unwind": { "path": "$offerDetails", "preserveNullAndEmptyArrays": true } },
+                { "$unwind": { "path": "$deliverydetails", "preserveNullAndEmptyArrays": true } },
+                { "$unwind": { "path": "$serviceCreatedBy", "preserveNullAndEmptyArrays": true } },
+            ])
+    
+    
+          
+            if (acceptedOrders) {
+                res.status(200).send({
+                    message: 'Get All list Of the accepted orders ',
+                    response: acceptedOrders
+                })
+        //     }
+        // let acceptedOrders = await professionalModel.find({
+        //         orderStatus: 2,
+        //         serviceGivenBy: req.userId
 
-            })
-            .populate('serviceCreatedBy')
-            .select('-pickup_location -drop_location');
-        if (acceptedOrders) {
-            res.status(200).send({
-                message: 'Get All list Of the eaccepted orders ',
-                response: acceptedOrders
-            })
+        //     })
+        //     .populate('serviceCreatedBy')
+        //     .select('-pickup_location -drop_location');
+        // if (acceptedOrders) {
+        //     res.status(200).send({
+        //         message: 'Get All list Of the eaccepted orders ',
+        //         response: acceptedOrders
+        //     })
         }
     } catch (error) {
         responses.sendError(error.message, res)
