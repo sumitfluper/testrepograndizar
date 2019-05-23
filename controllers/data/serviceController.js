@@ -1034,24 +1034,46 @@ exports.acceptService = async (req, res) => {
         },{
             new:true
         });
-        let deliverydetails = {
-            delivery_status:"Not Started", 
-            service_id: updateService._id,
-            pickup_address : updateService.pickup_address,
-            pickup_latitude : updateService.pickup_latitude,
-            pickup_longitude : updateService.pickup_longitude,
-            pickup_location : {
-                type: 'Point',
-                coordinates: [updateService.pickup_longitude, updateService.pickup_latitude]
-            },
-            drop_address : updateService.drop_address,
-            drop_latitude : updateService.drop_latitude,
-            drop_longitude : updateService.drop_longitude,
-            drop_location : {
-                type: 'Point',
-                coordinates: [updateService.drop_longitude, updateService.drop_latitude]
+        if(updateService.drop_longitude !='' && updateService.drop_latitude !=''){
+            let deliverydetails = {
+                delivery_status:"Not Started", 
+                service_id: updateService._id,
+                pickup_address : updateService.pickup_address,
+                pickup_latitude : updateService.pickup_latitude,
+                pickup_longitude : updateService.pickup_longitude,
+                pickup_location : {
+                    type: 'Point',
+                    coordinates: [updateService.pickup_longitude, updateService.pickup_latitude]
+                },
+                drop_address : updateService.drop_address,
+                drop_latitude : updateService.drop_latitude,
+                drop_longitude : updateService.drop_longitude,
+                drop_location : {
+                    type: 'Point',
+                    coordinates: [updateService.drop_longitude, updateService.drop_latitude]
+                }
+            }     
+        } else {
+            let deliverydetails = {
+                delivery_status:"Not Started", 
+                service_id: updateService._id,
+                pickup_address : updateService.pickup_address,
+                pickup_latitude : updateService.pickup_latitude,
+                pickup_longitude : updateService.pickup_longitude,
+                pickup_location : {
+                    type: 'Point',
+                    coordinates: [updateService.pickup_longitude, updateService.pickup_latitude]
+                },
+                drop_address : updateService.drop_address,
+                drop_latitude : updateService.drop_latitude,
+                drop_longitude : updateService.drop_longitude,
+                drop_location : {
+                    type: 'Point',
+                    coordinates: [0.00, 0.00]
+                }
             }
-        }
+        } 
+      
 
         await DeliverydetailsModel.create(deliverydetails);
 
