@@ -27,15 +27,16 @@ const deliveryDetailsSchema = new Schema({
             default: 'Point'
         },
         coordinates: [Number],
+        default:[0.00,0.00]
     },
     drop_address : {
         type : String,
     },
     drop_latitude : {
-        type: String,
+        type: Number,
     },
     drop_longitude : {
-        type : String, 
+        type : Number, 
     },
     drop_location : {
         type: {
@@ -43,6 +44,7 @@ const deliveryDetailsSchema = new Schema({
             default: 'Point'
         },
         coordinates: [Number],
+        default:[0.00,0.00]
     },
 
     
