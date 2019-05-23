@@ -1102,20 +1102,33 @@ exports.acceptService = async (req, res) => {
 
 exports.updateServiceStatus = async (req, res) => {
     try {
-        let Data = DeliverydetailsModel.findOneAndUpdate({
-            _id: mongoose.Types.ObjectId(req.body._id)
-        },{
-            $set:{
-                delivery_status: req.body.deliveryStatus
-            }
-        },{
-            new: true
-        })
 
-        if(Data) {
+        let isService = await serviceModel.findById(req.body.serviceId)
+        if (isService) {
+            var Data = serviceModel.findOneAndUpdate({
+                _id: mongoose.Types.ObjectId(req.body.serviceId)
+            }, {
+                $set: {
+                    delivery_status: req.body.deliveryStatus
+                }
+            }, {
+                new: true
+            })
+        } else {
+            var Data = professionalModel.findOneAndUpdate({
+                _id: mongoose.Types.ObjectId(req.body.serviceId)
+            }, {
+                $set: {
+                    delivery_status: req.body.deliveryStatus
+                }
+            }, {
+                new: true
+            })
+        }
+        if (Data) {
             res.status(200).send({
                 message: "updated successfully",
-                response:Data
+                response: Data
             })
         } else {
             res.status(200).send({
@@ -1129,7 +1142,7 @@ exports.updateServiceStatus = async (req, res) => {
             response: error
         })
     }
-}
+    }
 
 
 exports.uploadImageonchat = async (req , res) =>{

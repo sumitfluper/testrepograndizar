@@ -78,6 +78,10 @@ const ServiceSchema = new Schema({
        type: Number,
        default:1 
     },
+    delivery_status: {
+       type: String,
+       default: '0' 
+    },
 
     serviceCreatedBy: {type:mongoose.Schema.Types.ObjectId,ref:"User"},
     serviceGivenBy: {type:mongoose.Schema.Types.ObjectId,ref:"User"},
