@@ -573,7 +573,7 @@ exports.getUserPendingOrders = async (req, res) => {
         if (new_data) {
             res.status(200).send({
                 message: 'Get All list Of the eaccepted orders ',
-                response: acceptedOrders
+                response: new_data
             })
         }
 
