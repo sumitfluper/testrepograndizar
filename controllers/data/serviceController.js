@@ -1065,8 +1065,8 @@ exports.acceptService = async (req, res) => {
                     coordinates: [updateService.pickup_longitude, updateService.pickup_latitude]
                 },
                 drop_address : updateService.drop_address,
-                drop_latitude : updateService.drop_latitude,
-                drop_longitude : updateService.drop_longitude,
+                drop_latitude : 0.00,
+                drop_longitude : 0.00,
                 drop_location : {
                     type: 'Point',
                     coordinates: [0.00, 0.00]
