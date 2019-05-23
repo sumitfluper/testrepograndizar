@@ -110,15 +110,6 @@ exports.deliveryPendingOrder = async (req, res) => {
                 deliveryUserOffersData.forEach(offer => {
                     if (service._id.toString() == offer.serviceId.toString() && offer.serviceGivenBy.toString() == req.userId.toString()) {
                       
-                        var obj = {
-                            offerMessage:offer.deliveryMessage,
-                            deliveryTime:offer.deliveryTime,
-                            deliveryCharge:offer.deliveryCharge,
-                            offerStatus:offer.offerStatus,
-                            serviceGivenBy:offer.serviceGivenBy,
-                            serviceId:offer.serviceId,
-                        }
-                        console.log(obj)
                         newServiceData.push({
                             _id:service._id,
                             service_type:service.service_type,
@@ -135,11 +126,18 @@ exports.deliveryPendingOrder = async (req, res) => {
                             drop_latitude:service.drop_latitude,
                             drop_longitude:service.drop_longitude,
                             comments:service.pickup_longitude,
-                            serviceCreatedBy:service.serviceCreatedBy,
-                            offerDetails:obj
+                             serviceCreatedBy:service.serviceCreatedBy,
+                            offerDetails:{
+                                offerMessage:offer.deliveryMessage,
+                                deliveryTime:offer.deliveryTime,
+                                deliveryCharge:offer.deliveryCharge,
+                                offerStatus:offer.offerStatus,
+                                serviceGivenBy:offer.serviceGivenBy,
+                                serviceId:offer.serviceId,
+                            }
                             
                             
-                            
+                     
                         });
                     }
                 });
@@ -955,6 +953,22 @@ exports.updateServiceStatus = async (req, res) => {
     } catch (error) {
         res.status(200).send({
             message: "error occurred",
+            response: error
+        })
+    }
+}
+
+
+exports.uploadImageonchat = async (req , res) =>{
+    try {
+        var documentsData = req.files;
+        return res.status(200).send({
+            message: "send successfully",
+            response: 'chatimage/' + documentsData[0].filename
+        })
+    } catch (error) {
+        return res.status(200).send({
+            message: "error occured",
             response: error
         })
     }

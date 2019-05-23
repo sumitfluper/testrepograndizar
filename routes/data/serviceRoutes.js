@@ -2,6 +2,25 @@ const express = require('express');
 const router = express.Router();
 const serviceController = require('../../controllers/data/serviceController');
 const auth = require('../../modules/auth');
+const multer = require('multer');
+const md5 = require('md5');
+const path = require('path');
+
+
+const storage = multer.diskStorage({
+	destination: function (req, file, callback) {
+		callback(null, './Images/chatimage');
+	},
+	filename: function (req, file, callback) {
+		let fileUniqueName = md5(Date.now());
+		callback(null, fileUniqueName + path.extname(file.originalname));
+	}
+})
+
+
+let upload = multer({
+	storage: storage
+});
 
 // delivery boy api
 
@@ -86,7 +105,12 @@ router.route("/getSubCategoryList")
 
 //change delivery staus
 router.route("/updateservicestatus")
-    .get(auth.requiresLogin, serviceController.updateServiceStatus)
+    .post(auth.requiresLogin, serviceController.updateServiceStatus)
+
+
+//change delivery staus
+router.route("/uploadimageonchat")
+    .post(auth.requiresLogin,upload.any(), serviceController.uploadImageonchat)
 
 
 
