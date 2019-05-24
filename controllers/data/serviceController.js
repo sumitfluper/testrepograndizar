@@ -13,6 +13,8 @@ const uniqueRandom = require('unique-random');
 const DeliverydetailsModel = require('../../models/Deliverydetails');
 const FCM = require('../../modules/FCM');
 const UserModel = require('../../models/User');
+const commFunction = require('../../modules/commonFunction');
+
 
 
 
@@ -1188,6 +1190,9 @@ exports.acceptService = async (req, res) => {
             }, {
                 new: true
             })
+
+            commFunction.createFirebaseDeliveryNode(req.body.serviceId, req.userId, req.body.serviceGivenBy,'0', '1')
+
         } else {
             var updateService = await professionalModel.findByIdAndUpdate({
                 _id: req.body.serviceId
@@ -1199,6 +1204,7 @@ exports.acceptService = async (req, res) => {
             }, {
                 new: true
             })
+            commFunction.createFirebaseDeliveryNode(req.body.serviceId, req.userId, req.body.serviceGivenBy,'0', '2')
         }
 
         await offersData.findOneAndUpdate({

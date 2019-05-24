@@ -45,3 +45,20 @@ exports.createFirebaseNode = (id, name, profile_image) => {
         id :id
     });
 }
+
+exports.createFirebaseDeliveryNode = (id, serviceCreatedBy, serviceGivenBy,delevery_status, type) => {
+    console.log("comming to firebase node.");
+    id = id.toString();
+    var ref = firebase.app().database().ref();
+
+    var usersRef = ref.child("deliveryDetails").child(id);
+    var userRef = usersRef.push();
+    console.log("user key", userRef.key);
+    var userRef = usersRef.set({
+        serviceCreatedBy: serviceCreatedBy,
+        serviceGivenBy: serviceGivenBy,
+		id: id,
+		delevery_status: delevery_status,
+		type: type
+    });
+}
