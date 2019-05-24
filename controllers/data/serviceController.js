@@ -1109,7 +1109,7 @@ exports.updateServiceStatus = async (req, res) => {
                 _id: mongoose.Types.ObjectId(req.body.serviceId)
             }, {
                 $set: {
-                    delivery_status: req.body.deliveryStatus
+                    delivery_status: req.body.delivery_status
                 }
             }, {
                 new: true
@@ -1119,7 +1119,7 @@ exports.updateServiceStatus = async (req, res) => {
                 _id: mongoose.Types.ObjectId(req.body.serviceId)
             }, {
                 $set: {
-                    delivery_status: req.body.deliveryStatus
+                    delivery_status: req.body.delivery_status
                 }
             }, {
                 new: true
@@ -1154,7 +1154,7 @@ exports.workDone = async (req, res) => {
                 _id: mongoose.Types.ObjectId(req.body.serviceId)
             }, {
                 $set: {
-                    orderStatus: req.body.deliveryStatus
+                    orderStatus: req.body.orderStatus
                 }
             }, {
                 new: true
@@ -1164,7 +1164,7 @@ exports.workDone = async (req, res) => {
                 _id: mongoose.Types.ObjectId(req.body.serviceId)
             }, {
                 $set: {
-                    orderStatus: req.body.deliveryStatus
+                    orderStatus: req.body.orderStatus
                 }
             }, {
                 new: true
