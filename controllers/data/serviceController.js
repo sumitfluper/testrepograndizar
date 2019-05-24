@@ -1191,7 +1191,7 @@ exports.acceptService = async (req, res) => {
                 new: true
             })
 
-            commFunction.createFirebaseDeliveryNode(req.body.serviceId, req.userId, req.body.serviceGivenBy,'0', '1')
+            commFunction.createFirebaseDeliveryNode(req.body.serviceId)
 
         } else {
             var updateService = await professionalModel.findByIdAndUpdate({
@@ -1204,7 +1204,7 @@ exports.acceptService = async (req, res) => {
             }, {
                 new: true
             })
-            commFunction.createFirebaseDeliveryNode(req.body.serviceId, req.userId, req.body.serviceGivenBy,'0', '2')
+            commFunction.createFirebaseDeliveryNode(req.body.serviceId)
         }
 
         await offersData.findOneAndUpdate({
