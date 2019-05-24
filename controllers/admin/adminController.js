@@ -7,6 +7,12 @@ const UserModel = require('../../models/User');
 const md5 = require('md5')
 
 
+exports.viewMessage = async (req,res) =>{
+    res.status(200).send({
+        message: "Please open on https"
+    })
+}
+
 /**
  * Admin Sign In
  */
