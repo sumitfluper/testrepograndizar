@@ -82,18 +82,18 @@ exports.deliveryNewOrder = async (req, res) => {
 
 exports.deliveryPendingOrder = async (req, res) => {
 
-    console.log("................"+req.body.long+".........................."+req.body.lat);
-    
+    console.log("................" + req.body.long + ".........................." + req.body.lat);
+
     try {
         var newServiceData = [];
         var arrServiceIds = [];
-        
+
 
         var deliveryUserOffersData = await offersData.find({
             serviceGivenBy: req.userId
         })
 
-        if(deliveryUserOffersData.length > 0 ){
+        if (deliveryUserOffersData.length > 0) {
             deliveryUserOffersData.forEach(element => {
                 arrServiceIds.push(element.serviceId);
             });
@@ -101,46 +101,46 @@ exports.deliveryPendingOrder = async (req, res) => {
         }
 
         let newService = await serviceModel.find({
-          _id: {
-              $in: arrServiceIds
-          }  
-        }).populate('serviceCreatedBy')
-          .select('-pickup_location -drop_location');
+                _id: {
+                    $in: arrServiceIds
+                }
+            }).populate('serviceCreatedBy')
+            .select('-pickup_location -drop_location');
 
 
         if (deliveryUserOffersData.length != 0 && newService.length != 0) {
             newService.forEach(service => {
                 deliveryUserOffersData.forEach(offer => {
                     if (service._id.toString() == offer.serviceId.toString() && offer.serviceGivenBy.toString() == req.userId.toString()) {
-                      
+
                         newServiceData.push({
-                            _id:service._id,
-                            service_type:service.service_type,
-                            orderId:service.orderId,
-                            delivery_captains_50:service.delivery_captains_50,
-                            delivery_captains_100:service.delivery_captains_100,
-                            total_captains:service.total_captains,
-                            orderStatus:service.orderStatus,
-                            createdAt:service.createdAt,
-                            pickup_address:service.pickup_address,
-                            pickup_latitude:service.pickup_latitude,
-                            pickup_longitude:service.pickup_longitude,
-                            drop_address:service.drop_address,
-                            drop_latitude:service.drop_latitude,
-                            drop_longitude:service.drop_longitude,
-                            comments:service.pickup_longitude,
-                             serviceCreatedBy:service.serviceCreatedBy,
-                            offerDetails:{
-                                offerMessage:offer.deliveryMessage,
-                                deliveryTime:offer.deliveryTime,
-                                deliveryCharge:offer.deliveryCharge,
-                                offerStatus:offer.offerStatus,
-                                serviceGivenBy:offer.serviceGivenBy,
-                                serviceId:offer.serviceId,
+                            _id: service._id,
+                            service_type: service.service_type,
+                            orderId: service.orderId,
+                            delivery_captains_50: service.delivery_captains_50,
+                            delivery_captains_100: service.delivery_captains_100,
+                            total_captains: service.total_captains,
+                            orderStatus: service.orderStatus,
+                            createdAt: service.createdAt,
+                            pickup_address: service.pickup_address,
+                            pickup_latitude: service.pickup_latitude,
+                            pickup_longitude: service.pickup_longitude,
+                            drop_address: service.drop_address,
+                            drop_latitude: service.drop_latitude,
+                            drop_longitude: service.drop_longitude,
+                            comments: service.pickup_longitude,
+                            serviceCreatedBy: service.serviceCreatedBy,
+                            offerDetails: {
+                                offerMessage: offer.deliveryMessage,
+                                deliveryTime: offer.deliveryTime,
+                                deliveryCharge: offer.deliveryCharge,
+                                offerStatus: offer.offerStatus,
+                                serviceGivenBy: offer.serviceGivenBy,
+                                serviceId: offer.serviceId,
                             }
-                            
-                            
-                     
+
+
+
                         });
                     }
                 });
@@ -149,8 +149,8 @@ exports.deliveryPendingOrder = async (req, res) => {
             newServiceData = newService;
 
         }
-        console.log("newServiceData",newServiceData);
-        
+        console.log("newServiceData", newServiceData);
+
         if (newServiceData.length > 0) {
             res.status(200).send({
                 message: 'List Of Near by orders',
@@ -172,15 +172,14 @@ exports.deliveryPendingOrder = async (req, res) => {
 exports.deliveryAcceptedOrders = async (req, res) => {
 
     try {
-        let acceptedOrders = await serviceModel. aggregate([
-            {
+        let acceptedOrders = await serviceModel.aggregate([{
                 $match: {
                     orderStatus: 2,
                     serviceGivenBy: req.userId
 
                 }
 
-            }, 
+            },
             {
                 $lookup: {
                     from: "Offerbyusers",
@@ -188,7 +187,7 @@ exports.deliveryAcceptedOrders = async (req, res) => {
                     foreignField: "serviceId",
                     as: "offerDetails"
                 }
-            },  
+            },
             {
                 $lookup: {
                     from: "userdeliveryprofile",
@@ -196,8 +195,8 @@ exports.deliveryAcceptedOrders = async (req, res) => {
                     foreignField: "service_id",
                     as: "deliverydetails"
                 }
-            },  
-         
+            },
+
             {
                 $lookup: {
                     from: "users",
@@ -206,9 +205,24 @@ exports.deliveryAcceptedOrders = async (req, res) => {
                     as: "serviceCreatedBy"
                 }
             },
-            { "$unwind": { "path": "$offerDetails", "preserveNullAndEmptyArrays": true } },
-            { "$unwind": { "path": "$deliverydetails", "preserveNullAndEmptyArrays": true } },
-            { "$unwind": { "path": "$serviceCreatedBy", "preserveNullAndEmptyArrays": true } },
+            {
+                "$unwind": {
+                    "path": "$offerDetails",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$deliverydetails",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$serviceCreatedBy",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
         ])
 
 
@@ -235,15 +249,14 @@ exports.deliveryAcceptedOrders = async (req, res) => {
 exports.deliveryCompletedOrder = async (req, res) => {
 
     try {
-        let acceptedOrders = await serviceModel. aggregate([
-            {
+        let acceptedOrders = await serviceModel.aggregate([{
                 $match: {
                     orderStatus: 4,
                     serviceGivenBy: req.userId
 
                 }
 
-            }, 
+            },
             {
                 $lookup: {
                     from: "Offerbyusers",
@@ -251,7 +264,7 @@ exports.deliveryCompletedOrder = async (req, res) => {
                     foreignField: "serviceId",
                     as: "offerDetails"
                 }
-            },  
+            },
             {
                 $lookup: {
                     from: "userdeliveryprofile",
@@ -259,8 +272,8 @@ exports.deliveryCompletedOrder = async (req, res) => {
                     foreignField: "service_id",
                     as: "deliverydetails"
                 }
-            },  
-         
+            },
+
             {
                 $lookup: {
                     from: "users",
@@ -269,9 +282,24 @@ exports.deliveryCompletedOrder = async (req, res) => {
                     as: "serviceCreatedBy"
                 }
             },
-            { "$unwind": { "path": "$offerDetails", "preserveNullAndEmptyArrays": true } },
-            { "$unwind": { "path": "$deliverydetails", "preserveNullAndEmptyArrays": true } },
-            { "$unwind": { "path": "$serviceCreatedBy", "preserveNullAndEmptyArrays": true } },
+            {
+                "$unwind": {
+                    "path": "$offerDetails",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$deliverydetails",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$serviceCreatedBy",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
         ])
 
 
@@ -358,18 +386,18 @@ exports.professionalNewOrder = async (req, res) => {
 
 exports.professionalpendingorders = async (req, res) => {
 
-    console.log("................"+req.body.long+".........................."+req.body.lat);
-    
+    console.log("................" + req.body.long + ".........................." + req.body.lat);
+
     try {
         var newServiceData = [];
         var arrServiceIds = [];
-        
+
 
         var deliveryUserOffersData = await offersData.find({
             serviceGivenBy: req.userId
         })
 
-        if(deliveryUserOffersData.length > 0 ){
+        if (deliveryUserOffersData.length > 0) {
             deliveryUserOffersData.forEach(element => {
                 arrServiceIds.push(element.serviceId);
             });
@@ -377,43 +405,43 @@ exports.professionalpendingorders = async (req, res) => {
         }
 
         let newService = await professionalModel.find({
-          _id: {
-              $in: arrServiceIds
-          }  
-        }).populate('serviceCreatedBy')
-          .select('-pickup_location -drop_location');
+                _id: {
+                    $in: arrServiceIds
+                }
+            }).populate('serviceCreatedBy')
+            .select('-pickup_location -drop_location');
 
 
         if (deliveryUserOffersData.length != 0 && newService.length != 0) {
             newService.forEach(service => {
                 deliveryUserOffersData.forEach(offer => {
                     if (service._id.toString() == offer.serviceId.toString() && offer.serviceGivenBy.toString() == req.userId.toString()) {
-                      
+
                         newServiceData.push({
-                            _id:service._id,
-                            service_type:service.service_type,
-                            orderId:service.orderId,
-                            delivery_captains_50:service.delivery_captains_50,
-                            delivery_captains_100:service.delivery_captains_100,
-                            total_captains:service.total_captains,
-                            orderStatus:service.orderStatus,
-                            createdAt:service.createdAt,
-                            pickup_address:service.pickup_address,
-                            pickup_latitude:service.pickup_latitude,
-                            pickup_longitude:service.pickup_longitude,
-                            comments:service.pickup_longitude,
-                            serviceCreatedBy:service.serviceCreatedBy,
-                             offerDetails:{
-                                offerMessage:offer.deliveryMessage,
-                                deliveryTime:offer.deliveryTime,
-                                deliveryCharge:offer.deliveryCharge,
-                                offerStatus:offer.offerStatus,
-                                serviceGivenBy:offer.serviceGivenBy,
-                                serviceId:offer.serviceId,
+                            _id: service._id,
+                            service_type: service.service_type,
+                            orderId: service.orderId,
+                            delivery_captains_50: service.delivery_captains_50,
+                            delivery_captains_100: service.delivery_captains_100,
+                            total_captains: service.total_captains,
+                            orderStatus: service.orderStatus,
+                            createdAt: service.createdAt,
+                            pickup_address: service.pickup_address,
+                            pickup_latitude: service.pickup_latitude,
+                            pickup_longitude: service.pickup_longitude,
+                            comments: service.pickup_longitude,
+                            serviceCreatedBy: service.serviceCreatedBy,
+                            offerDetails: {
+                                offerMessage: offer.deliveryMessage,
+                                deliveryTime: offer.deliveryTime,
+                                deliveryCharge: offer.deliveryCharge,
+                                offerStatus: offer.offerStatus,
+                                serviceGivenBy: offer.serviceGivenBy,
+                                serviceId: offer.serviceId,
                             }
-                            
-                            
-                     
+
+
+
                         });
                     }
                 });
@@ -422,8 +450,8 @@ exports.professionalpendingorders = async (req, res) => {
             newServiceData = newService;
 
         }
-        console.log("newServiceData",newServiceData);
-        
+        console.log("newServiceData", newServiceData);
+
         if (newServiceData.length > 0) {
             res.status(200).send({
                 message: 'List Of Near by orders',
@@ -444,65 +472,79 @@ exports.professionalpendingorders = async (req, res) => {
 exports.professionalAcceptedOrders = async (req, res) => {
 
     try {
-            let acceptedOrders = await professionalModel. aggregate([
-                {
-                    $match: {
-                        orderStatus: 2,
-                        serviceGivenBy: req.userId
-    
-                    }
-    
-                }, 
-                {
-                    $lookup: {
-                        from: "Offerbyusers",
-                        localField: "_id",
-                        foreignField: "serviceId",
-                        as: "offerDetails"
-                    }
-                },  
-                {
-                    $lookup: {
-                        from: "userdeliveryprofile",
-                        localField: "_id",
-                        foreignField: "service_id",
-                        as: "deliverydetails"
-                    }
-                },  
-             
-                {
-                    $lookup: {
-                        from: "users",
-                        localField: "serviceCreatedBy",
-                        foreignField: "_id",
-                        as: "serviceCreatedBy"
-                    }
-                },
-                { "$unwind": { "path": "$offerDetails", "preserveNullAndEmptyArrays": true } },
-                { "$unwind": { "path": "$deliverydetails", "preserveNullAndEmptyArrays": true } },
-                { "$unwind": { "path": "$serviceCreatedBy", "preserveNullAndEmptyArrays": true } },
-            ])
-    
-    
-          
-            if (acceptedOrders) {
-                res.status(200).send({
-                    message: 'Get All list Of the accepted orders ',
-                    response: acceptedOrders
-                })
-        //     }
-        // let acceptedOrders = await professionalModel.find({
-        //         orderStatus: 2,
-        //         serviceGivenBy: req.userId
+        let acceptedOrders = await professionalModel.aggregate([{
+                $match: {
+                    orderStatus: 2,
+                    serviceGivenBy: req.userId
 
-        //     })
-        //     .populate('serviceCreatedBy')
-        //     .select('-pickup_location -drop_location');
-        // if (acceptedOrders) {
-        //     res.status(200).send({
-        //         message: 'Get All list Of the eaccepted orders ',
-        //         response: acceptedOrders
-        //     })
+                }
+
+            },
+            {
+                $lookup: {
+                    from: "Offerbyusers",
+                    localField: "_id",
+                    foreignField: "serviceId",
+                    as: "offerDetails"
+                }
+            },
+            {
+                $lookup: {
+                    from: "userdeliveryprofile",
+                    localField: "_id",
+                    foreignField: "service_id",
+                    as: "deliverydetails"
+                }
+            },
+
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "serviceCreatedBy",
+                    foreignField: "_id",
+                    as: "serviceCreatedBy"
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$offerDetails",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$deliverydetails",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$serviceCreatedBy",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
+        ])
+
+
+
+        if (acceptedOrders) {
+            res.status(200).send({
+                message: 'Get All list Of the accepted orders ',
+                response: acceptedOrders
+            })
+            //     }
+            // let acceptedOrders = await professionalModel.find({
+            //         orderStatus: 2,
+            //         serviceGivenBy: req.userId
+
+            //     })
+            //     .populate('serviceCreatedBy')
+            //     .select('-pickup_location -drop_location');
+            // if (acceptedOrders) {
+            //     res.status(200).send({
+            //         message: 'Get All list Of the eaccepted orders ',
+            //         response: acceptedOrders
+            //     })
         }
     } catch (error) {
         responses.sendError(error.message, res)
@@ -514,15 +556,14 @@ exports.professionalCompletedOrder = async (req, res) => {
 
     try {
 
-        let acceptedOrders = await professionalModel. aggregate([
-            {
+        let acceptedOrders = await professionalModel.aggregate([{
                 $match: {
                     orderStatus: 4,
                     serviceGivenBy: req.userId
 
                 }
 
-            }, 
+            },
             {
                 $lookup: {
                     from: "Offerbyusers",
@@ -530,7 +571,7 @@ exports.professionalCompletedOrder = async (req, res) => {
                     foreignField: "serviceId",
                     as: "offerDetails"
                 }
-            },  
+            },
             {
                 $lookup: {
                     from: "userdeliveryprofile",
@@ -538,8 +579,8 @@ exports.professionalCompletedOrder = async (req, res) => {
                     foreignField: "service_id",
                     as: "deliverydetails"
                 }
-            },  
-         
+            },
+
             {
                 $lookup: {
                     from: "users",
@@ -548,9 +589,24 @@ exports.professionalCompletedOrder = async (req, res) => {
                     as: "serviceCreatedBy"
                 }
             },
-            { "$unwind": { "path": "$offerDetails", "preserveNullAndEmptyArrays": true } },
-            { "$unwind": { "path": "$deliverydetails", "preserveNullAndEmptyArrays": true } },
-            { "$unwind": { "path": "$serviceCreatedBy", "preserveNullAndEmptyArrays": true } },
+            {
+                "$unwind": {
+                    "path": "$offerDetails",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$deliverydetails",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$serviceCreatedBy",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
         ])
 
         if (acceptedOrders) {
@@ -572,15 +628,14 @@ exports.getUserAcceptedOrder = async (req, res) => {
         console.log("reachedHere");
         console.log(req.body);
 
-        var acceptedOrders = await serviceModel. aggregate([
-            {
+        var acceptedOrders = await serviceModel.aggregate([{
                 $match: {
                     orderStatus: 2,
                     serviceCreatedBy: req.userId
 
                 }
 
-            }, 
+            },
             {
                 $lookup: {
                     from: "Offerbyusers",
@@ -588,8 +643,8 @@ exports.getUserAcceptedOrder = async (req, res) => {
                     foreignField: "serviceId",
                     as: "offerDetails"
                 }
-            },  
-         
+            },
+
             {
                 $lookup: {
                     from: "users",
@@ -598,19 +653,28 @@ exports.getUserAcceptedOrder = async (req, res) => {
                     as: "serviceGivenBy"
                 }
             },
-            { "$unwind": { "path": "$offerDetails", "preserveNullAndEmptyArrays": true } },
-            { "$unwind": { "path": "$serviceGivenBy", "preserveNullAndEmptyArrays": true } },
+            {
+                "$unwind": {
+                    "path": "$offerDetails",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$serviceGivenBy",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
         ])
 
-        var acceptedService = await professionalModel.aggregate([
-            {
+        var acceptedService = await professionalModel.aggregate([{
                 $match: {
                     orderStatus: 2,
                     serviceCreatedBy: req.userId
 
                 }
 
-            }, 
+            },
             {
                 $lookup: {
                     from: "Offerbyusers",
@@ -618,8 +682,8 @@ exports.getUserAcceptedOrder = async (req, res) => {
                     foreignField: "serviceId",
                     as: "offerDetails"
                 }
-            },  
-         
+            },
+
             {
                 $lookup: {
                     from: "users",
@@ -628,8 +692,18 @@ exports.getUserAcceptedOrder = async (req, res) => {
                     as: "serviceGivenBy"
                 }
             },
-            { "$unwind": { "path": "$offerDetails", "preserveNullAndEmptyArrays": true } },
-            { "$unwind": { "path": "$serviceGivenBy", "preserveNullAndEmptyArrays": true } },
+            {
+                "$unwind": {
+                    "path": "$offerDetails",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$serviceGivenBy",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
         ])
 
         var new_data = acceptedOrders.concat(acceptedService)
@@ -673,7 +747,7 @@ exports.getUserPendingOrders = async (req, res) => {
 
     } catch (error) {
         console.log(error);
-        
+
         responses.sendError(error.message, res)
     }
 }
@@ -698,7 +772,7 @@ exports.getUserCompletedOrder = async (req, res) => {
 
         }).select('-pickup_location');
         var new_data = acceptedOrders.concat(acceptedservice)
-    
+
 
         if (new_data) {
             res.status(200).send({
@@ -754,16 +828,16 @@ exports.serviceRequire = async (req, res) => {
         //let access_token = req.user.access_token;
 
         var order = uniqueRandom(10000, 999999);
-        
-        console.log("console.log",orderId);
-        
+
+        console.log("console.log", orderId);
+
 
         let data = req.body;
         let serviceCreatedBy = req.userId;
         console.log(data.service_type)
         if (data.service_type === '1') {
 
-            var orderId = "Delivery-"+order();
+            var orderId = "Delivery-" + order();
             var {
                 service_type,
                 pickup_address,
@@ -814,7 +888,7 @@ exports.serviceRequire = async (req, res) => {
             }
         } else if (data.service_type === '2') {
 
-            var orderId = "Service-"+order();
+            var orderId = "Service-" + order();
 
             var {
                 service_type,
@@ -894,7 +968,7 @@ exports.cancelServiceByUser = async (req, res) => {
         })
 
     }
- }
+}
 
 exports.getNearbyOutlets = async (req, res) => {
     try {
@@ -1101,7 +1175,7 @@ exports.getNewServices = async (req, res) => {
 exports.acceptService = async (req, res) => {
     try {
         var isService = await serviceModel.findById(req.body.serviceId)
-        
+
         if (isService) {
 
             var updateService = await serviceModel.findByIdAndUpdate({
@@ -1134,40 +1208,39 @@ exports.acceptService = async (req, res) => {
             $set: {
                 offerStatus: 2
             }
-        },{
-            new:true
+        }, {
+            new: true
         });
-        if(updateService.drop_longitude !='' && updateService.drop_latitude !=''){
+        if (updateService.drop_longitude != '' && updateService.drop_latitude != '') {
             var deliverydetails = {
-                delivery_status:"Not Started", 
+                delivery_status: "Not Started",
                 service_id: updateService._id,
-                pickup_address : updateService.pickup_address,
-                pickup_latitude : updateService.pickup_latitude,
-                pickup_longitude : updateService.pickup_longitude,
-                drop_address : updateService.drop_address,
-                drop_latitude : updateService.drop_latitude,
-                drop_longitude : updateService.drop_longitude,
-            }     
+                pickup_address: updateService.pickup_address,
+                pickup_latitude: updateService.pickup_latitude,
+                pickup_longitude: updateService.pickup_longitude,
+                drop_address: updateService.drop_address,
+                drop_latitude: updateService.drop_latitude,
+                drop_longitude: updateService.drop_longitude,
+            }
         } else {
             var deliverydetails = {
-                delivery_status:"Not Started", 
+                delivery_status: "Not Started",
                 service_id: updateService._id,
-                pickup_address : updateService.pickup_address,
-                pickup_latitude : updateService.pickup_latitude,
-                pickup_longitude : updateService.pickup_longitude,
+                pickup_address: updateService.pickup_address,
+                pickup_latitude: updateService.pickup_latitude,
+                pickup_longitude: updateService.pickup_longitude,
             }
-        } 
-      
+        }
+
 
         await DeliverydetailsModel.create(deliverydetails);
 
         if (updateService) {
             res.status(200).send({
                 message: "Offer Accepted",
-                response:updateService
+                response: updateService
             })
-        }
-        else{
+        } else {
             res.status(200).send({
                 message: "offer can not be updated please try again later ....!"
             })
@@ -1222,33 +1295,50 @@ exports.updateServiceStatus = async (req, res) => {
             response: error
         })
     }
-    }
+}
 
 exports.workDone = async (req, res) => {
     try {
-        
+
         let isService = await serviceModel.findById(req.body.serviceId)
-        
+
         if (isService) {
-            var Data = await serviceModel.findOneAndUpdate({
-                _id: mongoose.Types.ObjectId(req.body.serviceId)
-            }, {
-                $set: {
-                    orderStatus: req.body.orderStatus
-                }
-            }, {
-                new: true
-            })
+            if (isService.delivery_status != '4') {
+                var Data = await serviceModel.findOneAndUpdate({
+                    _id: mongoose.Types.ObjectId(req.body.serviceId)
+                }, {
+                    $set: {
+                        orderStatus: req.body.orderStatus
+                    }
+                }, {
+                    new: true
+                })
+            } else {
+                res.status(200).send({
+                    message: "you have not completed the task please complete",
+                    response: []
+                })
+            }
+
         } else {
-            var Data = await professionalModel.findOneAndUpdate({
-                _id: mongoose.Types.ObjectId(req.body.serviceId)
-            }, {
-                $set: {
-                    orderStatus: req.body.orderStatus
-                }
-            }, {
-                new: true
-            })
+            let isService = await professionalModel.findById(req.body.serviceId)
+            if (isService.delivery_status != '4') {
+                var Data = await professionalModel.findOneAndUpdate({
+                    _id: mongoose.Types.ObjectId(req.body.serviceId)
+                }, {
+                    $set: {
+                        orderStatus: req.body.orderStatus
+                    }
+                }, {
+                    new: true
+                })
+            } else {
+                res.status(200).send({
+                    message: "you have not completed the task please complete",
+                    response: []
+                })
+            }
+
         }
         if (Data) {
             res.status(200).send({
@@ -1267,10 +1357,10 @@ exports.workDone = async (req, res) => {
             response: error
         })
     }
-    }
+}
 
 
-exports.uploadImageonchat = async (req , res) =>{
+exports.uploadImageonchat = async (req, res) => {
     try {
         var documentsData = req.files;
         return res.status(200).send({
@@ -1285,7 +1375,7 @@ exports.uploadImageonchat = async (req , res) =>{
     }
 }
 
-exports.sendChatNotification = async (req , res) =>{
+exports.sendChatNotification = async (req, res) => {
     try {
         const serverKey = 'AAAAGsVckmo:APA91bEAtxMaIVSPcA_Y6BYKtkQVLCyFt7n1qhN1H39Ysv7hGrNShzPT1b585NnSDrf_X21RnOPQj-XTP-DtJ4vbGKAWEJY8lvjLbNFoTQIMebqejAhgq4m4zQQtOxSc3hc_BjMvtMUp'
         let payload = {
