@@ -1303,7 +1303,7 @@ exports.workDone = async (req, res) => {
         let isService = await serviceModel.findById(req.body.serviceId)
 
         if (isService) {
-            if (isService.delivery_status != '4') {
+            if (isService.delivery_status == '4') {
                 var Data = await serviceModel.findOneAndUpdate({
                     _id: mongoose.Types.ObjectId(req.body.serviceId)
                 }, {
@@ -1322,7 +1322,7 @@ exports.workDone = async (req, res) => {
 
         } else {
             let isService = await professionalModel.findById(req.body.serviceId)
-            if (isService.delivery_status != '4') {
+            if (isService.delivery_status == '4') {
                 var Data = await professionalModel.findOneAndUpdate({
                     _id: mongoose.Types.ObjectId(req.body.serviceId)
                 }, {
