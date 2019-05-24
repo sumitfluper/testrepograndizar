@@ -1105,7 +1105,7 @@ exports.updateServiceStatus = async (req, res) => {
 
         let isService = await serviceModel.findById(req.body.serviceId)
         if (isService) {
-            var Data = serviceModel.findOneAndUpdate({
+            var Data = await serviceModel.findOneAndUpdate({
                 _id: mongoose.Types.ObjectId(req.body.serviceId)
             }, {
                 $set: {
@@ -1115,11 +1115,56 @@ exports.updateServiceStatus = async (req, res) => {
                 new: true
             })
         } else {
-            var Data = professionalModel.findOneAndUpdate({
+            var Data = await professionalModel.findOneAndUpdate({
                 _id: mongoose.Types.ObjectId(req.body.serviceId)
             }, {
                 $set: {
                     delivery_status: req.body.deliveryStatus
+                }
+            }, {
+                new: true
+            })
+        }
+        if (Data) {
+            res.status(200).send({
+                message: "updated successfully",
+                response: Data
+            })
+        } else {
+            res.status(200).send({
+                message: "Unable to update status",
+                response: Data
+            })
+        }
+    } catch (error) {
+        res.status(200).send({
+            message: "error occurred",
+            response: error
+        })
+    }
+    }
+
+exports.workDone = async (req, res) => {
+    try {
+        
+        let isService = await serviceModel.findById(req.body.serviceId)
+        
+        if (isService) {
+            var Data = await serviceModel.findOneAndUpdate({
+                _id: mongoose.Types.ObjectId(req.body.serviceId)
+            }, {
+                $set: {
+                    orderStatus: req.body.deliveryStatus
+                }
+            }, {
+                new: true
+            })
+        } else {
+            var Data = await professionalModel.findOneAndUpdate({
+                _id: mongoose.Types.ObjectId(req.body.serviceId)
+            }, {
+                $set: {
+                    orderStatus: req.body.deliveryStatus
                 }
             }, {
                 new: true

@@ -115,6 +115,9 @@ router.route("/uploadimageonchat")
 //change delivery staus
 router.route("/sendchatnotification")
     .post(auth.requiresLogin, serviceController.sendChatNotification)
+//change delivery staus
+router.route("/workdone")
+    .post(auth.requiresLogin, serviceController.workDone)
 
 
 
