@@ -1392,6 +1392,9 @@ exports.sendChatNotification = async (req, res) => {
             data_type: req.body.data_type,
             is_first: req.body.is_first,
         }
+
+        console.log("payload",payload);
+        
         let userData = await UserModel.findById(mongoose.Types.ObjectId(req.body.receiver_id))
         let token = userData.device_token;
         let device_type = userData.device_type
