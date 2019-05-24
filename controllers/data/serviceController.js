@@ -235,14 +235,53 @@ exports.deliveryAcceptedOrders = async (req, res) => {
 exports.deliveryCompletedOrder = async (req, res) => {
 
     try {
+        let acceptedOrders = await serviceModel. aggregate([
+            {
+                $match: {
+                    orderStatus: 4,
+                    serviceGivenBy: req.userId
 
-        let acceptedOrders = await serviceModel.find({
-                orderStatus: 4,
-                serviceGivenBy: req.userId
+                }
 
-            })
-            .populate('serviceCreatedBy')
-            .select('-pickup_location -drop_location')
+            }, 
+            {
+                $lookup: {
+                    from: "Offerbyusers",
+                    localField: "_id",
+                    foreignField: "serviceId",
+                    as: "offerDetails"
+                }
+            },  
+            {
+                $lookup: {
+                    from: "userdeliveryprofile",
+                    localField: "_id",
+                    foreignField: "service_id",
+                    as: "deliverydetails"
+                }
+            },  
+         
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "serviceCreatedBy",
+                    foreignField: "_id",
+                    as: "serviceCreatedBy"
+                }
+            },
+            { "$unwind": { "path": "$offerDetails", "preserveNullAndEmptyArrays": true } },
+            { "$unwind": { "path": "$deliverydetails", "preserveNullAndEmptyArrays": true } },
+            { "$unwind": { "path": "$serviceCreatedBy", "preserveNullAndEmptyArrays": true } },
+        ])
+
+
+        // let acceptedOrders = await serviceModel.find({
+        //         orderStatus: 4,
+        //         serviceGivenBy: req.userId
+
+        //     })
+        //     .populate('serviceCreatedBy')
+        //     .select('-pickup_location -drop_location')
         if (acceptedOrders) {
             res.status(200).send({
                 message: 'Get All list Of the eaccepted orders ',
@@ -475,13 +514,45 @@ exports.professionalCompletedOrder = async (req, res) => {
 
     try {
 
-        let acceptedOrders = await professionalModel.find({
-                orderStatus: 4,
-                serviceGivenBy: req.userId
+        let acceptedOrders = await professionalModel. aggregate([
+            {
+                $match: {
+                    orderStatus: 4,
+                    serviceGivenBy: req.userId
 
-            })
-            .populate('serviceCreatedBy')
-            .select('-pickup_location -drop_location');
+                }
+
+            }, 
+            {
+                $lookup: {
+                    from: "Offerbyusers",
+                    localField: "_id",
+                    foreignField: "serviceId",
+                    as: "offerDetails"
+                }
+            },  
+            {
+                $lookup: {
+                    from: "userdeliveryprofile",
+                    localField: "_id",
+                    foreignField: "service_id",
+                    as: "deliverydetails"
+                }
+            },  
+         
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "serviceCreatedBy",
+                    foreignField: "_id",
+                    as: "serviceCreatedBy"
+                }
+            },
+            { "$unwind": { "path": "$offerDetails", "preserveNullAndEmptyArrays": true } },
+            { "$unwind": { "path": "$deliverydetails", "preserveNullAndEmptyArrays": true } },
+            { "$unwind": { "path": "$serviceCreatedBy", "preserveNullAndEmptyArrays": true } },
+        ])
+
         if (acceptedOrders) {
             res.status(200).send({
                 message: 'Get All list Of the completed orders ',
@@ -620,10 +691,19 @@ exports.getUserCompletedOrder = async (req, res) => {
             })
             .populate('serviceGivenBy')
             .select('-pickup_location -drop_location')
-        if (acceptedOrders) {
+
+        let acceptedservice = await professionalModel.find({
+            orderStatus: 4,
+            serviceCreatedBy: req.userId
+
+        }).select('-pickup_location');
+        var new_data = acceptedOrders.concat(acceptedservice)
+    
+
+        if (new_data) {
             res.status(200).send({
                 message: 'Get All list Of the eaccepted orders ',
-                response: acceptedOrders
+                response: new_data
             })
         }
 
