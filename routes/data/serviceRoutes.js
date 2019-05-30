@@ -17,9 +17,23 @@ const storage = multer.diskStorage({
 	}
 })
 
+const storageInvoce = multer.diskStorage({
+	destination: function (req, file, callback) {
+		callback(null, './Images/invoice');
+	},
+	filename: function (req, file, callback) {
+		let fileUniqueName = md5(Date.now());
+		callback(null, fileUniqueName + path.extname(file.originalname));
+	}
+})
+
 
 let upload = multer({
 	storage: storage
+});
+
+let uploadInvoce = multer({
+	storage: storageInvoce
 });
 
 // delivery boy api
@@ -68,7 +82,7 @@ router.route('/userpendingorders')
 router.route('/getuseracceptedorder')
     .post(auth.requiresLogin, serviceController.getUserAcceptedOrder);
 
-// get all order created by user type 1
+// get all order  created by user type 1
 router.route('/getusercompletedorder')
     .post(auth.requiresLogin, serviceController.getUserCompletedOrder);
 
@@ -118,6 +132,10 @@ router.route("/sendchatnotification")
 //change delivery staus
 router.route("/workdone")
     .post(auth.requiresLogin, serviceController.workDone)
+
+    //change delivery staus
+router.route("/createinvoice")
+    .post(auth.requiresLogin,uploadInvoce.any(), serviceController.createInvoice)
 
 
 

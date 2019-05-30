@@ -366,8 +366,9 @@ exports.vehicletype = async (req, res) => {
 exports.licenseType = async (req, res)=>{
     try {
         if(req.method == "POST"){
-
+            
             let newData = await licenseTypeModel.create(req.body);
+
             if(newData){
                 res.status(200).send({
                     message: "Created Successfully",

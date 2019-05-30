@@ -14,12 +14,13 @@ const DeliverydetailsModel = require('../../models/Deliverydetails');
 const FCM = require('../../modules/FCM');
 const UserModel = require('../../models/User');
 const commFunction = require('../../modules/commonFunction');
+const invoiceModel = require('../../models/Invoce');
 
 
 
 
 /*
-    get New orders 
+  get New orders 
 */
 exports.deliveryNewOrder = async (req, res) => {
 
@@ -1406,5 +1407,44 @@ exports.sendChatNotification = async (req, res) => {
             message: "error occured",
             response: error
         })
+    }
+}
+
+exports.createInvoice = async (req, res)=> {
+    try {
+        let data = {
+            serviceId: req.body.serviceId,
+            generatedBy: req.userId,
+            generatedto: req.body.generatedto,
+            deliveryCharge:req.body.deliveryCharge,
+            taxAmount: req.body.deliveryCharge * 5 / 100 ,
+            goodsCharge: req.body.goodsCharge,
+        }
+        if(req.files){
+            data.billImage = 'invoice/' + req.files[0].filename
+        } else {
+            res.status(422).send({
+                message:"Invoce image is missing",
+                response:[]
+            })
+        }
+        data.totalAmount = Number(data.taxAmount) + Number(data.deliveryCharge) + Number(data.goodsCharge); 
+        var newData = await invoiceModel.create(data); 
+        if(newData){
+            res.status(200).send({
+                message: "Invoce generated successfully",
+                response: newData
+            })
+        } else {
+            res.status(200).send({
+                message: "Error while creating invoice",
+                response: newData
+            })
+        }
+    } catch (error) {
+        res.status(400).send({
+            message: "Error Occurred",
+            response: error
+        })        
     }
 }
