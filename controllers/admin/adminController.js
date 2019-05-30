@@ -435,3 +435,74 @@ exports.isUserBlocked = async (req, res) => {
         responses.sendError(error.message, res)
     }
 }
+
+
+exports.getallUsers = async (req, res) => {
+    try {
+        var data = await UserModel.find();
+        if(data){
+            res.status(200).send({
+                message: "data found",
+                response: data
+            })
+        } else {
+            res.status(200).send({
+                message:"No Data Found",
+                response:[]
+            })
+        } 
+    } catch (error) {
+        res.status(422).send({
+            message:"error occurred",
+            response:error
+        })
+    }
+}
+
+exports.getallDeliveryUser = async (req, res) => {
+    try {
+        var data = await UserModel.find({
+            isDeliveryBoy:true
+        });
+        if(data){
+            res.status(200).send({
+                message: "data found",
+                response: data
+            })
+        } else {
+            res.status(200).send({
+                message:"No Data Found",
+                response:[]
+            })
+        } 
+    } catch (error) {
+        res.status(422).send({
+            message:"error occurred",
+            response:error
+        })
+    }
+}
+
+exports.getallProfessionalUser = async (req, res) => {
+    try {
+        var data = await UserModel.find({
+            isProfessional:true
+        });
+        if(data){
+            res.status(200).send({
+                message: "data found",
+                response: data
+            })
+        } else {
+            res.status(200).send({
+                message:"No Data Found",
+                response:[]
+            })
+        } 
+    } catch (error) {
+        res.status(422).send({
+            message:"error occurred",
+            response:error
+        })
+    }
+}

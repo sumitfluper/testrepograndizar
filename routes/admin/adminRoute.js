@@ -30,5 +30,12 @@ router.route('/getUserDetails')
 router.route('/is_user_blocked')
     .post(adminController.isUserBlocked);
 
+router.route('/getallusers')
+    .get(adminController.getallUsers);
+router.route('/getalldelivery')
+    .get(adminController.getallDeliveryUser);
+router.route('/getallprofessional')
+    .get(adminController.getallProfessionalUser);
+
 
 exports.Router = router;
