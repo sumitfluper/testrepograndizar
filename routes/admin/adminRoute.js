@@ -46,5 +46,11 @@ router.route('/viewpendingdelivery')
 router.route('/viewpendingprofessional')
     .post(adminController.viewPendingProfessional);
 
+router.route('/approveddeliveryprofile')
+    .post(adminController.approvedDeliveryProfile);
+
+router.route('/approvedprofessionalprofile')
+    .post(adminController.approvedProfessionalProfile);
+
 
 exports.Router = router;

@@ -592,3 +592,66 @@ exports.viewPendingProfessional = async (req, res) => {
 
 
 
+exports.approvedDeliveryProfile = async (req, res) => {
+    try {
+        var data = await UserModel.findOneAndUpdate({userId:req.body.userId
+        },
+        {
+            $set: {
+                isDeliveryBoy:true,
+            }
+        },{
+            new: true
+        })
+
+        if(data){
+            res.status(200).send({
+                message: "Profile Approved",
+                response: data
+            })
+        } else {
+            res.status(200).send({
+                message: "No Data Found",
+                response:[]
+            })
+        }
+
+    } catch (error) {
+        res.status(200).send({
+            message: "Error Occurred"+error,
+            response: error
+        })        
+    }
+}
+
+exports.approvedProfessionalProfile = async (req, res) => {
+    try {
+        var data = await UserModel.findOneAndUpdate({userId:req.body.userId
+        },
+        {
+            $set: {
+                isProfessional:true,
+            }
+        },{
+            new: true
+        })
+
+        if(data){
+            res.status(200).send({
+                message: "Profile Approved",
+                response: data
+            })
+        } else {
+            res.status(200).send({
+                message: "No Data Found",
+                response:[]
+            })
+        }
+
+    } catch (error) {
+        res.status(200).send({
+            message: "Error Occurred"+error,
+            response: error
+        })        
+    }
+}
