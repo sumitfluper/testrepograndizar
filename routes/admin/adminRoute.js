@@ -40,5 +40,11 @@ router.route('/getallprofessional')
 router.route('/getpendingrequest')
     .get(adminController.getPendingRequest);
 
+router.route('/viewpendingdelivery')
+    .post(adminController.viewPendingDelivery);
+
+router.route('/viewpendingprofessional')
+    .post(adminController.viewPendingProfessional);
+
 
 exports.Router = router;

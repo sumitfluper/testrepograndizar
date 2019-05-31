@@ -4,6 +4,8 @@ const commonFunctions = require('../../modules/commonFunction')
 const status = require('../../modules/status')
 const adminModel = require('../../models/Admin');
 const UserModel = require('../../models/User');
+const DeliveryprofileModel = require('../../models/Userdeliveryprofile');
+const ProfessionalprofileModel = require('../../models/Userprofessionalprofile');
 const md5 = require('md5')
 
 
@@ -535,3 +537,58 @@ exports.getPendingRequest = async (req, res) => {
         })        
     }
 }
+
+exports.viewPendingDelivery = async (req, res) => {
+    try {
+        var data = await DeliveryprofileModel.findOne({
+            userId: req.body.userId
+        })
+
+        if(data){
+            res.status(200).send({
+                message: "Pending Request",
+                response: data
+            })
+        } else {
+            res.status(200).send({
+                message: "No Data Found",
+                response:[]
+            })
+        }
+
+    } catch (error) {
+        res.status(200).send({
+            message: "Error Occurred"+error,
+            response: error
+        })        
+    }
+}
+
+exports.viewPendingProfessional = async (req, res) => {
+    try {
+        var data = await ProfessionalprofileModel.findOne({
+            userId:req.body.userId
+        })
+
+        if(data){
+            res.status(200).send({
+                message: "Pending Request",
+                response: data
+            })
+        } else {
+            res.status(200).send({
+                message: "No Data Found",
+                response:[]
+            })
+        }
+
+    } catch (error) {
+        res.status(200).send({
+            message: "Error Occurred"+error,
+            response: error
+        })        
+    }
+}
+
+
+
