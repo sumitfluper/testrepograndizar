@@ -37,5 +37,8 @@ router.route('/getalldelivery')
 router.route('/getallprofessional')
     .get(adminController.getallProfessionalUser);
 
+router.route('/getpendingrequest')
+    .get(adminController.getPendingRequest);
+
 
 exports.Router = router;

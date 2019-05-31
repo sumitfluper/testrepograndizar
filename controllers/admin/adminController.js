@@ -506,3 +506,32 @@ exports.getallProfessionalUser = async (req, res) => {
         })
     }
 }
+
+exports.getPendingRequest = async (req, res) => {
+    try {
+        var data = await UserModel.find({
+            $and : [
+                { $or : [ { is_updated_delivery : 1 }, { is_updated_professional : 1 } ] },
+                { $or : [ { isProfessional : false }, { isDeliveryBoy : false } ] }
+            ]
+        })
+
+        if(data){
+            res.status(200).send({
+                message: "Pending Request",
+                response: data
+            })
+        } else {
+            res.status(200).send({
+                message: "No Data Found",
+                response:[]
+            })
+        }
+
+    } catch (error) {
+        res.status(200).send({
+            message: "Error Occurred"+error,
+            response: error
+        })        
+    }
+}
