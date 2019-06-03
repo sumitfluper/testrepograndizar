@@ -2,6 +2,7 @@ const Joi = require('joi')
 const responses = require('../../modules/responses')
 const commonFunctions = require('../../modules/commonFunction')
 const status = require('../../modules/status')
+const mongoose = require('mongoose');
 const adminModel = require('../../models/Admin');
 const UserModel = require('../../models/User');
 const DeliveryprofileModel = require('../../models/Userdeliveryprofile');
@@ -594,17 +595,19 @@ exports.viewPendingProfessional = async (req, res) => {
 
 exports.approvedDeliveryProfile = async (req, res) => {
     try {
-        var data = await UserModel.findOneAndUpdate({userId:req.body.userId
-        },
-        {
+        console.log("req.body", req.body);
+
+        var data = await UserModel.findOneAndUpdate({
+            _id: mongoose.Types.ObjectId(req.body.userId)
+        }, {
             $set: {
-                isDeliveryBoy:true,
+                isDeliveryBoy: true,
             }
-        },{
+        }, {
             new: true
         })
 
-        if(data){
+        if (data) {
             res.status(200).send({
                 message: "Profile Approved",
                 response: data
@@ -612,31 +615,31 @@ exports.approvedDeliveryProfile = async (req, res) => {
         } else {
             res.status(200).send({
                 message: "No Data Found",
-                response:[]
+                response: []
             })
         }
 
     } catch (error) {
         res.status(200).send({
-            message: "Error Occurred"+error,
+            message: "Error Occurred" + error,
             response: error
-        })        
+        })
     }
 }
 
 exports.approvedProfessionalProfile = async (req, res) => {
     try {
-        var data = await UserModel.findOneAndUpdate({userId:req.body.userId
-        },
-        {
+        var data = await UserModel.findOneAndUpdate({
+            _id: mongoose.Types.ObjectId(req.body.userId)
+        }, {
             $set: {
-                isProfessional:true,
+                isProfessional: true,
             }
-        },{
+        }, {
             new: true
         })
 
-        if(data){
+        if (data) {
             res.status(200).send({
                 message: "Profile Approved",
                 response: data
@@ -644,14 +647,14 @@ exports.approvedProfessionalProfile = async (req, res) => {
         } else {
             res.status(200).send({
                 message: "No Data Found",
-                response:[]
+                response: []
             })
         }
 
     } catch (error) {
         res.status(200).send({
-            message: "Error Occurred"+error,
+            message: "Error Occurred" + error,
             response: error
-        })        
+        })
     }
 }

@@ -9,7 +9,7 @@ router.route('/login')
 router.route('/forget_password')
     .post(adminController.forgetPassword);
 
-router.route('verifyOTP')
+router.route('/verifyOTP')
     .post(adminController.verifyOTP)
 
 router.route('/reset_password')
