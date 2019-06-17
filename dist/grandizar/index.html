@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon.png">
+  <title>Grandizar</title>
+  <base href="/">
+  <!-- CSS -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600">
+  <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-datepicker.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/intlInputPhone.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/iEdit.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  
+   
+<link rel="stylesheet" href="styles.ec17fae79e900190dfff.css"></head>
+
+<body class="sidebar-light sidebar-expand navbar-brand-dark">
+<div id="wrapper" class="wrapper">
+ 
+  <app-root></app-root>
+
+</div>
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/bootstrap-datepicker.min.js"></script>
+<script src="assets/js/jquery.dataTables.min.js"></script>
+<script src="assets/js/iEdit.js"></script>
+<script src="assets/js/intlInputPhone.min.js"></script>
+<script src="assets/js/Chart.min.js"></script>
+
+<script type="text/javascript">
+  // if($(window).width() <= 991){
+  //     $('body').removeClass('sidebar-expand');
+  //     $('body').addClass('sidebar-collapse');
+  // }
+
+$(document).ready(function(){     
+  
+  
+  $('[data-toggle="datatables"]').DataTable({
+    "order": [
+      [ 0, 'desc' ]
+    ]
+  });
+  
+    
+  $(document).on("change",".gal-file",function(e2) {
+    var img1 = e2.target.files[0];
+    if(!iEdit.open(img1, true, function(res1){
+      console.log(res1)
+      $(e2.target).closest('div').find(".gal-result").attr("src", res1);  
+    })){
+      alert("Whoops! That is not an image!");
+    }
+  });
+  $(document).on("click","#click-ap",function() {
+    $('.add-new').append('<div class="col-md-4 add-box gal-box">\
+      <img src="assets/images/science.jpg" class="gal-result">\
+      <input type="file" class="gal-file"/>\
+      <img src="assets/images/cross.png" class="cross del">\
+      </div>');
+      
+    $(".cross").on('click',function(){
+      $(this).parent('.add-box').remove();
+    });
+  });
+});
+
+</script>
+
+<script type="text/javascript" src="runtime.26209474bfa8dc87a77c.js"></script><script type="text/javascript" src="polyfills.bebee6a5ef0ece001bc6.js"></script><script type="text/javascript" src="main.167156a4bd64fabbdd58.js"></script></body>
+</html>
