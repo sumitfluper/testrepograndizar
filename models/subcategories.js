@@ -3,12 +3,13 @@ const Schema = mongoose.Schema;
 
 //SUBCATEGORY SCHEMA
 const subCategorySchema = new Schema({
-    subCat_name : {
-        type: String
-    },
     cat_id : {
-        type: String
+        type : mongoose.Schema.Types.ObjectId,
+        ref : 'Category'
     },
+    subcat_name : {
+        type: String
+    }
 },{
     collection: 'subCategory',
     versionKey: false

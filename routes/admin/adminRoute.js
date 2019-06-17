@@ -32,8 +32,10 @@ router.route('/is_user_blocked')
 
 router.route('/getallusers')
     .get(adminController.getallUsers);
+
 router.route('/getalldelivery')
     .get(adminController.getallDeliveryUser);
+
 router.route('/getallprofessional')
     .get(adminController.getallProfessionalUser);
 
@@ -51,6 +53,33 @@ router.route('/approveddeliveryprofile')
 
 router.route('/approvedprofessionalprofile')
     .post(adminController.approvedProfessionalProfile);
+
+router.route('/addCategory')
+    .post(adminController.addCategory)
+
+router.route('/addSubcategory')
+    .post(adminController.addSubcategory)
+
+router.route('/getallcategory')
+    .get(adminController.getAllCategory)
+
+router.route('/getallsubcat')
+    .get(adminController.getAllSubCat)
+
+router.route('/getsubcategorybycatid')
+    .post(adminController.getSubCategoryByCatId)
+
+router.route('/deletecategory')
+    .post(adminController.deleteCategory)
+
+router.route('/deletesubcategory')
+    .post(adminController.deleteSubCategory)
+
+router.route('/editsubcategory')
+    .post(adminController.editSubcategory)
+
+router.route('/editcategory')
+    .post(adminController.editCategory)
 
 
 exports.Router = router;

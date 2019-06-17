@@ -7,7 +7,9 @@ const categorySchema = new Schema({
         type: String
     },
     cat_id : {
-        type: String,
+        type: mongoose.Schema.ObjectId,
+        ref: "subCategory",
+        require: true
     },
 },{
     collection: 'Category',

@@ -658,3 +658,203 @@ exports.approvedProfessionalProfile = async (req, res) => {
         })
     }
 }
+
+exports.addCategory = async(req, res) => {
+    try{
+        var {
+            cat_name 
+        } = req.body
+
+        let categoryNameCheck = await categoryModel.findOne({ cat_name })
+        if(categoryNameCheck){
+            throw new Error("Already exist!!")
+        }
+        let addCategoryData = await categoryModel.insertMany({ cat_name })
+        if(!addCategoryData) {
+            throw new Error("Unable to insert category")
+        }
+        res.status(200).json({ 
+            message : "Category added",
+            response : addCategoryData
+        })
+    }catch(error){
+        responses.sendError(error.message, res)
+    }
+}
+
+exports.addSubcategory = async(req, res) => {
+    try{
+        var {
+            _id,
+            subcat_name
+        } = req.body
+
+        console.log(req.body)
+        let addSubcategoryData = await subcategoryModel.insertMany({ cat_id : _id, subcat_name })
+        if(!addSubcategoryData) {
+            throw new Error("Unable to insert subcategory")
+        }
+        res.status(200).json({
+            message : "Subcategory added",
+            response : addSubcategoryData
+        })
+    } catch(error){
+        responses.sendError(error.message, res)
+    }
+}
+
+exports.getAllCategory = async (req, res) => {
+    try {
+        var data = await categoryModel.find()
+        if (data) {
+            res.status(200).send({
+                message:"successful",
+                response: data
+            })
+        } else {
+            res.status(200).send({
+                message:"No data found",
+                response: []
+            })
+        }
+    } catch (error) {
+        console.log("**********Error Occured***********",error);
+        
+        res.status(200).send({
+            message:"Error occured",
+            response: [error]
+        })
+    }
+}
+
+exports.getSubCategoryByCatId = async (req, res) => {
+    try {
+        var data = await subcategoryModel.find({
+            cat_id: mongoose.Types.ObjectId(req.body._id)
+        })
+        if (data) {
+            res.status(200).send({
+                message:"successful",
+                response: data
+            })
+        } else {
+            res.status(200).send({
+                message:"No data found",
+                response: []
+            })
+        }
+    } catch (error) {
+        console.log("**********Error Occured***********",error);
+        
+        res.status(200).send({
+            message:"Error occured",
+            response: [error]
+        })
+    }
+}
+
+exports.getAllSubCat = async (req, res) => {
+    try {
+        var data = await subcategoryModel.find().populate('cat_id')
+        if (data) {
+            res.status(200).send({
+                message:"successful",
+                response: data
+            })
+        } else {
+            res.status(200).send({
+                message:"No data found",
+                response: []
+            })
+        }
+    } catch (error) {
+        console.log("**********Error Occured***********",error);
+        
+        res.status(200).send({
+            message:"Error occured",
+            response: [error]
+        })
+    }
+}
+
+exports.deleteCategory = async (req, res) => {
+    try{
+        var { _id } = req.body
+        console.log(req.body)
+        let deleteCategory = await categoryModel.remove({ _id })
+        if(!deleteCategory) {
+            throw new Error("Unable to delete category selected")
+        }
+
+        let deleteSubCategory = await subcategoryModel.remove({ cat_id : _id })
+        if(!deleteSubCategory) {
+            throw new Error("Unable to delete sub category selected")
+        }
+
+        res.status(200).json({
+            message : "Category deleted successfully"
+        })
+    } catch(error) {
+        responses.sendError(error.message, res)
+    }
+}
+
+exports.deleteSubCategory = async (req, res) => {
+    try {
+        var { _id } = req.body
+        
+        let deleteSubCategoryData = await subcategoryModel.remove({ _id })
+        if(!deleteSubCategoryData) {
+            throw new Error("Unable to delete sub category selected")
+        }
+
+        res.status(200).json({
+            message : "Subcategory deleted successfully",
+            response : deleteSubCategoryData
+        })
+    } catch( error ) {
+        responses.sendError(error.message, res)
+    }
+}
+
+exports.editSubcategory = async (req, res) => {
+    try {
+        var {
+            _id,
+            subcat_name
+        } = req.body
+
+        let editSubCategory = await subcategoryModel.findByIdAndUpdate({ _id }, { subcat_name : subcat_name }, { new : true }) 
+        if(!editSubCategory){
+            throw new Error("Unable to edit ")
+        }
+
+        res.status(200).json({
+            message : "Subcategory edited successfully",
+            response : editSubCategory
+        })
+    } catch(error) {
+        responses.sendError(error.message, res)
+    }
+}
+
+exports.editCategory = async (req, res) => {
+    try {
+        var {
+            _id,
+            cat_name
+        } = req.body
+
+        let editCategoryData = await categoryModel.findByIdAndUpdate({ _id }, { cat_name : cat_name }, { new : true }) 
+        if(!editCategoryData){
+            throw new Error("Unable to edit ")
+        }
+
+        res.status(200).json({
+            message : "Category edited successfully",
+            response : editCategoryData
+        })
+    } catch(error) {
+        responses.sendError(error.message, res)
+    }
+}
