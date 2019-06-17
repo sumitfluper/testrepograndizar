@@ -229,14 +229,6 @@ exports.deliveryAcceptedOrders = async (req, res) => {
         ])
 
 
-        // let acceptedOrders = await serviceModel.find({
-        //         orderStatus: 2,
-        //         serviceGivenBy: req.userId
-
-        //     })
-        //     .populate('serviceCreatedBy')
-        //     .select('-pickup_location -drop_location')
-
         if (acceptedOrders) {
             res.status(200).send({
                 message: 'Get All list Of the eaccepted orders ',
@@ -305,14 +297,6 @@ exports.deliveryCompletedOrder = async (req, res) => {
             },
         ])
 
-
-        // let acceptedOrders = await serviceModel.find({
-        //         orderStatus: 4,
-        //         serviceGivenBy: req.userId
-
-        //     })
-        //     .populate('serviceCreatedBy')
-        //     .select('-pickup_location -drop_location')
         if (acceptedOrders) {
             res.status(200).send({
                 message: 'Get All list Of the eaccepted orders ',
@@ -535,19 +519,7 @@ exports.professionalAcceptedOrders = async (req, res) => {
                 message: 'Get All list Of the accepted orders ',
                 response: acceptedOrders
             })
-            //     }
-            // let acceptedOrders = await professionalModel.find({
-            //         orderStatus: 2,
-            //         serviceGivenBy: req.userId
-
-            //     })
-            //     .populate('serviceCreatedBy')
-            //     .select('-pickup_location -drop_location');
-            // if (acceptedOrders) {
-            //     res.status(200).send({
-            //         message: 'Get All list Of the eaccepted orders ',
-            //         response: acceptedOrders
-            //     })
+           
         }
     } catch (error) {
         responses.sendError(error.message, res)
@@ -1411,6 +1383,45 @@ exports.sendChatNotification = async (req, res) => {
 }
 
 exports.createInvoice = async (req, res)=> {
+    try {
+        let data = {
+            serviceId: req.body.serviceId,
+            generatedBy: req.userId,
+            generatedto: req.body.generatedto,
+            deliveryCharge:req.body.deliveryCharge,
+            taxAmount: req.body.deliveryCharge * 5 / 100 ,
+            goodsCharge: req.body.goodsCharge,
+        }
+        if(req.files){
+            data.billImage = 'invoice/' + req.files[0].filename
+        } else {
+            res.status(422).send({
+                message:"Invoce image is missing",
+                response:[]
+            })
+        }
+        data.totalAmount = Number(data.taxAmount) + Number(data.deliveryCharge) + Number(data.goodsCharge); 
+        var newData = await invoiceModel.create(data); 
+        if(newData){
+            res.status(200).send({
+                message: "Invoce generated successfully",
+                response: newData
+            })
+        } else {
+            res.status(200).send({
+                message: "Error while creating invoice",
+                response: newData
+            })
+        }
+    } catch (error) {
+        res.status(400).send({
+            message: "Error Occurred",
+            response: error
+        })        
+    }
+}
+
+exports.getMyTotalEarning = async (req, res)=> {
     try {
         let data = {
             serviceId: req.body.serviceId,

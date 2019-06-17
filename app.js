@@ -38,6 +38,10 @@ app.use(express.static(path.join(__dirname, 'Images')));
 app.use(cors())
 
 app.use('/api', morgan(':method :url'), indexRoute);
+app.use("/admin", express.static(path.join(__dirname, 'Admin')));
+app.get('/admin*', (req, res) => {
+    res.sendFile(`${__dirname}/Admin/index.html`);
+})
 
 // check env of the application and connect to the database accordingly 
 if (process.env.NODE_ENV !== 'test') {
