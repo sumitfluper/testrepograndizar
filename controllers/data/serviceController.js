@@ -798,10 +798,6 @@ exports.serviceRequire = async (req, res) => {
             return;
         }
 
-        //var { service_type, pickup_address, pickup_latitude, pickup_longitude, drop_address, drop_latitude, drop_longitude, comments, start_time, end_time} = req.body
-        //let allData = req.body
-        //let access_token = req.user.access_token;
-
         var order = uniqueRandom(10000, 999999);
 
         console.log("console.log", orderId);
@@ -1420,42 +1416,54 @@ exports.createInvoice = async (req, res)=> {
         })        
     }
 }
-
-exports.getMyTotalEarning = async (req, res)=> {
+exports.getUserWalletDetails = async (req, res) => {
     try {
-        let data = {
-            serviceId: req.body.serviceId,
-            generatedBy: req.userId,
-            generatedto: req.body.generatedto,
-            deliveryCharge:req.body.deliveryCharge,
-            taxAmount: req.body.deliveryCharge * 5 / 100 ,
-            goodsCharge: req.body.goodsCharge,
-        }
-        if(req.files){
-            data.billImage = 'invoice/' + req.files[0].filename
-        } else {
-            res.status(422).send({
-                message:"Invoce image is missing",
-                response:[]
-            })
-        }
-        data.totalAmount = Number(data.taxAmount) + Number(data.deliveryCharge) + Number(data.goodsCharge); 
-        var newData = await invoiceModel.create(data); 
-        if(newData){
-            res.status(200).send({
-                message: "Invoce generated successfully",
-                response: newData
-            })
-        } else {
-            res.status(200).send({
-                message: "Error while creating invoice",
-                response: newData
-            })
-        }
+
+        var totalOrders = await serviceModel.aggregate([{
+                $match: {
+                    serviceCreatedBy: mongoose.Types.ObjectId(req.userId),
+                    orderStatus: 4,
+
+                }
+
+            },
+            {
+                $lookup: {
+                    from: "Offerbyusers",
+                    localField: "_id",
+                    foreignField: "serviceId",
+                    as: "offerDetails"
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$offerDetails",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
+            {
+                $project: {
+                    offerDetails: 1,
+                    
+                }
+            }
+        ])
+
+        console.log("totalOrders.length",totalOrders.length);
+        
+        res.status(200).send({
+            message: "success",
+            response: totalOrders
+        })
+
+
+
+
+
     } catch (error) {
         res.status(400).send({
             message: "Error Occurred",
             response: error
-        })        
+        })
     }
 }

@@ -8,32 +8,32 @@ const path = require('path');
 
 
 const storage = multer.diskStorage({
-	destination: function (req, file, callback) {
-		callback(null, './Images/chatimage');
-	},
-	filename: function (req, file, callback) {
-		let fileUniqueName = md5(Date.now());
-		callback(null, fileUniqueName + path.extname(file.originalname));
-	}
+    destination: function (req, file, callback) {
+        callback(null, './Images/chatimage');
+    },
+    filename: function (req, file, callback) {
+        let fileUniqueName = md5(Date.now());
+        callback(null, fileUniqueName + path.extname(file.originalname));
+    }
 })
 
 const storageInvoce = multer.diskStorage({
-	destination: function (req, file, callback) {
-		callback(null, './Images/invoice');
-	},
-	filename: function (req, file, callback) {
-		let fileUniqueName = md5(Date.now());
-		callback(null, fileUniqueName + path.extname(file.originalname));
-	}
+    destination: function (req, file, callback) {
+        callback(null, './Images/invoice');
+    },
+    filename: function (req, file, callback) {
+        let fileUniqueName = md5(Date.now());
+        callback(null, fileUniqueName + path.extname(file.originalname));
+    }
 })
 
 
 let upload = multer({
-	storage: storage
+    storage: storage
 });
 
 let uploadInvoce = multer({
-	storage: storageInvoce
+    storage: storageInvoce
 });
 
 // delivery boy api
@@ -124,7 +124,7 @@ router.route("/updateservicestatus")
 
 //change delivery staus
 router.route("/uploadimageonchat")
-    .post(auth.requiresLogin,upload.any(), serviceController.uploadImageonchat)
+    .post(auth.requiresLogin, upload.any(), serviceController.uploadImageonchat)
 
 //change delivery staus
 router.route("/sendchatnotification")
@@ -133,10 +133,12 @@ router.route("/sendchatnotification")
 router.route("/workdone")
     .post(auth.requiresLogin, serviceController.workDone)
 
-    //change delivery staus
+//change delivery staus
 router.route("/createinvoice")
-    .post(auth.requiresLogin,uploadInvoce.any(), serviceController.createInvoice)
+    .post(auth.requiresLogin, uploadInvoce.any(), serviceController.createInvoice)
 
 
+router.route("/getuserwalletdetails")
+    .post(auth.requiresLogin, serviceController.getUserWalletDetails)
 
 exports.Router = router;
