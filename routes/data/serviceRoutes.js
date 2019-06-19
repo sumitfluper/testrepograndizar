@@ -141,4 +141,10 @@ router.route("/createinvoice")
 router.route("/getuserwalletdetails")
     .post(auth.requiresLogin, serviceController.getUserWalletDetails)
 
+router.route("/getdeliveryboywalletdetails")
+    .post(auth.requiresLogin, serviceController.getDeliveryBoyWalletDetails)
+
+router.route("/getprofessionalboywalletdetails")
+    .post(auth.requiresLogin, serviceController.getprofessionalBoyWalletDetails)
+
 exports.Router = router;

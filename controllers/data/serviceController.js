@@ -1444,22 +1444,27 @@ exports.getUserWalletDetails = async (req, res) => {
             {
                 $project: {
                     offerDetails: 1,
-                    
+
                 }
             }
         ])
+        var totalAmount = 0;
+        totalOrders.forEach(element => {
+            totalAmount += Number(element.offerDetails.deliveryCharge) + Number(totalAmount);
+        });
 
-        console.log("totalOrders.length",totalOrders.length);
-        
+        var taxAmount = totalAmount * 5 / 100;
+        var grandTotal = totalAmount + taxAmount;
+
+        var response = {
+            total: totalAmount,
+            adminshare: taxAmount,
+            grandtotalspent: grandTotal
+        }
         res.status(200).send({
             message: "success",
-            response: totalOrders
+            response: response
         })
-
-
-
-
-
     } catch (error) {
         res.status(400).send({
             message: "Error Occurred",
@@ -1467,3 +1472,116 @@ exports.getUserWalletDetails = async (req, res) => {
         })
     }
 }
+
+exports.getDeliveryBoyWalletDetails = async (req, res) => {
+    try {
+
+        var totalOrders = await serviceModel.aggregate([{
+                $match: {
+                    serviceGivenBy: mongoose.Types.ObjectId(req.userId),
+                    orderStatus: 4,
+
+                }
+
+            },
+            {
+                $lookup: {
+                    from: "Offerbyusers",
+                    localField: "_id",
+                    foreignField: "serviceId",
+                    as: "offerDetails"
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$offerDetails",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
+            {
+                $project: {
+                    offerDetails: 1,
+
+                }
+            }
+        ])
+        var totalAmount = 0;
+        totalOrders.forEach(element => {
+            totalAmount += Number(element.offerDetails.deliveryCharge) + Number(totalAmount);
+        });
+
+        var taxAmount = totalAmount * 5 / 100;
+        var grandTotal = totalAmount + taxAmount;
+
+        var response = {
+            total: totalAmount,
+            adminshare: taxAmount,
+            grandtotalspent: grandTotal
+        }
+        res.status(200).send({
+            message: "success",
+            response: response
+        })
+    } catch (error) {
+        res.status(400).send({
+            message: "Error Occurred",
+            response: error
+        })
+    }
+}
+
+exports.getprofessionalBoyWalletDetails = async (req, res) => {
+    try {
+
+        var totalOrders = await professionalModel.aggregate([{
+                $match: {
+                    serviceGivenBy: mongoose.Types.ObjectId(req.userId),
+                    orderStatus: 4,
+                }
+            },
+            {
+                $lookup: {
+                    from: "Offerbyusers",
+                    localField: "_id",
+                    foreignField: "serviceId",
+                    as: "offerDetails"
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$offerDetails",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
+            {
+                $project: {
+                    offerDetails: 1,
+
+                }
+            }
+        ])
+        var totalAmount = 0;
+        totalOrders.forEach(element => {
+            totalAmount += Number(element.offerDetails.deliveryCharge) + Number(totalAmount);
+        });
+
+        var taxAmount = totalAmount * 5 / 100;
+        var grandTotal = totalAmount + taxAmount;
+
+        var response = {
+            total: totalAmount,
+            adminshare: taxAmount,
+            grandtotalspent: grandTotal
+        }
+        res.status(200).send({
+            message: "success",
+            response: response
+        })
+    } catch (error) {
+        res.status(400).send({
+            message: "Error Occurred",
+            response: error
+        })
+    }
+}
+
