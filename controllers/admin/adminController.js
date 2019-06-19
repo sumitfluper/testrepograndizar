@@ -8,6 +8,13 @@ const UserModel = require('../../models/User');
 const DeliveryprofileModel = require('../../models/Userdeliveryprofile');
 const ProfessionalprofileModel = require('../../models/Userprofessionalprofile');
 const md5 = require('md5')
+const serviceModel = require('../../models/Service');
+const categoryModel = require('../../models/Category');
+const subCategoryModel = require('../../models/subcategories');
+const professionalModel = require('../../models/Professional');
+const offersData = require('../../models/Offerbyuser');
+
+const viewingPetId = mongoose.Types.ObjectId("515535b6760fe8735f5f6899");
 
 
 exports.viewMessage = async (req,res) =>{
@@ -858,3 +865,736 @@ exports.editCategory = async (req, res) => {
         responses.sendError(error.message, res)
     }
 }
+
+exports.deliveryNewOrder = async (req, res) => {
+
+    try {
+        var newServiceData = [];
+        var arrServiceIds = [];
+
+
+        var deliveryUserOffersData = await offersData.find({
+            serviceGivenBy: {
+               $ne: viewingPetId
+            }
+        })
+
+
+        if (deliveryUserOffersData.length > 0) {
+            deliveryUserOffersData.forEach(element => {
+                arrServiceIds.push(element.serviceId);
+            });
+
+        }
+
+        var where = {
+            orderStatus: 1,
+            _id: {
+                $nin: arrServiceIds
+            }
+        }
+
+        let newService = await serviceModel.find(where)
+            .populate('serviceCreatedBy')
+            .select('-pickup_location -drop_location');
+
+
+        if (newService.length > 0) {
+            res.status(200).send({
+                message: 'List Of Near by orders',
+                response: newService
+            })
+        } else {
+            res.status(200).send({
+                message: 'Sorry currently there are no orders available near by you...!',
+                response: newService
+            })
+        }
+
+    } catch (error) {
+        responses.sendError(error.message, res)
+    }
+}
+
+exports.deliveryPendingOrder = async (req, res) => {
+
+    console.log("................" + req.body.long + ".........................." + req.body.lat);
+
+    try {
+        var newServiceData = [];
+        var arrServiceIds = [];
+
+
+        var deliveryUserOffersData = await offersData.find({
+            serviceGivenBy: {
+               $ne: viewingPetId
+            }
+        })
+
+        if (deliveryUserOffersData.length > 0) {
+            deliveryUserOffersData.forEach(element => {
+                arrServiceIds.push(element.serviceId);
+            });
+
+        }
+
+        let newService = await serviceModel.find({
+                _id: {
+                    $in: arrServiceIds
+                }
+            }).populate('serviceCreatedBy')
+            .select('-pickup_location -drop_location');
+
+
+        if (deliveryUserOffersData.length != 0 && newService.length != 0) {
+            newService.forEach(service => {
+                deliveryUserOffersData.forEach(offer => {
+                    if (service._id.toString() == offer.serviceId.toString() && offer.serviceGivenBy.toString() == req.userId.toString()) {
+
+                        newServiceData.push({
+                            _id: service._id,
+                            service_type: service.service_type,
+                            orderId: service.orderId,
+                            delivery_captains_50: service.delivery_captains_50,
+                            delivery_captains_100: service.delivery_captains_100,
+                            total_captains: service.total_captains,
+                            orderStatus: service.orderStatus,
+                            createdAt: service.createdAt,
+                            pickup_address: service.pickup_address,
+                            pickup_latitude: service.pickup_latitude,
+                            pickup_longitude: service.pickup_longitude,
+                            drop_address: service.drop_address,
+                            drop_latitude: service.drop_latitude,
+                            drop_longitude: service.drop_longitude,
+                            comments: service.pickup_longitude,
+                            serviceCreatedBy: service.serviceCreatedBy,
+                            offerDetails: {
+                                offerMessage: offer.deliveryMessage,
+                                deliveryTime: offer.deliveryTime,
+                                deliveryCharge: offer.deliveryCharge,
+                                offerStatus: offer.offerStatus,
+                                serviceGivenBy: offer.serviceGivenBy,
+                                serviceId: offer.serviceId,
+                            }
+
+
+
+                        });
+                    }
+                });
+            });
+        } else {
+            newServiceData = newService;
+
+        }
+        console.log("newServiceData", newServiceData);
+
+        if (newServiceData.length > 0) {
+            res.status(200).send({
+                message: 'List Of Near by orders',
+                response: newServiceData
+            })
+        } else {
+            res.status(200).send({
+                message: 'Sorry currently there are no orders available near by you...!',
+                response: newServiceData
+            })
+        }
+
+    } catch (error) {
+        responses.sendError(error.message, res)
+    }
+}
+
+
+exports.deliveryAcceptedOrders = async (req, res) => {
+
+    try {
+        let acceptedOrders = await serviceModel.aggregate([{
+                $match: {
+                    orderStatus: 2,
+                    serviceGivenBy: {
+                       $ne: viewingPetId
+                    }
+
+                }
+
+            },
+            {
+                $lookup: {
+                    from: "Offerbyusers",
+                    localField: "_id",
+                    foreignField: "serviceId",
+                    as: "offerDetails"
+                }
+            },
+            {
+                $lookup: {
+                    from: "userdeliveryprofile",
+                    localField: "_id",
+                    foreignField: "service_id",
+                    as: "deliverydetails"
+                }
+            },
+
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "serviceCreatedBy",
+                    foreignField: "_id",
+                    as: "serviceCreatedBy"
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$offerDetails",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$deliverydetails",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$serviceCreatedBy",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
+        ])
+
+
+        if (acceptedOrders) {
+            res.status(200).send({
+                message: 'Get All list Of the eaccepted orders ',
+                response: acceptedOrders
+            })
+        }
+    } catch (error) {
+        responses.sendError(error.message, res)
+    }
+}
+
+
+exports.deliveryCompletedOrder = async (req, res) => {
+
+    try {
+        let acceptedOrders = await serviceModel.aggregate([{
+                $match: {
+                    orderStatus: 4,
+                    serviceGivenBy: {
+                       $ne: viewingPetId
+                    }
+
+                }
+
+            },
+            {
+                $lookup: {
+                    from: "Offerbyusers",
+                    localField: "_id",
+                    foreignField: "serviceId",
+                    as: "offerDetails"
+                }
+            },
+            {
+                $lookup: {
+                    from: "userdeliveryprofile",
+                    localField: "_id",
+                    foreignField: "service_id",
+                    as: "deliverydetails"
+                }
+            },
+
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "serviceCreatedBy",
+                    foreignField: "_id",
+                    as: "serviceCreatedBy"
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$offerDetails",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$deliverydetails",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$serviceCreatedBy",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
+        ])
+
+        if (acceptedOrders) {
+            res.status(200).send({
+                message: 'Get All list Of the eaccepted orders ',
+                response: acceptedOrders
+            })
+        }
+
+    } catch (error) {
+        responses.sendError(error.message, res)
+    }
+}
+
+exports.professionalNewOrder = async (req, res) => {
+    try {
+
+        var newServiceData = [];
+        var arrServiceIds = [];
+
+
+        var deliveryUserOffersData = await offersData.find({
+            serviceGivenBy: {
+               $ne: viewingPetId
+            }
+        })
+
+
+        if (deliveryUserOffersData.length > 0) {
+            deliveryUserOffersData.forEach(element => {
+                arrServiceIds.push(element.serviceId);
+            });
+
+        }
+
+        var where = {
+            orderStatus: 1,
+            _id: {
+                $nin: arrServiceIds
+            }
+        }
+
+        let newService = await professionalModel.find(where)
+            .populate('serviceCreatedBy')
+            .select('-pickup_location -drop_location');
+
+
+        if (newService.length > 0) {
+            res.status(200).send({
+                message: 'List Of Near by orders',
+                response: newService
+            })
+        } else {
+            res.status(200).send({
+                message: 'Sorry currently there are no orders available near by you...!',
+                response: newService
+            })
+        }
+
+    } catch (error) {
+        responses.sendError(error.message, res)
+    }
+}
+
+exports.professionalpendingorders = async (req, res) => {
+
+    console.log("................" + req.body.long + ".........................." + req.body.lat);
+
+    try {
+        var newServiceData = [];
+        var arrServiceIds = [];
+
+
+        var deliveryUserOffersData = await offersData.find()
+
+        if (deliveryUserOffersData.length > 0) {
+            deliveryUserOffersData.forEach(element => {
+                arrServiceIds.push(element.serviceId);
+            });
+
+        }
+
+        let newService = await professionalModel.find({
+                _id: {
+                    $in: arrServiceIds
+                }
+            }).populate('serviceCreatedBy')
+            .select('-pickup_location -drop_location');
+
+
+        if (deliveryUserOffersData.length != 0 && newService.length != 0) {
+            newService.forEach(service => {
+                deliveryUserOffersData.forEach(offer => {
+                    if (service._id.toString() == offer.serviceId.toString() && offer.serviceGivenBy.toString() == req.userId.toString()) {
+
+                        newServiceData.push({
+                            _id: service._id,
+                            service_type: service.service_type,
+                            orderId: service.orderId,
+                            delivery_captains_50: service.delivery_captains_50,
+                            delivery_captains_100: service.delivery_captains_100,
+                            total_captains: service.total_captains,
+                            orderStatus: service.orderStatus,
+                            createdAt: service.createdAt,
+                            pickup_address: service.pickup_address,
+                            pickup_latitude: service.pickup_latitude,
+                            pickup_longitude: service.pickup_longitude,
+                            comments: service.pickup_longitude,
+                            serviceCreatedBy: service.serviceCreatedBy,
+                            offerDetails: {
+                                offerMessage: offer.deliveryMessage,
+                                deliveryTime: offer.deliveryTime,
+                                deliveryCharge: offer.deliveryCharge,
+                                offerStatus: offer.offerStatus,
+                                serviceGivenBy: offer.serviceGivenBy,
+                                serviceId: offer.serviceId,
+                            }
+
+
+
+                        });
+                    }
+                });
+            });
+        } else {
+            newServiceData = newService;
+
+        }
+        console.log("newServiceData", newServiceData);
+
+        if (newServiceData.length > 0) {
+            res.status(200).send({
+                message: 'List Of Near by orders',
+                response: newServiceData
+            })
+        } else {
+            res.status(200).send({
+                message: 'Sorry currently there are no orders available near by you...!',
+                response: newServiceData
+            })
+        }
+
+    } catch (error) {
+        responses.sendError(error.message, res)
+    }
+}
+
+exports.professionalAcceptedOrders = async (req, res) => {
+
+    try {
+        let acceptedOrders = await professionalModel.aggregate([{
+                $match: {
+                    orderStatus: 2,
+                    serviceGivenBy:{
+                       $ne: viewingPetId
+                    }
+
+                }
+
+            },
+            {
+                $lookup: {
+                    from: "Offerbyusers",
+                    localField: "_id",
+                    foreignField: "serviceId",
+                    as: "offerDetails"
+                }
+            },
+            {
+                $lookup: {
+                    from: "userdeliveryprofile",
+                    localField: "_id",
+                    foreignField: "service_id",
+                    as: "deliverydetails"
+                }
+            },
+
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "serviceCreatedBy",
+                    foreignField: "_id",
+                    as: "serviceCreatedBy"
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$offerDetails",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$deliverydetails",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$serviceCreatedBy",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
+        ])
+
+
+
+        if (acceptedOrders) {
+            res.status(200).send({
+                message: 'Get All list Of the accepted orders ',
+                response: acceptedOrders
+            })
+           
+        }
+    } catch (error) {
+        responses.sendError(error.message, res)
+    }
+}
+
+
+exports.professionalCompletedOrder = async (req, res) => {
+
+    try {
+
+        let acceptedOrders = await professionalModel.aggregate([{
+                $match: {
+                    orderStatus: 4,
+                    serviceGivenBy: {
+                       $ne: viewingPetId
+                    }
+
+                }
+
+            },
+            {
+                $lookup: {
+                    from: "Offerbyusers",
+                    localField: "_id",
+                    foreignField: "serviceId",
+                    as: "offerDetails"
+                }
+            },
+            {
+                $lookup: {
+                    from: "userdeliveryprofile",
+                    localField: "_id",
+                    foreignField: "service_id",
+                    as: "deliverydetails"
+                }
+            },
+
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "serviceCreatedBy",
+                    foreignField: "_id",
+                    as: "serviceCreatedBy"
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$offerDetails",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$deliverydetails",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$serviceCreatedBy",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
+        ])
+
+        if (acceptedOrders) {
+            res.status(200).send({
+                message: 'Get All list Of the completed orders ',
+                response: acceptedOrders
+            })
+        }
+
+    } catch (error) {
+        responses.sendError(error.message, res)
+    }
+}
+
+
+exports.getUserAcceptedOrder = async (req, res) => {
+
+    try {
+        console.log("reachedHere");
+        console.log(req.body);
+
+        var acceptedOrders = await serviceModel.aggregate([{
+                $match: {
+                    orderStatus: 2,
+                    serviceCreatedBy:{
+                       $ne: viewingPetId
+                    }
+                }
+
+            },
+            {
+                $lookup: {
+                    from: "Offerbyusers",
+                    localField: "_id",
+                    foreignField: "serviceId",
+                    as: "offerDetails"
+                }
+            },
+
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "serviceGivenBy",
+                    foreignField: "_id",
+                    as: "serviceGivenBy"
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$offerDetails",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$serviceGivenBy",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
+        ])
+
+        var acceptedService = await professionalModel.aggregate([{
+                $match: {
+                    orderStatus: 2,
+                    serviceCreatedBy: {
+                       $ne: viewingPetId
+                    }
+                }
+
+            },
+            {
+                $lookup: {
+                    from: "Offerbyusers",
+                    localField: "_id",
+                    foreignField: "serviceId",
+                    as: "offerDetails"
+                }
+            },
+
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "serviceGivenBy",
+                    foreignField: "_id",
+                    as: "serviceGivenBy"
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$offerDetails",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$serviceGivenBy",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
+        ])
+
+        var new_data = acceptedOrders.concat(acceptedService)
+        if (new_data) {
+            res.status(200).send({
+                message: 'Get All list Of the eaccepted orders ',
+                response: new_data
+            })
+        }
+
+    } catch (error) {
+        responses.sendError(error.message, res)
+    }
+}
+
+exports.getUserPendingOrders = async (req, res) => {
+
+    try {
+        console.log("reachedHere");
+        console.log(req.body);
+
+        let acceptedOrders = await serviceModel.find({
+            orderStatus: 1,
+            serviceCreatedBy: {
+               $ne: viewingPetId
+            }
+
+        }).select('-pickup_location -drop_location')
+
+        let acceptedservice = await professionalModel.find({
+            orderStatus: 1,
+            serviceCreatedBy: {
+               $ne: viewingPetId
+            }
+        }).select('-pickup_location');
+        var new_data = acceptedOrders.concat(acceptedservice)
+
+        if (new_data) {
+            res.status(200).send({
+                message: 'Get All list Of the eaccepted orders ',
+                response: new_data
+            })
+        }
+
+    } catch (error) {
+        console.log(error);
+
+        responses.sendError(error.message, res)
+    }
+}
+
+exports.getUserCompletedOrder = async (req, res) => {
+
+    try {
+        console.log("reachedHere");
+        console.log(req.body);
+
+        let acceptedOrders = await serviceModel.find({
+                orderStatus: 4,
+                serviceCreatedBy: {
+                   $ne: viewingPetId
+                }
+
+            })
+            .populate('serviceGivenBy')
+            .select('-pickup_location -drop_location')
+
+        let acceptedservice = await professionalModel.find({
+            orderStatus: 4,
+            serviceCreatedBy: {
+               $ne: viewingPetId
+            }
+        }).select('-pickup_location');
+        var new_data = acceptedOrders.concat(acceptedservice)
+
+
+        if (new_data) {
+            res.status(200).send({
+                message: 'Get All list Of the eaccepted orders ',
+                response: new_data
+            })
+        }
+
+    } catch (error) {
+        responses.sendError(error.message, res)
+    }
+}
+

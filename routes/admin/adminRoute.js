@@ -82,4 +82,51 @@ router.route('/editcategory')
     .post(adminController.editCategory)
 
 
+    router.route('/deliveryneworder')
+        .post(adminController.deliveryNewOrder);
+
+    // routes to add location 
+    router.route('/deliverypendingorders')
+        .post(adminController.deliveryPendingOrder);
+
+    // get all order created by user type 1
+    router.route('/deliveryacceptedorders')
+        .post(adminController.deliveryAcceptedOrders);
+
+    // get all order created by user type 1
+    router.route('/deliverycompletedorder')
+        .post(adminController.deliveryCompletedOrder);
+
+
+    // routes to add location 
+    router.route('/professionalneworder')
+        .post(adminController.professionalNewOrder);
+
+    // routes to add location 
+    router.route('/professionalpendingorders')
+        .post(adminController.professionalpendingorders);
+
+    // get all order created by user type 1
+    router.route('/professionalacceptedorders')
+        .post(adminController.professionalAcceptedOrders);
+
+    // get all order created by user type 1
+    router.route('/professionalcompletedorder')
+        .post(adminController.professionalCompletedOrder);
+
+
+    // users api     
+
+    // get all order created by user type 1
+    router.route('/userpendingorders')
+        .post(adminController.getUserPendingOrders);
+
+    // get all order created by user type 1
+    router.route('/getuseracceptedorder')
+        .post(adminController.getUserAcceptedOrder);
+
+    // get all order  created by user type 1
+    router.route('/getusercompletedorder')
+        .post(adminController.getUserCompletedOrder);
+
 exports.Router = router;
