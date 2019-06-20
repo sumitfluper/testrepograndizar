@@ -1,0 +1,7 @@
+organization=sumitfluper-github
+projectKey=sumitfluper_testrepograndizar
+serverUrl=https://sonarcloud.io
+serverVersion=7.8.0.26123
+dashboardUrl=https://sonarcloud.io/dashboard?id=sumitfluper_testrepograndizar
+ceTaskId=AWtzeI3zhld81vSp_pM-
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AWtzeI3zhld81vSp_pM-
